@@ -16,6 +16,7 @@ import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import sprites.TechThing;
 import openfl.geom.Point;
 import flixel.FlxState;
+import flixel.system.FlxSound;
 
 
 class PlayState extends FlxState {
@@ -24,6 +25,7 @@ class PlayState extends FlxState {
   var deckMarginV:Float = 90.0; // as above.
 
   var machinePoint:Point = new Point(20, 100);
+  var machineSound:FlxSound;
 
   var papersPoint:Point = new Point(10, 10);
 
@@ -54,6 +56,7 @@ class PlayState extends FlxState {
     createTimerBar();
 
     FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
+    machineSound = FlxG.sound.load("assets/sounds/machine.wav", 1, true);
   }
 
   override public function update(elapsed:Float):Void {
@@ -101,11 +104,13 @@ class PlayState extends FlxState {
     timerBar.kill();
     var machineState = new MachineState(techThing);
     machineState.closeCallback = handleMachineFinish;
+    machineSound.play();
     openSubState(machineState);
   }
   function handleMachineFinish() {
     timerBar.forceUpdateTime();
     timerBar.revive();
+    machineSound.pause();
     machine.startFinishProcess();
   }
 

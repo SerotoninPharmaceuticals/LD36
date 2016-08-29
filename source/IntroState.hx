@@ -4,6 +4,7 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
 
 import ui.TimerBar;
 
@@ -11,12 +12,15 @@ import ui.TimerBar;
 class IntroState extends FlxState {
 
   private var pressed:Bool = false;
+  var sound:FlxSound;
 
   override public function create():Void {
     super.create();
     FlxG.mouse.useSystemCursor = true;
     createTimerBar();
     createText();
+    sound = FlxG.sound.load("assets/sounds/ambient.wav", 0.8, false);
+    sound.play();
   }
 
   private function createTimerBar():Void {
@@ -47,6 +51,7 @@ class IntroState extends FlxState {
 
   private function fadeOut():Void {
     FlxG.camera.fade(FlxColor.BLACK, 1, false, startPlayState, true);
+    sound.fadeOut(1);
   }
 
   private function startPlayState() {
