@@ -1,6 +1,11 @@
 package;
 
-import flixel.util.FlxTimer;
+#if flash
+import flash.ui.MouseCursor;
+import flash.ui.Mouse;
+#end
+
+import flixel.util.FlxCollision;
 import procedures.VacuumPackingProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
@@ -63,6 +68,7 @@ class MachineState extends FlxSubState {
     bg.loadGraphic(GameConfig.MACHINE_PATH + "bg.jpg");
     add(bg);
 
+    createPaper();
     createTimerBar();
     createScreen();
     createControlStick();
@@ -170,6 +176,22 @@ class MachineState extends FlxSubState {
       rightKey.loadGraphic(X_KEY_IMAGE);
     }
 
+    if (
+      FlxG.mouse.getPosition().inCoords(p1.x, p1.y, p1.width, p1.height) ||
+      FlxG.mouse.getPosition().inCoords(p2.x, p2.y, p2.width, p2.height)
+    ) {
+      #if flash
+      Mouse.cursor = MouseCursor.BUTTON;
+      #end
+      if (FlxG.mouse.justPressed) {
+        var paperLarge = new FlxSprite();
+        paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
+        openSubState(new PaperSubstate(paperLarge));
+      }
+    } else {
+      Mouse.cursor = MouseCursor.ARROW;
+    }
+
     super.update(elapsed);
   }
 
@@ -190,6 +212,17 @@ class MachineState extends FlxSubState {
     screen.add(screenMenu);
   }
 
+  public var p1:FlxSprite;
+  public var p2:FlxSprite;
+  function createPaper() {
+    p1 = new FlxSprite(8, 322);
+    p1.makeGraphic(107, 153, FlxColor.TRANSPARENT);
+    p2 = new FlxSprite(7, 458);
+    p2.makeGraphic(425, 22, FlxColor.TRANSPARENT);
+    add(p1);
+    add(p2);
+  }
+
   private function createTimerBar():Void {
     timerBar = new TimerBar(10, 10);
     add(timerBar);
@@ -198,6 +231,7 @@ class MachineState extends FlxSubState {
 
     timerBar.completeCallback = handleTimerBarComplete;
   }
+
 
   function handleTimerBarComplete() {
     close();
