@@ -98,9 +98,11 @@ class TechThing extends FlxExtendedSprite {
       if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y, machineEntrance.width, machineEntrance.height)) {
 //        haxe.Log.trace("onDrop");
         machineEntrance.setHover(true, this);
+        machineEntrance.stopHint();
       } else {
 //        haxe.Log.trace("not onDrop");
         machineEntrance.setHover(false);
+        machineEntrance.showHint();
       }
     }
   }
@@ -113,8 +115,10 @@ class TechThing extends FlxExtendedSprite {
     if (isDragged) {
       if (getMidpoint().inCoords(coffinEntrance.x, coffinEntrance.y, coffinEntrance.width, coffinEntrance.height)) {
         coffinEntrance.setHover(true, this);
+        coffinEntrance.stopHint();
       } else {
         coffinEntrance.setHover(false);
+        coffinEntrance.showHint();
       }
     }
   }
@@ -136,6 +140,8 @@ class TechThing extends FlxExtendedSprite {
   }
 
   private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
+    machineEntrance.stopHint();
+    coffinEntrance.stopHint();
     Log.trace(state);
     switch(state) {
       case TechThingState.Candidate:
