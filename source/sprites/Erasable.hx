@@ -41,10 +41,10 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     brushRadius = _brushRaidus;
     trace(imageFront);
 
-    origin = new FlxSprite();
+    origin = new FlxSprite(x - 198, y - 48); // dirty fix.
     origin.loadGraphic(imageBack, false, 0, 0, true);
 
-    dirt = new FlxSprite();
+    dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
     dirt.loadGraphic(imageFront, false, 0, 0, true);
 
     brush = new FlxSprite();

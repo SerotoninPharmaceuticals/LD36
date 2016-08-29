@@ -140,8 +140,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   }
 
   function createStep1():Void {
-    var itemBody = new FlxSprite();
+    var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
     itemBody.loadGraphic(target.config.modeEImage);
+    add(itemBody);
 
     createAnchor();
     createCursor();
