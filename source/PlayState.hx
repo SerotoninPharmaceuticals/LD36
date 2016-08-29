@@ -141,6 +141,17 @@ class PlayState extends FlxState {
     for(i in 0...6) {
       add(new Paper(papersPoint.x + i*30, papersPoint.y, "assets/images/paper_small.png", "assets/images/paper.png", handleOpenPaper));
     }
+
+    add(new Paper(305, 102, "assets/images/tech_thing_papers/note_1_sphere_small.png",
+                  "assets/images/tech_thing_papers/note_1_sphere.png", handleOpenPaper));
+    add(new Paper(370, 106, "assets/images/tech_thing_papers/note_2_brain_small.png",
+                  "assets/images/tech_thing_papers/note_2_brain.png", handleOpenPaper));
+    add(new Paper(443, 104, "assets/images/tech_thing_papers/note_3_internet_small.png",
+                  "assets/images/tech_thing_papers/note_3_internet.png", handleOpenPaper));
+    add(new Paper(538, 106, "assets/images/tech_thing_papers/note_4_david_small.png",
+                  "assets/images/tech_thing_papers/note_4_david.png", handleOpenPaper));
+    add(new Paper(602, 105, "assets/images/tech_thing_papers/note_5_pistol_small.png",
+                  "assets/images/tech_thing_papers/note_5_pistol.png", handleOpenPaper));
     // Manual
     add(new Paper(174, 262, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
   }
