@@ -73,7 +73,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     onFinishedProcess();
   }
   function onFinishedProcess(?tween:FlxTween):Void {
-    exit.alpha = 0;
+    FlxTween.tween(exit, {x: -100}, 0.2, { type: FlxTween.ONESHOT });
+    // exit.alpha = 0;
     entrance.setHover(false);
     entrance.isItemPlaced = false;
     currentTechThing.setState(TechThingState.ProcessFinished);
