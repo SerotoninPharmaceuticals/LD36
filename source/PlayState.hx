@@ -1,5 +1,10 @@
 package;
 
+#if flash
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
+#end
+
 import ui.TimerBar;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -31,6 +36,8 @@ class PlayState extends FlxState {
 
   override public function create():Void {
     super.create();
+    FlxG.mouse.useSystemCursor = true;
+
 
     var bg = new FlxSprite();
     bg.loadGraphic("assets/images/bg.png");
@@ -50,6 +57,9 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
+    #if flash
+    Mouse.cursor = MouseCursor.ARROW;
+    #end
     super.update(elapsed);
   }
 

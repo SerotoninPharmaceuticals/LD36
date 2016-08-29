@@ -14,6 +14,7 @@ class IntroState extends FlxState {
 
   override public function create():Void {
     super.create();
+    FlxG.mouse.useSystemCursor = true;
     createTimerBar();
     createText();
   }

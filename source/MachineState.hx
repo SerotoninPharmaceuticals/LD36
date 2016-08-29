@@ -85,8 +85,7 @@ class MachineState extends FlxSubState {
   }
 
   override public function update(elapsed:Float):Void {
-    // XXX: code for test
-    if (FlxG.mouse.justPressed && !FlxG.mouse.getPosition().inCoords(SCREEN_X, SCREEN_Y, SCREEN_WIDTH, SCREEN_HEIGHT)) {
+    if (GameConfig.DEBUG && FlxG.mouse.justPressed && !FlxG.mouse.getPosition().inCoords(SCREEN_X, SCREEN_Y, SCREEN_WIDTH, SCREEN_HEIGHT)) {
       close();
     }
 

@@ -1,12 +1,14 @@
 package sprites;
 
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
+import flixel.util.FlxCollision;
 import GameConfig.TechThingConfig;
 import GameConfig.ProcedureType;
 import haxe.Log;
 import sprites.TechThing.TechThingState;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.util.FlxColor;
 import flixel.addons.display.FlxExtendedSprite;
 import flixel.addons.plugin.FlxMouseControl;
 
@@ -55,6 +57,11 @@ class TechThing extends FlxExtendedSprite {
   }
 
   override public function update(elasped:Float):Void {
+    #if flash
+    if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
+      Mouse.cursor = MouseCursor.HAND;
+    }
+    #end
 
     switch(state) {
       case TechThingState.Candidate:

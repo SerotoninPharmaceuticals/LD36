@@ -1,5 +1,7 @@
 package sprites;
 
+import flash.ui.MouseCursor;
+import flash.ui.Mouse;
 import flixel.util.FlxCollision;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic.FlxType;
@@ -28,6 +30,12 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
   override public function update(elasped:Float):Void {
     handleClick();
+
+    #if flash
+    if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
+      Mouse.cursor = MouseCursor.BUTTON;
+    }
+    #end
     super.update(elasped);
   }
 
