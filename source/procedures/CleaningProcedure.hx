@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.math.FlxPoint;
 import ui.PercentageText;
 import flixel.text.FlxText;
 import sprites.TechThing;
@@ -18,8 +19,9 @@ class CleaningProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_RIGHT = 1;
   static inline var CURSOR_MOVE_UP = 2;
   static inline var CURSOR_MOVE_DOWN = 3;
-  static inline var CURSOR_MOVE_SPEED = 200;
   static inline var TAEGET_PERCENTAGE = 0.01;
+  var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
+  var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
   var erasableStep1:Erasable;
   var erasableStep2:Erasable;
@@ -67,12 +69,14 @@ class CleaningProcedure extends FlxSpriteGroup {
       moveCursor(CURSOR_MOVE_DOWN, elapsed);
     }
 
+    limitCursor();
+
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
-      cursor.x = FlxG.mouse.x;
-      cursor.y = FlxG.mouse.y;
+//      cursor.x = FlxG.mouse.x;
+//      cursor.y = FlxG.mouse.y;
       currentErasable.eraseEnabled = true;
     }
 
@@ -86,6 +90,8 @@ class CleaningProcedure extends FlxSpriteGroup {
     cursor.setPosition(MachineState.SCREEN_MAIN_WIDTH/2, MachineState.SCREEN_MAIN_HEIGHT/2);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
     FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.WHITE);
+    cursor.drag = new FlxPoint(CURSOR_DRAG, CURSOR_DRAG);
+    cursor.maxVelocity = new FlxPoint(CURSOR_MOVE_MAX_SPEED, CURSOR_MOVE_MAX_SPEED);
     add(cursor);
   }
 
@@ -128,28 +134,38 @@ class CleaningProcedure extends FlxSpriteGroup {
   }
 
   private function moveCursor(action:Int, elapsed:Float) {
-    var movement = elapsed * CURSOR_MOVE_SPEED;
     switch(action) {
       case CURSOR_MOVE_UP:
-        cursor.y -= movement;
+        cursor.velocity.y = -CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_DOWN:
-        cursor.y += movement;
+        cursor.velocity.y = CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_LEFT:
-        cursor.x -= movement;
+        cursor.velocity.x = -CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_RIGHT:
-        cursor.x += movement;
+        cursor.velocity.x = CURSOR_MOVE_MAX_SPEED;
     }
+  }
 
-    if (cursor.x < MachineState.SCREEN_X) {
+  function limitCursor() {
+    if (cursor.x <= MachineState.SCREEN_X) {
       cursor.x = MachineState.SCREEN_X;
-    } else if (cursor.x > MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width) {
+      cursor.acceleration.x = 0;
+      cursor.velocity.x = Math.max(0, cursor.velocity.x);
+    } else if (cursor.x >= MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width) {
       cursor.x = MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width;
+      cursor.acceleration.x = 0;
+      cursor.velocity.x = Math.min(0, cursor.velocity.x);
     }
 
-    if (cursor.y < MachineState.SCREEN_Y) {
+    if (cursor.y <= MachineState.SCREEN_Y) {
       cursor.y = MachineState.SCREEN_Y;
-    } else if (cursor.y > MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height) {
+      cursor.acceleration.y = 0;
+      cursor.velocity.y = Math.max(0, cursor.velocity.y);
+    } else if (cursor.y >= MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height) {
       cursor.y = MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height;
+      cursor.acceleration.y = 0;
+      cursor.velocity.y = Math.min(0, cursor.velocity.y);
     }
+
   }
 }

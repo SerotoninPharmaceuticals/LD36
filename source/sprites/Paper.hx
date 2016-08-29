@@ -1,7 +1,10 @@
 package sprites;
 
+#if flash
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
+#end
+
 import flixel.util.FlxCollision;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic.FlxType;

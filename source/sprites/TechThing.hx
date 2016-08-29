@@ -1,8 +1,11 @@
 package sprites;
 
-import flixel.util.FlxColor;
+#if flash
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
+#end
+
+import flixel.util.FlxColor;
 import flixel.util.FlxCollision;
 import GameConfig.TechThingConfig;
 import GameConfig.ProcedureType;

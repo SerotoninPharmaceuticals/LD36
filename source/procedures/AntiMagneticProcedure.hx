@@ -1,9 +1,9 @@
 package procedures;
 
-import flash.globalization.CurrencyParseResult;
+import sprites.TechThing;
+import flixel.math.FlxPoint;
 import ui.PercentageText;
 import GameConfig;
-import sprites.TechThing;
 import sprites.Erasable;
 import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
@@ -19,8 +19,9 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_RIGHT = 1;
   static inline var CURSOR_MOVE_UP = 2;
   static inline var CURSOR_MOVE_DOWN = 3;
-  static inline var CURSOR_MOVE_SPEED = 200;
   static inline var TAEGET_PERCENTAGE = 0.02;
+  var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
+  var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
   static inline var cursor_drop_per_sec = 10;
   static inline var cursor_min_r:Int = 4;
@@ -76,6 +77,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
       moveCursor(CURSOR_MOVE_DOWN, elapsed);
     }
 
+    limitCursor();
+
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
 
     if (GameConfig.DEBUG) {
@@ -95,6 +98,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     cursor.setPosition(MachineState.SCREEN_MAIN_WIDTH/2, MachineState.SCREEN_MAIN_HEIGHT/2);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
     FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.WHITE);
+    cursor.drag = new FlxPoint(CURSOR_DRAG, CURSOR_DRAG);
+    cursor.maxVelocity = new FlxPoint(CURSOR_MOVE_MAX_SPEED, CURSOR_MOVE_MAX_SPEED);
     add(cursor);
   }
 
@@ -122,30 +127,40 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     erasableStep1.brush.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
     FlxSpriteUtil.drawCircle(erasableStep1.brush, r, r, r, FlxColor.WHITE);
   }
-
   private function moveCursor(action:Int, elapsed:Float) {
-    var movement = elapsed * CURSOR_MOVE_SPEED;
     switch(action) {
       case CURSOR_MOVE_UP:
-        cursor.y -= movement;
+        cursor.velocity.y = -CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_DOWN:
-        cursor.y += movement;
+        cursor.velocity.y = CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_LEFT:
-        cursor.x -= movement;
+        cursor.velocity.x = -CURSOR_MOVE_MAX_SPEED;
       case CURSOR_MOVE_RIGHT:
-        cursor.x += movement;
-    }
-
-    if (cursor.x < MachineState.SCREEN_X) {
-      cursor.x = MachineState.SCREEN_X;
-    } else if (cursor.x > MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width) {
-      cursor.x = MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width;
-    }
-
-    if (cursor.y < MachineState.SCREEN_Y) {
-      cursor.y = MachineState.SCREEN_Y;
-    } else if (cursor.y > MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height) {
-      cursor.y = MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height;
+        cursor.velocity.x = CURSOR_MOVE_MAX_SPEED;
     }
   }
+
+  function limitCursor() {
+    if (cursor.x <= MachineState.SCREEN_X) {
+      cursor.x = MachineState.SCREEN_X;
+      cursor.acceleration.x = 0;
+      cursor.velocity.x = Math.max(0, cursor.velocity.x);
+    } else if (cursor.x >= MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width) {
+      cursor.x = MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH - cursor.width;
+      cursor.acceleration.x = 0;
+      cursor.velocity.x = Math.min(0, cursor.velocity.x);
+    }
+
+    if (cursor.y <= MachineState.SCREEN_Y) {
+      cursor.y = MachineState.SCREEN_Y;
+      cursor.acceleration.y = 0;
+      cursor.velocity.y = Math.max(0, cursor.velocity.y);
+    } else if (cursor.y >= MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height) {
+      cursor.y = MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT - cursor.height;
+      cursor.acceleration.y = 0;
+      cursor.velocity.y = Math.min(0, cursor.velocity.y);
+    }
+
+  }
+
 }

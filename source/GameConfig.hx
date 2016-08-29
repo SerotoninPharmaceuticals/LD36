@@ -65,6 +65,9 @@ class GameConfig {
   public static inline var ELECTROP_PROC_CURSOR_DEC_SPEED= 90;
   public static inline var ELECTROP_PROC_VALID_AREA_SPEED= 10;
 
+  public static inline var CURSOR_MOVE_MAX_SPEED = 200;
+  public static inline var CURSOR_DRAG = 1000;
+
   public static inline var IMAGE_PATH = "assets/images/";
   public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
 
@@ -76,11 +79,11 @@ class GameConfig {
       y: 0,
 
       procedureTypes: [
+        ProcedureType.VacuumPacking,
+        ProcedureType.AntiMagnetic,
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
-        ProcedureType.Electroplating,
-        ProcedureType.AntiMagnetic,
-        ProcedureType.VacuumPacking
+        ProcedureType.Electroplating
       ],
 
       image: "",
