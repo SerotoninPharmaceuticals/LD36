@@ -35,7 +35,7 @@ class TimerBar extends FlxSpriteGroup {
       digit = new FlxSprite();
       digit.loadGraphic("assets/images/time_digits_map.png", true,
                         DIGIT_WIDTH, DIGIT_HEIGHT);
-      digit.x = Std.int(DIGIT_WIDTH / digitScale) * i;
+      digit.x = Std.int(105.5 / digitScale) * i;
       if (i == 2) {
         digit.animation.frameIndex = 10;
       } else {

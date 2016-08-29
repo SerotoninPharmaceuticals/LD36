@@ -1,7 +1,9 @@
 package;
 
 import ui.TimerBar;
+import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import sprites.Paper;
 import sprites.Coffin;
 import sprites.Machine;
@@ -43,6 +45,8 @@ class PlayState extends FlxState {
     loadTechObjects();
 
     createTimerBar();
+
+    FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
   }
 
   override public function update(elapsed:Float):Void {
@@ -112,7 +116,7 @@ class PlayState extends FlxState {
   }
 
   private function createTimerBar():Void {
-    timerBar = new TimerBar(0, 0, 150);
+    timerBar = new TimerBar(668, 24, 150);
     add(timerBar);
     timerBar.start();
   }
