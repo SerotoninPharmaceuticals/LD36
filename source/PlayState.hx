@@ -27,7 +27,7 @@ class PlayState extends FlxState {
   var machinePoint:Point = new Point(20, 100);
   var machineSound:FlxSound;
 
-  var papersPoint:Point = new Point(10, 10);
+  var papersPoint:Point = new Point(40, 10);
 
   // Sprites
   var techThingGroup:FlxTypedSpriteGroup<TechThing>;
@@ -136,9 +136,7 @@ class PlayState extends FlxState {
   }
 
   function loadPapers() {
-    for(i in 0...6) {
-      add(new Paper(papersPoint.x + i*30, papersPoint.y, "assets/images/paper_small.png", "assets/images/paper.png", handleOpenPaper));
-    }
+    add(new Paper(papersPoint.x, papersPoint.y, "assets/images/paper1_small.png", "assets/images/paper1.png", handleOpenPaper));
 
     add(new Paper(305, 102, "assets/images/tech_thing_papers/note_1_sphere_small.png",
                   "assets/images/tech_thing_papers/note_1_sphere.png", handleOpenPaper));
