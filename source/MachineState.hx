@@ -35,6 +35,9 @@ class MachineState extends FlxSubState {
   public static var Z_KEY_IMAGE = "assets/images/machine/z.png";
   public static var Z_KEY_DOWN_IMAGE = "assets/images/machine/z_down.png";
 
+  public static var LIGHT_OFF_IMAGE = "assets/images/machine/lightoff.png";
+  public static var LIGHT_ON_IMAGE = "assets/images/machine/lighton.png";
+
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
   public var target:TechThing;
@@ -46,6 +49,8 @@ class MachineState extends FlxSubState {
 
   private var leftKey:FlxSprite;
   private var rightKey:FlxSprite;
+
+  private var lights:Array<FlxSprite>;
 
   public function new(_target:TechThing):Void  {
     super();
@@ -60,9 +65,36 @@ class MachineState extends FlxSubState {
 
     createTimerBar();
     createScreen();
-    startNextProc();
     createControlStick();
     createKeys();
+    createLights();
+    startNextProc();
+  }
+
+  private function createLights():Void {
+    lights = new Array<FlxSprite>();
+    var i:Int;
+    var light:FlxSprite;
+    for (i in 0...5) {
+      light = new FlxSprite(734, 52 + 60 * i);
+      light.loadGraphic(LIGHT_OFF_IMAGE);
+      lights.push(light);
+      add(light);
+    }
+  }
+
+  private function turnOnLight(index):Void {
+    var light:FlxSprite = lights[index];
+    light.loadGraphic(LIGHT_ON_IMAGE);
+    light.x = 709;
+    light.y = 27 + 60 * index;
+  }
+
+  private function turnOffLight(index):Void {
+    var light:FlxSprite = lights[index];
+    light.loadGraphic(LIGHT_OFF_IMAGE);
+    light.x = 734;
+    light.y = 52 + 60 * index;
   }
 
   private function createControlStick():Void {
@@ -82,6 +114,9 @@ class MachineState extends FlxSubState {
   public function startNextProc():Void {
     if (currentProc != null) {
       screen.remove(currentProc);
+      if (currentProcIndex >= 0) {
+        turnOffLight(currentProcIndex);
+      }
     }
     currentProcIndex += 1;
 
@@ -89,6 +124,7 @@ class MachineState extends FlxSubState {
       close();
       return;
     }
+    turnOnLight(currentProcIndex);
 
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
@@ -131,7 +167,7 @@ class MachineState extends FlxSubState {
     if (FlxG.keys.pressed.X) {
       rightKey.loadGraphic(X_KEY_DOWN_IMAGE);
     } else {
-      rightKeyt.loadGraphic(X_KEY_IMAGE);
+      rightKey.loadGraphic(X_KEY_IMAGE);
     }
 
     super.update(elapsed);
