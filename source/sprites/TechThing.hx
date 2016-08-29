@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.util.FlxColor;
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
 import flixel.util.FlxCollision;
@@ -60,6 +61,9 @@ class TechThing extends FlxExtendedSprite {
     #if flash
     if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
       Mouse.cursor = MouseCursor.HAND;
+      color = 0x7F7F7F;
+    } else {
+      color = FlxColor.WHITE;
     }
     #end
 
