@@ -76,7 +76,7 @@ class TimerBar extends FlxSpriteGroup {
     }
     isStarted = false;
     FlxG.sound.pause();
-    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false);
+    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false, null, true, onSoundComplete);
     FlxG.camera.shake(0.5, 1, showEnd);
   }
 
@@ -94,6 +94,10 @@ class TimerBar extends FlxSpriteGroup {
                    { type: FlxTween.ONESHOT,
                      onComplete: function (tween:FlxTween) {
                      }});
+  }
+
+  private function onSoundComplete():Void {
+    FlxG.switchState(new EndState());
   }
 
   override public function update(elapsed:Float):Void {
