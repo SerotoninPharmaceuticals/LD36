@@ -21,7 +21,7 @@ class IntroState extends FlxState {
     createTitleScreen();
     createTimerBar();
     createText();
-    sound = FlxG.sound.load("assets/sounds/ambient.wav", 1, false);
+    sound = FlxG.sound.load("assets/sounds/ambient.wav", 0.8, false);
     sound.play();
   }
 

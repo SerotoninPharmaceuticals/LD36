@@ -173,14 +173,15 @@ class MachineState extends FlxSubState {
       timerBar.onComplete(null);
     }
 
-    if (FlxG.keys.pressed.Z) {
+    if (FlxG.keys.justPressed.Z || FlxG.keys.justPressed.X) {
       buttonSound.play();
+    }
+    if (FlxG.keys.pressed.Z) {
       leftKey.loadGraphic(Z_KEY_DOWN_IMAGE);
     } else {
       leftKey.loadGraphic(Z_KEY_IMAGE);
     }
     if (FlxG.keys.pressed.X) {
-      buttonSound.play();
       rightKey.loadGraphic(X_KEY_DOWN_IMAGE);
     } else {
       rightKey.loadGraphic(X_KEY_IMAGE);
