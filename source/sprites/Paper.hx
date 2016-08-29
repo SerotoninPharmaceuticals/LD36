@@ -10,6 +10,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic.FlxType;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.system.FlxSound;
 
 class Paper extends FlxTypedGroup<FlxSprite> {
   var opened = false;
@@ -18,6 +19,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   var paper:FlxSprite;
 
   var largeImage:String;
+  var paperSound:FlxSound;
 
   public function new(X:Float = 0, Y:Float = 0, image:String, _largeImage:String, _onOpen:FlxSprite->Void) {
     super();
@@ -27,6 +29,8 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
     largeImage = _largeImage;
     onOpen = _onOpen;
+
+    paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.6, false);
 
     add(paper);
   }
@@ -47,6 +51,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
       if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
 //      if (paper.pixels.getPixel(FlxG.mouse.x, FlxG.mouse.y) != FlxColor.TRANSPARENT) {
         var largePaper = new FlxSprite(50, 0);
+        paperSound.play();
         largePaper.loadGraphic(largeImage);
         onOpen(largePaper);
       }
