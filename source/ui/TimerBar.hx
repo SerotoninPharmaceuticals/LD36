@@ -14,12 +14,12 @@ class TimerBar extends FlxSpriteGroup {
   private static inline var DIGIT_WIDTH = 138;
   private static inline var DIGIT_HEIGHT = 168;
 
-  private var digitScale:Float = 5;
+  private var digitScale:Float = 6;
 
   public var currentTime:Int;
   public var digits:Array<FlxSprite>;
 
-  public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5) {
+  public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5.2) {
     currentTime = GameData.timerTime;
     digitScale = scale;
     super(X, Y, MaxSize);
