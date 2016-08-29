@@ -73,10 +73,188 @@ class GameConfig {
 
   public static var techThingConfigs:Array<TechThingConfig> = [
     {
-      codeName: "bible",
-      name: "Bible",
+      codeName: "ball",
+      name: "Ball",
       x: 0,
       y: 0,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "brain",
+      name: "brain",
+      x: 69,
+      y: 21,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.Cooling,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "disk",
+      name: "Disk",
+      x: 133,
+      y: 13,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.AntiMagnetic,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "david",
+      name: "David",
+      x: 205,
+      y: -64,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "gun",
+      name: "Gun",
+      x: 274,
+      y: 24,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "bible",
+      name: "Bible",
+      x: 112,
+      y: 85,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "cola",
+      name: "Cola",
+      x: 180,
+      y: 77,
 
       procedureTypes: [
         ProcedureType.VacuumPacking,
@@ -84,6 +262,126 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
         ProcedureType.Electroplating
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "gold",
+      name: "Gold",
+      x: 218,
+      y: 112,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "iphone",
+      name: "iPhone",
+      x: 273,
+      y: 103,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.AntiMagnetic,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "cd",
+      name: "CD",
+      x: 316,
+      y: 92,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.AntiMagnetic,
+        ProcedureType.VacuumPacking
+      ],
+
+      image: "",
+      imageAfter: "",
+
+      modeAStep1FrontImage: "",
+      modeAStep1BackImage: "",
+      modeAStep2FrontImage: "",
+      modeAStep2BackImage: "",
+
+      modeBStep1Image: "",
+      modeBStep2Image: "",
+
+      modeCImage: "",
+
+      modeDFrontImage: "",
+      modeDBackImage: "",
+
+      modeEImage: ""
+    },
+    {
+      codeName: "bonsai",
+      name: "Bonsai",
+      x: 371,
+      y: 30,
+
+      procedureTypes: [
+        ProcedureType.Cleaning,
+        ProcedureType.Cooling,
+        ProcedureType.VacuumPacking
       ],
 
       image: "",

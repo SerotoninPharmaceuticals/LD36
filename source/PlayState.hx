@@ -1,6 +1,8 @@
 package;
 
 #if flash
+import flixel.FlxSprite;
+import flash.display.Sprite;
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
 #end
@@ -20,9 +22,7 @@ import flixel.system.FlxSound;
 
 
 class PlayState extends FlxState {
-  var deckPoint:Point = new Point(450, 50); // top left point
-  var deckMarginH:Float = 50.0; // actually origin to origin distance.
-  var deckMarginV:Float = 90.0; // as above.
+  var deckPoint:Point = new Point(300, 35); // top left point
 
   var machinePoint:Point = new Point(20, 100);
   var machineSound:FlxSound;
@@ -73,7 +73,11 @@ class PlayState extends FlxState {
   }
 
   function loadTechObjects():Void {
-    techThingGroup = new FlxTypedSpriteGroup<TechThing>(0, 0, 10);
+    var gunSupport = new FlxSprite(deckPoint.x + 286, deckPoint.y + 54);
+    gunSupport.loadGraphic(GameConfig.TECHTHINGS_PATH + "gun_support.png");
+    add(gunSupport);
+
+    techThingGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
     for(i in 0...GameConfig.techThingConfigs.length) {
       var config = GameConfig.techThingConfigs[i];
 
@@ -99,7 +103,13 @@ class PlayState extends FlxState {
       item.procedures = config.procedureTypes;
       techThingGroup.add(item);
     }
+
     add(techThingGroup);
+
+    var brainJar = new FlxSprite(deckPoint.x + 66, deckPoint.y - 3);
+    brainJar.loadGraphic(GameConfig.TECHTHINGS_PATH + "brain_jar.png");
+    brainJar.alpha = 0.8;
+    add(brainJar);
   }
 
   function loadMachine():Void {

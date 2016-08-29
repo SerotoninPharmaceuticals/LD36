@@ -67,13 +67,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   public function startFinishProcess():Void {
 
     if (currentTechThing == null) { return; }
-//    FlxTween.linearMotion(currentTechThing,
-//      currentTechThing.x, currentTechThing.y,
-//      exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2,
-//      0.2, true, { onComplete: onFinishedProcess }
-//    );
-    currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.toAfter();
+    currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.alpha = 1;
     onFinishedProcess();
   }
@@ -82,6 +77,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     entrance.setHover(false);
     entrance.isItemPlaced = false;
     currentTechThing.setState(TechThingState.ProcessFinished);
+
   }
 }
 
