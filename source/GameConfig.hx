@@ -54,6 +54,8 @@ class GameConfig {
 
   public static inline var SCREEN_COLOR_GREEN = FlxColor.GREEN;
 
+  public static inline var ENABLE_CURSOR_OBLIQUE = false;
+
   public static inline var COOLING_PROC_INITIAL_TEMP = 30.5;
   public static inline var COOLING_PROC_TEMP_DEC = 2.0;
   public static inline var COOLING_PROC_TIMEOUT = 10;
