@@ -70,6 +70,7 @@ class GameConfig {
 
   public static inline var IMAGE_PATH = "assets/images/";
   public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
+  public static inline var MACHINE_PATH = "assets/images/machine/";
 
   public static var techThingConfigs:Array<TechThingConfig> = [
     {

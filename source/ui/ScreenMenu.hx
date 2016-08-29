@@ -14,9 +14,9 @@ class ScreenMenu extends FlxSpriteGroup {
   public static inline var MENU_COATING_INDEX = 3;
   public static inline var MENU_PACKAGING_INDEX = 4;
 
-  private static inline var SCREEN_MENU_WIDTH = 150;
-  private static inline var SCREEN_MENU_ITEM_HEIGHT = 40;
-  private static inline var SCREEN_MENU_TEXT_PADDING = 4;
+  public static inline var SCREEN_MENU_WIDTH = 150;
+  public static inline var SCREEN_MENU_ITEM_HEIGHT = 40;
+  public static inline var SCREEN_MENU_TEXT_PADDING = 4;
 
   private static inline var MENU_COLOR = GameConfig.SCREEN_COLOR_YELLOW0;
   private static inline var ACTIVATED_MENU_FILL_COLOR = GameConfig.SCREEN_COLOR_YELLOW1;

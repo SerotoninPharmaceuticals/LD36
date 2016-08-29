@@ -17,15 +17,16 @@ import ui.ScreenMenu;
 import ui.TimerBar;
 
 class MachineState extends FlxSubState {
-  public static inline var SCREEN_X = 100;
-  public static inline var SCREEN_Y = 50;
-  public static inline var SCREEN_WIDTH = 600;
-  public static inline var SCREEN_HEIGHT = 300;
-  public static inline var SCREEN_MENU_X = 448;
-  public static inline var SCREEN_MENU_Y = 2;
+  public static inline var SCREEN_X = 198;
+  public static inline var SCREEN_Y = 48;
+  public static inline var SCREEN_WIDTH = 472;
+  public static inline var SCREEN_HEIGHT = 281;
 
-  public static inline var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
-  public static inline var SCREEN_MAIN_HEIGHT = SCREEN_HEIGHT;
+  public static var SCREEN_MENU_X = SCREEN_WIDTH - ScreenMenu.SCREEN_MENU_WIDTH;
+  public static var SCREEN_MENU_Y = 2;
+
+  public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
+  public static var SCREEN_MAIN_HEIGHT = SCREEN_HEIGHT;
 
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
@@ -43,6 +44,10 @@ class MachineState extends FlxSubState {
 
   override public function create():Void {
     super.create();
+    var bg = new FlxSprite();
+    bg.loadGraphic(GameConfig.MACHINE_PATH + "bg.jpg");
+    add(bg);
+
     createTimerBar();
     createScreen();
     startNextProc();
@@ -113,5 +118,6 @@ class MachineState extends FlxSubState {
     timerBar = new TimerBar(10, 10);
     add(timerBar);
     timerBar.start();
+    timerBar.alpha = 0;
   }
 }
