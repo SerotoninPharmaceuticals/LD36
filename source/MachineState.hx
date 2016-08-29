@@ -62,18 +62,23 @@ class MachineState extends FlxSubState {
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
         currentProc = new CleaningProcedure(target, startNextProc);
+        screenMenu.activateBar(ScreenMenu.MENU_CLEANING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Cooling:
         currentProc = new CoolingProcedure(target, startNextProc);
+        screenMenu.activateBar(ScreenMenu.MENU_DEHYDRATION_INDEX);
         screen.add(currentProc);
       case ProcedureType.Electroplating:
         currentProc = new ElectroplatingProcedure(target, startNextProc);
+        screenMenu.activateBar(ScreenMenu.MENU_ELECTROPLATING_INDEX);
         screen.add(currentProc);
       case ProcedureType.AntiMagnetic:
         currentProc = new AntiMagneticProcedure(target, startNextProc);
+        screenMenu.activateBar(ScreenMenu.MENU_COATING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Vacuum:
         currentProc = new VacuumProcedure(target, startNextProc);
+        screenMenu.activateBar(ScreenMenu.MENU_PACKAGING_INDEX);
         screen.add(currentProc);
       default:
     }

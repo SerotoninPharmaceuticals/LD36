@@ -10,6 +10,10 @@ class ScreenMenu extends FlxSpriteGroup {
 
   public static inline var MENU_CLEANING_INDEX = 0;
   public static inline var MENU_DEHYDRATION_INDEX = 1;
+  public static inline var MENU_ELECTROPLATING_INDEX = 2;
+  public static inline var MENU_COATING_INDEX = 3;
+  public static inline var MENU_PACKAGING_INDEX = 4;
+
   private static inline var SCREEN_MENU_WIDTH = 150;
   private static inline var SCREEN_MENU_ITEM_HEIGHT = 40;
   private static inline var SCREEN_MENU_TEXT_PADDING = 4;
@@ -25,7 +29,10 @@ class ScreenMenu extends FlxSpriteGroup {
     super(X, Y, MaxSize);
     bars = new Array<FlxBar>();
     createMenuItem(MENU_CLEANING_INDEX, "Surface Cleaning & Sterilization");
-    createMenuItem(MENU_DEHYDRATION_INDEX, "Dehydration Processing");
+    createMenuItem(MENU_DEHYDRATION_INDEX, "Dehydrating Process");
+    createMenuItem(MENU_ELECTROPLATING_INDEX, "Electroplating Process");
+    createMenuItem(MENU_COATING_INDEX, "Anti-Magnetic Coating");
+    createMenuItem(MENU_PACKAGING_INDEX, "Vacuum Packaging");
 
     activateBar(MENU_CLEANING_INDEX);
   }
