@@ -6,6 +6,10 @@ import openfl.display.Sprite;
 class Main extends Sprite {
   public function new() {
     super();
-    addChild(new FlxGame(0, 0, PlayState));
+    if (GameConfig.DEBUG) {
+      addChild(new FlxGame(0, 0, PlayState));
+    } else {
+      addChild(new FlxGame(0, 0, IntroState));
+    }
   }
 }

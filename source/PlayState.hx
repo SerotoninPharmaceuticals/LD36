@@ -103,7 +103,7 @@ class PlayState extends FlxState {
   }
 
   private function createTimerBar():Void {
-    timerBar = new TimerBar(10, 10);
+    timerBar = new TimerBar(0, 0, 150);
     add(timerBar);
     timerBar.start();
   }

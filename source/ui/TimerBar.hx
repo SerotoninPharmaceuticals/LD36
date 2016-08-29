@@ -14,11 +14,14 @@ class TimerBar extends FlxSpriteGroup {
   private static inline var DIGIT_WIDTH = 138;
   private static inline var DIGIT_HEIGHT = 168;
 
+  private var digitScale:Float = 5;
+
   public var currentTime:Int;
   public var digits:Array<FlxSprite>;
 
-  public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0) {
+  public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5) {
     currentTime = GameData.timerTime;
+    digitScale = scale;
     super(X, Y, MaxSize);
     timer = new FlxTimer();
     createDigits();
@@ -32,7 +35,7 @@ class TimerBar extends FlxSpriteGroup {
       digit = new FlxSprite();
       digit.loadGraphic("assets/images/time_digits_map.png", true,
                         DIGIT_WIDTH, DIGIT_HEIGHT);
-      digit.x = DIGIT_WIDTH * i;
+      digit.x = Std.int(DIGIT_WIDTH / digitScale) * i;
       if (i == 2) {
         digit.animation.frameIndex = 10;
       } else {
@@ -40,6 +43,8 @@ class TimerBar extends FlxSpriteGroup {
       }
       digits.push(digit);
       add(digit);
+      digit.setGraphicSize(Std.int(DIGIT_WIDTH / digitScale), Std.int(DIGIT_HEIGHT / digitScale));
+      digit.updateHitbox();
     }
   }
 
