@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.addons.ui.AnchorPoint;
 import GameConfig;
 import sprites.TechThing;
 import flixel.util.FlxSpriteUtil;
@@ -17,12 +18,20 @@ class VacuumProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_UP = 2;
   static inline var CURSOR_MOVE_DOWN = 3;
   static inline var CURSOR_MOVE_SPEED = 200;
-  static inline var TAEGET_PERCENTAGE = 0.02;
+
+  static inline var anchor_x = 40;
+  static inline var anchor_y = 50;
+  static inline var anchor_h_margin = 80;
+  static inline var anchor_v_margin = 150;
 
   var moveEnabled = false;
 
   var target:TechThing;
   var onFinsihed:Void->Void;
+
+  var anchors:Array<FlxSprite> = new Array<FlxSprite>();
+  var anchorPoints:Array<Array<Int>>;
+  var remainAnchorCounts = 6;
 
   private var cursor:FlxSprite;
 
@@ -31,12 +40,16 @@ class VacuumProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
+    anchorPoints = [
+      [0, 0], [anchor_h_margin, 0], [anchor_h_margin*2, 0],
+      [0, anchor_v_margin], [anchor_h_margin, anchor_v_margin], [anchor_h_margin*2, anchor_v_margin]
+    ];
+    remainAnchorCounts = anchorPoints.length;
+
     createStep1();
   }
 
   override public function update(elapsed:Float):Void {
-
-//      onFinsihed();
 
     moveEnabled = FlxG.keys.justPressed.X;
 
@@ -59,6 +72,12 @@ class VacuumProcedure extends FlxSpriteGroup {
       // TEST, remove me!
       cursor.x = FlxG.mouse.x;
       cursor.y = FlxG.mouse.y;
+      moveEnabled = true;
+    }
+
+    detectAnchor();
+    if (remainAnchorCounts == 0) {
+      onFinsihed();
     }
   }
 
@@ -70,11 +89,33 @@ class VacuumProcedure extends FlxSpriteGroup {
     add(cursor);
   }
 
+  function createAnchor():Void {
+    for(i in 0...anchorPoints.length) {
+      var anchor = new FlxSprite(anchor_x + anchorPoints[i][0], anchor_y + anchorPoints[i][1]);
+      anchor.makeGraphic(30, 30, FlxColor.YELLOW);
+      anchors.push(anchor);
+      add(anchor);
+    }
+  }
+
   function createStep1():Void {
     var itemBody = new FlxSprite();
     itemBody.loadGraphic(target.config.modeEImage);
 
+    createAnchor();
     createCursor();
+  }
+
+  function detectAnchor() {
+    for(i in 0...anchors.length) {
+      var anchor = anchors[i];
+      if (anchor.alive) {
+        if (anchor.overlaps(cursor, true)) {
+          anchor.kill();
+          remainAnchorCounts -= 1;
+        }
+      }
+    }
   }
 
   private function moveCursor(action:Int, elapsed:Float) {
