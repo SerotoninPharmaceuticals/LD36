@@ -83,6 +83,7 @@ class TimerBar extends FlxSpriteGroup {
   private function showEnd():Void {
     screenSprite = new FlxSprite(0, 0);
     screenSprite.makeGraphic(800, 480, FlxColor.WHITE);
+    FlxG.state.closeSubState();
     FlxG.state.clear();
     FlxG.state.add(screenSprite);
     FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.2,

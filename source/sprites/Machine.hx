@@ -35,9 +35,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     loadEntrance();
     loadExit();
     loadScreen();
-    exitOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.8, false);
+    exitOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.5, false);
     exitOpenSound.pan = -0.8;
-    exitCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.8, false);
+    exitCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
     exitCloseSound.pan = -0.8;
   }
 

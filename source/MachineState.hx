@@ -15,6 +15,7 @@ import flixel.FlxSubState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
 import procedures.CoolingProcedure;
@@ -48,6 +49,7 @@ class MachineState extends FlxSubState {
   public var target:TechThing;
 
   private var timerBar:TimerBar;
+  private var buttonSound:FlxSound;
 
   private var currentProc:FlxSpriteGroup;
   private var currentProcIndex:Int = -1;
@@ -68,6 +70,7 @@ class MachineState extends FlxSubState {
     bg.loadGraphic(GameConfig.MACHINE_PATH + "bg.jpg");
     add(bg);
 
+    buttonSound = FlxG.sound.load("assets/sounds/button.wav", 0.5, false);
     createPaper();
     createTimerBar();
     createScreen();
@@ -166,11 +169,13 @@ class MachineState extends FlxSubState {
     }
 
     if (FlxG.keys.pressed.Z) {
+      buttonSound.play();
       leftKey.loadGraphic(Z_KEY_DOWN_IMAGE);
     } else {
       leftKey.loadGraphic(Z_KEY_IMAGE);
     }
     if (FlxG.keys.pressed.X) {
+      buttonSound.play();
       rightKey.loadGraphic(X_KEY_DOWN_IMAGE);
     } else {
       rightKey.loadGraphic(X_KEY_IMAGE);
