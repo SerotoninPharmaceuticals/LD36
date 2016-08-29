@@ -29,11 +29,18 @@ class PlayState extends FlxState {
 
   override public function create():Void {
     super.create();
-    loadMachine();
+
+    var bg = new FlxSprite();
+    bg.loadGraphic("assets/images/bg.png");
+    add(bg);
+
     loadCoffin();
-    loadTechObjects();
 
     loadPapers();
+
+    loadMachine();
+
+    loadTechObjects();
 
     createTimerBar();
   }
@@ -47,23 +54,25 @@ class PlayState extends FlxState {
     for(i in 0...GameConfig.techThingConfigs.length) {
       var config = GameConfig.techThingConfigs[i];
 
-      config.modeAStep1FrontImage = "assets/images/" + config.codeName + "_mode_a_step1_front.png";
-      config.modeAStep1BackImage = "assets/images/" + config.codeName + "_mode_a_step1_back.png";
-      config.modeAStep2FrontImage = "assets/images/" + config.codeName + "_mode_a_step2_front.png";
-      config.modeAStep2BackImage = "assets/images/" + config.codeName + "_mode_a_step2_back.png";
+      config.image = GameConfig.TECHTHINGS_PATH + config.codeName + ".png";
+      config.imageAfter = GameConfig.TECHTHINGS_PATH + config.codeName + "_after.png";
 
-      config.modeBStep1Image = "assets/images/" + config.codeName + "_mode_b_step1.png";
-      config.modeBStep2Image = "assets/images/" + config.codeName + "_mode_b_step2.png";
+      config.modeAStep1FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_front.png";
+      config.modeAStep1BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_back.png";
+      config.modeAStep2FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step2_front.png";
+      config.modeAStep2BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step2_back.png";
 
-      config.modeCImage = "assets/images/" + config.codeName + "_mode_c.png";
+      config.modeBStep1Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_b_step1.png";
+      config.modeBStep2Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_b_step2.png";
 
-      config.modeDFrontImage = "assets/images/" + config.codeName + "_mode_d_front.png";
-      config.modeDBackImage = "assets/images/" + config.codeName + "_mode_d_back.png";
+      config.modeCImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_c.png";
 
-      config.modeEImage = "assets/images/" + config.codeName + "_mode_e.png";
+      config.modeDFrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_d_front.png";
+      config.modeDBackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_d_back.png";
 
-      var item = new TechThing(deckPoint.x + config.x, deckPoint.y + config.y, machine, coffin.body);
-      item.config = config;
+      config.modeEImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_e.png";
+
+      var item = new TechThing(deckPoint.x + config.x, deckPoint.y + config.y, machine, coffin.body, config);
       item.procedures = config.procedureTypes;
       techThingGroup.add(item);
     }
@@ -96,7 +105,7 @@ class PlayState extends FlxState {
       add(new Paper(papersPoint.x + i*30, papersPoint.y, "assets/images/paper_small.png", "assets/images/paper.png", handleOpenPaper));
     }
     // Manual
-    add(new Paper(20, 200, "assets/images/paper_small.png", "assets/images/manual.png", handleOpenPaper));
+    add(new Paper(174, 262, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
   }
   function handleOpenPaper(paper:FlxSprite) {
     openSubState(new PaperSubstate(paper));

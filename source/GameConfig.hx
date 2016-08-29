@@ -13,12 +13,13 @@ enum ProcedureType {
 typedef TechThingConfig = {
   var codeName:String;
   var name:String;
-  var image:String;
   var x:Int;
   var y:Int;
 
   var procedureTypes:Array<ProcedureType>;
 
+  var image:String;
+  var imageAfter:String;
 
   // Mode A
   var modeAStep1FrontImage:String;
@@ -63,11 +64,13 @@ class GameConfig {
   public static inline var ELECTROP_PROC_CURSOR_DEC_SPEED= 90;
   public static inline var ELECTROP_PROC_VALID_AREA_SPEED= 10;
 
+  public static inline var IMAGE_PATH = "assets/images/";
+  public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
+
   public static var techThingConfigs:Array<TechThingConfig> = [
     {
-      codeName: "gold",
-      name: "Gold",
-      image: "",
+      codeName: "bible",
+      name: "Bible",
       x: 0,
       y: 0,
 
@@ -75,6 +78,9 @@ class GameConfig {
         ProcedureType.Cleaning, ProcedureType.Cooling,
         ProcedureType.Electroplating, ProcedureType.AntiMagnetic
       ],
+
+      image: "",
+      imageAfter: "",
 
       modeAStep1FrontImage: "",
       modeAStep1BackImage: "",

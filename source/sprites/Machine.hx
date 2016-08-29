@@ -21,20 +21,15 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public var currentTechThing:TechThing;
 
-  var body:FlxSprite;
-
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
     x = _x;
     y = _y;
     onBeginProcedures = _onBeginProcedures;
 
-    body = new FlxSprite(x, y);
-    body.makeGraphic(300, 200, FlxColor.YELLOW);
-    add(body);
-
     loadEntrance();
     loadExit();
+    loadScreen();
   }
 
   override public function update(elasped:Float):Void {
@@ -42,9 +37,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadEntrance():Void {
-    entrance = new Dropable(x + 100, y + 50, "TODO", "TODO");
+    entrance = new Dropable(151, 362, "assets/images/hatchin.png", null);
     add(entrance);
-    haxe.Log.trace("entrace loaded");
     entrance.handleDrop = handleEntranceDrop;
   }
   function handleEntranceDrop(techThing:TechThing) {
@@ -52,31 +46,39 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     entrance.setHover(false, techThing);
     entrance.isItemPlaced = true;
     onBeginProcedures(techThing);
+    currentTechThing.alpha = 0;
   }
 
-
   function loadExit():Void {
-    exit = new FlxSprite(x + 10, y + 50);
-    exit.makeGraphic(80, 80, FlxColor.BLUE);
+    exit = new FlxSprite(0, 253);
+    exit.loadGraphic("assets/images/hatchout.png");
     add(exit);
   }
 
+  function loadScreen():Void {
+    var screen = new FlxSprite(184, 125);
+    screen.loadGraphic("assets/images/screen_small.png");
+    add(screen);
+  }
+
   public function startFinishProcess():Void {
-    Log.trace("start");
 
     if (currentTechThing == null) { return; }
-    FlxTween.linearMotion(currentTechThing,
-      currentTechThing.x, currentTechThing.y,
-      exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2,
-      0.2, true, { onComplete: onFinishedProcess }
-    );
+//    FlxTween.linearMotion(currentTechThing,
+//      currentTechThing.x, currentTechThing.y,
+//      exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2,
+//      0.2, true, { onComplete: onFinishedProcess }
+//    );
+    currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
+    currentTechThing.toAfter();
+    currentTechThing.alpha = 1;
+    onFinishedProcess();
   }
-  function onFinishedProcess(tween:FlxTween):Void {
+  function onFinishedProcess(?tween:FlxTween):Void {
+    exit.alpha = 0;
     entrance.setHover(false);
     entrance.isItemPlaced = false;
     currentTechThing.setState(TechThingState.ProcessFinished);
   }
-
-
 }
 

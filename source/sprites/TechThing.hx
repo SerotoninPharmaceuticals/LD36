@@ -33,20 +33,25 @@ class TechThing extends FlxExtendedSprite {
   public var prevState:TechThingState;
   public var state:TechThingState;
 
-  public function new(X:Float = 0, Y:Float = 0, _machine:Machine, _coffinEntrance:Dropable<TechThing>) {
+  public function new(X:Float = 0, Y:Float = 0, _machine:Machine, _coffinEntrance:Dropable<TechThing>, _config:TechThingConfig) {
     super(X, Y);
     FlxG.plugins.add(new FlxMouseControl());
 
     machine = _machine;
     machineEntrance = _machine.entrance;
     coffinEntrance = _coffinEntrance;
+    config = _config;
 
     originalX = X;
     originalY = Y;
 
     state = TechThingState.Candidate;
 
-    makeGraphic(40, 60, FlxColor.GRAY);
+    loadGraphic(config.image);
+  }
+
+  public function toAfter() {
+    loadGraphic(config.imageAfter);
   }
 
   override public function update(elasped:Float):Void {
@@ -68,10 +73,15 @@ class TechThing extends FlxExtendedSprite {
     }
 
     if (!draggable) {
-//      haxe.Log.trace("following origin");
       originalX = x;
       originalY = y;
     }
+  }
+
+  override public function setPosition(X:Float = 0, Y:Float = 0):Void {
+    originalX = X;
+    originalY = Y;
+    super.setPosition(X, Y);
   }
 
   function handleCandidate() {

@@ -1,5 +1,6 @@
 package sprites;
 
+import Std;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 
@@ -29,11 +30,18 @@ class Dropable<T> extends FlxSprite {
   public function setHover(_isHover:Bool = true, ?_item:T):Void {
     isHover = _isHover;
     relatedItem = _item;
-//    loadGraphic(isHover ? onDropImage : normalImage); // TODO
     if (isHover) {
-      makeGraphic(60, 70, FlxColor.RED);
+      if (onDropImage != null) {
+        loadGraphic(onDropImage);
+      } else {
+        makeGraphic(Std.int(width), Std.int(height), FlxColor.TRANSPARENT);
+      }
     } else {
-      makeGraphic(60, 70, FlxColor.ORANGE);
+      if (normalImage != null) {
+        loadGraphic(normalImage);
+      } else {
+        makeGraphic(Std.int(width), Std.int(height), FlxColor.TRANSPARENT);
+      }
     }
   }
 }
