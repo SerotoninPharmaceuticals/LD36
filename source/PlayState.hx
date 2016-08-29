@@ -52,6 +52,7 @@ class PlayState extends FlxState {
     loadMachine();
 
     loadTechObjects();
+    loadFrontPapers();
 
     createTimerBar();
 
@@ -146,15 +147,31 @@ class PlayState extends FlxState {
                   "assets/images/tech_thing_papers/note_1_sphere.png", handleOpenPaper));
     add(new Paper(370, 106, "assets/images/tech_thing_papers/note_2_brain_small.png",
                   "assets/images/tech_thing_papers/note_2_brain.png", handleOpenPaper));
+    add(new Paper(408, 193, "assets/images/tech_thing_papers/note_6_bible_small.png",
+                  "assets/images/tech_thing_papers/note_6_bible.png", handleOpenPaper));
+    add(new Paper(454, 191, "assets/images/tech_thing_papers/note_7_cola_small.png",
+                  "assets/images/tech_thing_papers/note_7_cola.png", handleOpenPaper));
+    add(new Paper(523, 188, "assets/images/tech_thing_papers/note_8_gold_small.png",
+                  "assets/images/tech_thing_papers/note_8_gold.png", handleOpenPaper));
+    add(new Paper(582, 193, "assets/images/tech_thing_papers/note_9_phone_small.png",
+                  "assets/images/tech_thing_papers/note_9_phone.png", handleOpenPaper));
+    add(new Paper(663, 191, "assets/images/tech_thing_papers/note_10_farewell_small.png",
+                  "assets/images/tech_thing_papers/note_10_farewell.png", handleOpenPaper));
+    add(new Paper(710, 195, "assets/images/tech_thing_papers/note_11_bonsai_small.png",
+                  "assets/images/tech_thing_papers/note_11_bonsai.png", handleOpenPaper));
+    // Manual
+    add(new Paper(174, 262, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
+  }
+
+  function loadFrontPapers() {
     add(new Paper(443, 104, "assets/images/tech_thing_papers/note_3_internet_small.png",
                   "assets/images/tech_thing_papers/note_3_internet.png", handleOpenPaper));
     add(new Paper(538, 106, "assets/images/tech_thing_papers/note_4_david_small.png",
                   "assets/images/tech_thing_papers/note_4_david.png", handleOpenPaper));
     add(new Paper(602, 105, "assets/images/tech_thing_papers/note_5_pistol_small.png",
                   "assets/images/tech_thing_papers/note_5_pistol.png", handleOpenPaper));
-    // Manual
-    add(new Paper(174, 262, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
   }
+
   function handleOpenPaper(paper:FlxSprite) {
     openSubState(new PaperSubstate(paper));
   }
