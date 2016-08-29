@@ -21,6 +21,8 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   var largeImage:String;
   var paperSound:FlxSound;
 
+  var hover = false;
+
   public function new(X:Float = 0, Y:Float = 0, image:String, _largeImage:String, _onOpen:FlxSprite->Void) {
     super();
     paper = new FlxSprite(X, Y);
@@ -40,7 +42,15 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
     #if flash
     if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
-      Mouse.cursor = MouseCursor.BUTTON;
+      if (!hover) {
+        Mouse.cursor = MouseCursor.BUTTON;
+        hover = true;
+      }
+    } else {
+      if (hover) {
+        Mouse.cursor = MouseCursor.ARROW;
+        hover = false;
+      }
     }
     #end
     super.update(elasped);

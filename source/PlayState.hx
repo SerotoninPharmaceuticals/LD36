@@ -63,9 +63,6 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
-    #if flash
-    Mouse.cursor = MouseCursor.ARROW;
-    #end
 
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
       timerBar.onComplete(null);

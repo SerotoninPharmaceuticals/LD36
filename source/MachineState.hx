@@ -60,6 +60,8 @@ class MachineState extends FlxSubState {
 
   private var lights:Array<FlxSprite>;
 
+  var paperHover = false;
+
   public function new(_target:TechThing):Void  {
     super();
     target = _target;
@@ -183,9 +185,12 @@ class MachineState extends FlxSubState {
       FlxG.mouse.getPosition().inCoords(p1.x, p1.y, p1.width, p1.height) ||
       FlxG.mouse.getPosition().inCoords(p2.x, p2.y, p2.width, p2.height)
     ) {
-      #if flash
-      Mouse.cursor = MouseCursor.BUTTON;
-      #end
+      if (!paperHover) {
+        #if flash
+        Mouse.cursor = MouseCursor.BUTTON;
+        #end
+        paperHover = true;
+      }
       if (FlxG.mouse.justPressed) {
         var paperLarge = new FlxSprite();
         paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
@@ -194,8 +199,9 @@ class MachineState extends FlxSubState {
         paperState.closeCallback = handlePaperClose;
         openSubState(paperState);
       }
-    } else {
+    } else if(paperHover) {
       Mouse.cursor = MouseCursor.ARROW;
+      paperHover = false;
     }
 
     super.update(elapsed);

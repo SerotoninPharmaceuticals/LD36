@@ -39,6 +39,8 @@ class TechThing extends FlxExtendedSprite {
   public var prevState:TechThingState;
   public var state:TechThingState;
 
+  var hover = false;
+
   public function new(X:Float = 0, Y:Float = 0, _machine:Machine, _coffinEntrance:Dropable<TechThing>, _config:TechThingConfig) {
     super(X, Y);
     FlxG.plugins.add(new FlxMouseControl());
@@ -63,10 +65,17 @@ class TechThing extends FlxExtendedSprite {
   override public function update(elasped:Float):Void {
     #if flash
     if (draggable && !isDragged && FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
-      Mouse.cursor = MouseCursor.HAND;
+      if (!hover) {
+        Mouse.cursor = MouseCursor.HAND;
+        hover = true;
+      }
       color = 0x7F7F7F;
     } else {
       color = FlxColor.WHITE;
+      if (hover) {
+        Mouse.cursor = MouseCursor.ARROW;
+        hover = false;
+      }
     }
     #end
 
