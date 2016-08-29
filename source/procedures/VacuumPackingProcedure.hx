@@ -1,6 +1,6 @@
 package procedures;
 
-import flixel.addons.ui.AnchorPoint;
+import ui.PressureBarHoriz;
 import GameConfig;
 import sprites.TechThing;
 import flixel.util.FlxSpriteUtil;
@@ -9,7 +9,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 
-class VacuumProcedure extends FlxSpriteGroup {
+class VacuumPackingProcedure extends FlxSpriteGroup {
 
   static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 20;
 
@@ -24,6 +24,11 @@ class VacuumProcedure extends FlxSpriteGroup {
   static inline var anchor_h_margin = 80;
   static inline var anchor_v_margin = 150;
 
+  static inline var pressure_per_press = 10;
+  static inline var target_pressure = 80;
+  static inline var max_pressure = 120;
+  static inline var pressure_drop_per_sec = 5;
+
   var moveEnabled = false;
 
   var target:TechThing;
@@ -32,6 +37,9 @@ class VacuumProcedure extends FlxSpriteGroup {
   var anchors:Array<FlxSprite> = new Array<FlxSprite>();
   var anchorPoints:Array<Array<Int>>;
   var remainAnchorCounts = 6;
+
+  var pressure:Float = 0;
+  var pressureBar:PressureBarHoriz;
 
   private var cursor:FlxSprite;
 
@@ -51,7 +59,16 @@ class VacuumProcedure extends FlxSpriteGroup {
 
   override public function update(elapsed:Float):Void {
 
-    moveEnabled = FlxG.keys.justPressed.X;
+    moveEnabled = pressure > target_pressure;
+
+    if (FlxG.keys.justPressed.X) {
+      pressure += pressure_per_press;
+    } else {
+      pressure -= pressure_drop_per_sec * elapsed;
+    }
+    pressure = Math.min(max_pressure, Math.max(0, pressure));
+    trace(pressure);
+    pressureBar.setValue(Std.int(pressure));
 
     if (moveEnabled) {
       if (FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A) {
@@ -70,9 +87,9 @@ class VacuumProcedure extends FlxSpriteGroup {
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
-      cursor.x = FlxG.mouse.x;
-      cursor.y = FlxG.mouse.y;
-      moveEnabled = true;
+//      cursor.x = FlxG.mouse.x;
+//      cursor.y = FlxG.mouse.y;
+//      moveEnabled = true;
     }
 
     detectAnchor();
@@ -98,12 +115,20 @@ class VacuumProcedure extends FlxSpriteGroup {
     }
   }
 
+  function createPressureBar() {
+    pressureBar = new PressureBarHoriz(10, 230, target_pressure, max_pressure, max_pressure);
+    for (i in 0...pressureBar.length) {
+      add(pressureBar.members[i]);
+    }
+  }
+
   function createStep1():Void {
     var itemBody = new FlxSprite();
     itemBody.loadGraphic(target.config.modeEImage);
 
     createAnchor();
     createCursor();
+    createPressureBar();
   }
 
   function detectAnchor() {

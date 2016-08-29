@@ -1,6 +1,6 @@
 package;
 
-import procedures.VacuumProcedure;
+import procedures.VacuumPackingProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
 import procedures.ElectroplatingProcedure;
@@ -76,8 +76,8 @@ class MachineState extends FlxSubState {
         currentProc = new AntiMagneticProcedure(target, startNextProc);
         screenMenu.activateBar(ScreenMenu.MENU_COATING_INDEX);
         screen.add(currentProc);
-      case ProcedureType.Vacuum:
-        currentProc = new VacuumProcedure(target, startNextProc);
+      case ProcedureType.VacuumPacking:
+        currentProc = new VacuumPackingProcedure(target, startNextProc);
         screenMenu.activateBar(ScreenMenu.MENU_PACKAGING_INDEX);
         screen.add(currentProc);
       default:

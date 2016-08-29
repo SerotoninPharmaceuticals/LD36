@@ -6,11 +6,8 @@ class PercentageText extends FlxText {
 
   private static inline var WIDTH = 300;
 
-  private var tempText:FlxText;
-  private var name:FlxText;
-
   public function new(X:Float = 0, Y:Float = 0):Void {
-    super(X, Y, 0, "100%");
+    super(X, Y, WIDTH, "100%");
   }
 
   public function setPercentage(percentage:Float) {
