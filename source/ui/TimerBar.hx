@@ -68,7 +68,9 @@ class TimerBar extends FlxSpriteGroup {
 
   public function onComplete(timer:FlxTimer):Void {
     isStarted = false;
-    FlxG.camera.shake(0.5, 0.5, showEnd);
+    FlxG.sound.pause();
+    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false);
+    FlxG.camera.shake(0.5, 1, showEnd);
   }
 
   private function showEnd():Void {
@@ -84,7 +86,6 @@ class TimerBar extends FlxSpriteGroup {
     FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.2,
                    { type: FlxTween.ONESHOT,
                      onComplete: function (tween:FlxTween) {
-                       FlxG.state.remove(screenSprite);
                      }});
   }
 
