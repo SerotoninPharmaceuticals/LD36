@@ -7,6 +7,7 @@ enum ProcedureType {
   Cooling;
   Electroplating;
   AntiMagnetic;
+  Vacuum;
 }
 
 
@@ -75,6 +76,7 @@ class GameConfig {
       y: 0,
 
       procedureTypes: [
+        ProcedureType.Vacuum,
         ProcedureType.Cleaning, ProcedureType.Cooling,
         ProcedureType.Electroplating, ProcedureType.AntiMagnetic
       ],

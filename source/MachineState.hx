@@ -1,5 +1,6 @@
 package;
 
+import procedures.VacuumProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
 import procedures.ElectroplatingProcedure;
@@ -70,6 +71,9 @@ class MachineState extends FlxSubState {
         screen.add(currentProc);
       case ProcedureType.AntiMagnetic:
         currentProc = new AntiMagneticProcedure(target, startNextProc);
+        screen.add(currentProc);
+      case ProcedureType.Vacuum:
+        currentProc = new VacuumProcedure(target, startNextProc);
         screen.add(currentProc);
       default:
     }

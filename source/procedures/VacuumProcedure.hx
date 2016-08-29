@@ -1,10 +1,7 @@
 package procedures;
 
-import flixel.addons.display.FlxStarField.FlxStar;
-import ui.PercentageText;
 import GameConfig;
 import sprites.TechThing;
-import sprites.Erasable;
 import flixel.util.FlxSpriteUtil;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -26,7 +23,6 @@ class VacuumProcedure extends FlxSpriteGroup {
 
   var target:TechThing;
   var onFinsihed:Void->Void;
-
 
   private var cursor:FlxSprite;
 
@@ -76,7 +72,7 @@ class VacuumProcedure extends FlxSpriteGroup {
 
   function createStep1():Void {
     var itemBody = new FlxSprite();
-    itemBody.makeGraphic(target.config.modeEImage);
+    itemBody.loadGraphic(target.config.modeEImage);
 
     createCursor();
   }
