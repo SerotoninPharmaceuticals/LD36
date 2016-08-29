@@ -43,6 +43,9 @@ class MachineState extends FlxSubState {
   public static var LIGHT_OFF_IMAGE = "assets/images/machine/lightoff.png";
   public static var LIGHT_ON_IMAGE = "assets/images/machine/lighton.png";
 
+  public static var BG_IMAGE = GameConfig.MACHINE_PATH + "bg.png";
+  public static var BG_NO_MANUAL_IMAGE = GameConfig.MACHINE_PATH + "bg_no_manual.png";
+
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
   public var target:TechThing;
@@ -65,7 +68,7 @@ class MachineState extends FlxSubState {
   override public function create():Void {
     super.create();
     var bg = new FlxSprite();
-    bg.loadGraphic(GameConfig.MACHINE_PATH + "bg.jpg");
+    bg.loadGraphic(BG_IMAGE);
     add(bg);
 
     createPaper();
@@ -158,7 +161,7 @@ class MachineState extends FlxSubState {
   }
 
   override public function update(elapsed:Float):Void {
-    if (GameConfig.DEBUG && FlxG.mouse.justPressed && !FlxG.mouse.getPosition().inCoords(SCREEN_X, SCREEN_Y, SCREEN_WIDTH, SCREEN_HEIGHT)) {
+    if (GameConfig.DEBUG && FlxG.keys.justPressed.P) {
       close();
     }
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
@@ -186,13 +189,20 @@ class MachineState extends FlxSubState {
       if (FlxG.mouse.justPressed) {
         var paperLarge = new FlxSprite();
         paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
-        openSubState(new PaperSubstate(paperLarge));
+        paperCover.revive();
+        var paperState = new PaperSubstate(paperLarge);
+        paperState.closeCallback = handlePaperClose;
+        openSubState(paperState);
       }
     } else {
       Mouse.cursor = MouseCursor.ARROW;
     }
 
     super.update(elapsed);
+  }
+
+  function handlePaperClose() {
+    paperCover.kill();
   }
 
   private function createScreen():Void {
@@ -214,6 +224,8 @@ class MachineState extends FlxSubState {
 
   public var p1:FlxSprite;
   public var p2:FlxSprite;
+  public var paperCover:FlxSprite;
+
   function createPaper() {
     p1 = new FlxSprite(8, 322);
     p1.makeGraphic(107, 153, FlxColor.TRANSPARENT);
@@ -221,6 +233,11 @@ class MachineState extends FlxSubState {
     p2.makeGraphic(425, 22, FlxColor.TRANSPARENT);
     add(p1);
     add(p2);
+
+    paperCover = new FlxSprite(0, 0);
+    paperCover.loadGraphic(BG_NO_MANUAL_IMAGE);
+    add(paperCover);
+    paperCover.kill();
   }
 
   private function createTimerBar():Void {
