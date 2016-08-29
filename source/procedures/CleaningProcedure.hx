@@ -59,10 +59,10 @@ class CleaningProcedure extends FlxSpriteGroup {
     var upOrDownPressed:Bool = (FlxG.keys.pressed.UP || FlxG.keys.pressed.DOWN ||
                                 FlxG.keys.pressed.S || FlxG.keys.pressed.W);
 
-    if (!upOrDownPressed && FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A) {
+    if (cursor.velocity.y == 0 && !upOrDownPressed && FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A) {
       moveCursor(CURSOR_MOVE_LEFT, elapsed);
     }
-    if (!upOrDownPressed && FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D) {
+    if (cursor.velocity.y == 0 && !upOrDownPressed && FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D) {
       moveCursor(CURSOR_MOVE_RIGHT, elapsed);
     }
     if (cursor.velocity.x == 0 && FlxG.keys.pressed.UP || FlxG.keys.pressed.W) {
