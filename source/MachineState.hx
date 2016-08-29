@@ -14,6 +14,7 @@ import flixel.util.FlxColor;
 
 import procedures.CoolingProcedure;
 import procedures.CleaningProcedure;
+import sprites.ControlStick;
 import ui.ScreenMenu;
 import ui.TimerBar;
 
@@ -29,6 +30,11 @@ class MachineState extends FlxSubState {
   public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
   public static var SCREEN_MAIN_HEIGHT = SCREEN_HEIGHT;
 
+  public static var X_KEY_IMAGE = "assets/images/machine/x.png";
+  public static var X_KEY_DOWN_IMAGE = "assets/images/machine/x_down.png";
+  public static var Z_KEY_IMAGE = "assets/images/machine/z.png";
+  public static var Z_KEY_DOWN_IMAGE = "assets/images/machine/z_down.png";
+
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
   public var target:TechThing;
@@ -37,6 +43,9 @@ class MachineState extends FlxSubState {
 
   private var currentProc:FlxSpriteGroup;
   private var currentProcIndex:Int = -1;
+
+  private var leftKey:FlxSprite;
+  private var rightKey:FlxSprite;
 
   public function new(_target:TechThing):Void  {
     super();
@@ -52,6 +61,22 @@ class MachineState extends FlxSubState {
     createTimerBar();
     createScreen();
     startNextProc();
+    createControlStick();
+    createKeys();
+  }
+
+  private function createControlStick():Void {
+    var stick:ControlStick = new ControlStick(254, 379);
+    add(stick);
+  }
+
+  private function createKeys():Void {
+    leftKey = new FlxSprite(402, 384);
+    rightKey = new FlxSprite(554, 385);
+    leftKey.loadGraphic(Z_KEY_IMAGE);
+    rightKey.loadGraphic(X_KEY_IMAGE);
+    add(leftKey);
+    add(rightKey);
   }
 
   public function startNextProc():Void {
@@ -96,6 +121,17 @@ class MachineState extends FlxSubState {
     }
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
       timerBar.onComplete(null);
+    }
+
+    if (FlxG.keys.pressed.Z) {
+      leftKey.loadGraphic(Z_KEY_DOWN_IMAGE);
+    } else {
+      leftKey.loadGraphic(Z_KEY_IMAGE);
+    }
+    if (FlxG.keys.pressed.X) {
+      rightKey.loadGraphic(X_KEY_DOWN_IMAGE);
+    } else {
+      rightKeyt.loadGraphic(X_KEY_IMAGE);
     }
 
     super.update(elapsed);

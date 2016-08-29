@@ -6,32 +6,32 @@ import flixel.FlxSprite;
 
 class ControlStick extends FlxSprite {
 
-  private static inline CENTER_FRAME = 0;
-  private static inline LEFT_FRAME = 1;
-  private static inline UP_FRAME = 2;
-  private static inline RIGHT_FRAME = 3;
-  private static inline DOWN_FRAME = 4;
+  private var origX:Float;
+  private var origY:Float;
 
-  override function new() {
-    super();
-    setupGraphic();
+  private static inline var DELTA = 10;
+
+
+  public override function new(X:Float=0.0, Y:Float=0.0) {
+    super(X, Y);
+    loadGraphic("assets/images/machine/joystick.png");
+    origX = X;
+    origY = Y;
   }
 
-  override function update(elapsed:Float):Void {
-    if (FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A) {
-      animation.frameIndex = LEFT_FRAME;
-    } else if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D) {
-      animation.frameIndex = RIGHT_FRAME;
-    } else if (FlxG.keys.pressed.UP || FlxG.keys.pressed.W) {
-      animation.frameIndex = UP_FRAME;
-    } else if (FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S) {
-      animation.frameIndex = DOWN_FRAME;
+  public override function update(elapsed:Float):Void {
+    if (y == origY && FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A) {
+      x = origX - DELTA;
+    } else if (y == origY && FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D) {
+      x = origX + DELTA;
+    } else if (x == origX && FlxG.keys.pressed.UP || FlxG.keys.pressed.W) {
+      y = origY - DELTA;
+    } else if (x == origX && FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S) {
+      y = origY + DELTA;
     } else {
-      animation.frameIndex = CENTER_FRAME;
+      x = origX;
+      y = origY;
     }
     super.update(elapsed);
-  }
-
-  private function setupGraphic():Void {
   }
 }
