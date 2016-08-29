@@ -173,6 +173,7 @@ class TechThing extends FlxExtendedSprite {
         if (coffinEntrance.relatedItem == this) {
           coffinEntrance.handleDrop(this);
           setState(TechThingState.Buried);
+          machine.closeExit();
           machine.currentTechThing = null;
         }
       default:

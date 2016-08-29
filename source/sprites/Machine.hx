@@ -7,6 +7,8 @@ import openfl.geom.Point;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.ui.FlxButton;
 import flixel.FlxSprite;
+import flixel.FlxG;
+import flixel.system.FlxSound;
 import flixel.util.FlxColor;
 
 
@@ -21,6 +23,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public var currentTechThing:TechThing;
 
+  private var exitOpenSound:FlxSound;
+  private var exitCloseSound:FlxSound;
+
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
     x = _x;
@@ -30,6 +35,10 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     loadEntrance();
     loadExit();
     loadScreen();
+    exitOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.8, false);
+    exitOpenSound.pan = -0.8;
+    exitCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.8, false);
+    exitCloseSound.pan = -0.8;
   }
 
   override public function update(elasped:Float):Void {
@@ -64,6 +73,11 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     add(screen);
   }
 
+  public function closeExit():Void {
+    exitCloseSound.play();
+    FlxTween.tween(exit, {x: 0}, 0.2, { type: FlxTween.ONESHOT });
+  }
+
   public function startFinishProcess():Void {
 
     if (currentTechThing == null) { return; }
@@ -72,7 +86,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     currentTechThing.alpha = 1;
     onFinishedProcess();
   }
+
   function onFinishedProcess(?tween:FlxTween):Void {
+    exitOpenSound.play();
     FlxTween.tween(exit, {x: -100}, 0.2, { type: FlxTween.ONESHOT });
     // exit.alpha = 0;
     entrance.setHover(false);
