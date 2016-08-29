@@ -33,6 +33,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   override public function update(elasped:Float):Void {
+    if (exit.alpha == 0 && currentTechThing == null) {
+      exit.alpha = 1;
+    }
     super.update(elasped);
   }
 

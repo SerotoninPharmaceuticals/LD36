@@ -21,7 +21,7 @@ class Coffin extends FlxTypedGroup<FlxSprite> {
     x = _x;
     y = _y;
 
-    body = new Dropable<TechThing>(_x, _y, "TODO", "TODO");
+    body = new Dropable<TechThing>(_x, _y, GameConfig.IMAGE_PATH + "coffin.png", GameConfig.IMAGE_PATH + "coffin.png");
     add(body);
     body.handleDrop = handleDrop;
   }
@@ -29,6 +29,7 @@ class Coffin extends FlxTypedGroup<FlxSprite> {
   function handleDrop(item:TechThing):Void {
     item.setPosition(x + techThingCount * techThingMargin + techThingsPoint.x, y + techThingsPoint.y);
     techThingCount += 1;
+    item.alpha = 0;
 
     body.setHover(false, item);
   }
@@ -36,6 +37,5 @@ class Coffin extends FlxTypedGroup<FlxSprite> {
   override public function update(elasped:Float):Void {
     super.update(elasped);
   }
-
 }
 

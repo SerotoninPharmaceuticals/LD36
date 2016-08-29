@@ -96,7 +96,7 @@ class PlayState extends FlxState {
   }
 
   function loadCoffin() {
-    coffin = new Coffin(450, 250);
+    coffin = new Coffin(428, 240);
     add(coffin);
   }
 
