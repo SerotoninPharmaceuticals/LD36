@@ -28,11 +28,11 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   }
 
   private function createSprites():Void {
-    sector = new FlxSprite();
+    sector = new FlxSprite(10, 10);
     sector.loadGraphic("assets/images/procedures/densimeter_sector.png");
-    validArea = new FlxSprite();
+    validArea = new FlxSprite(10, 10);
     validArea.loadGraphic("assets/images/procedures/densimeter_valid_area.png");
-    cursor = new FlxSprite();
+    cursor = new FlxSprite(5, 5);
     cursor.loadGraphic("assets/images/procedures/densimeter_cursor.png");
 
     var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);

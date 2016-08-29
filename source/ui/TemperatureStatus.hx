@@ -28,13 +28,13 @@ class TemperatureStatus extends FlxSpriteGroup {
   }
 
   public function setValid():Void {
-    name.setFormat(null, 14, GameConfig.SCREEN_COLOR_GREEN);
-    tempText.setFormat(null, 20, GameConfig.SCREEN_COLOR_GREEN);
+    name.setFormat(null, 14, 0xFF00FC00);
+    tempText.setFormat(null, 15, 0xFF00FC00);
   }
 
   public function setInvalid():Void {
     name.setFormat(null, 14, GameConfig.SCREEN_COLOR_YELLOW0);
-    tempText.setFormat(null, 20, GameConfig.SCREEN_COLOR_YELLOW0);
+    tempText.setFormat(null, 15, GameConfig.SCREEN_COLOR_YELLOW0);
   }
 
   private function tempToText(temp:Float) {

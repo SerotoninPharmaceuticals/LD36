@@ -10,11 +10,12 @@ import ui.TemperatureStatus;
 
 class CoolingProcedure extends FlxSpriteGroup {
 
-  static inline var SCREEN_TEMP_STATUS_X = 280;
-  static inline var SCREEN_TEMP_STATUS_Y = 50;
+  static inline var SCREEN_TEMP_STATUS_X = 200;
+  static inline var SCREEN_TEMP_STATUS_Y = 40;
 
   private var temperatureStatus:TemperatureStatus;
   private var timer:FlxTimer;
+  private var timerIsStarted:Bool = false;
   private var isValid = false;
 
   private var currentTemp:Float = GameConfig.COOLING_PROC_INITIAL_TEMP;
@@ -45,14 +46,16 @@ class CoolingProcedure extends FlxSpriteGroup {
     temperatureStatus.setTemperature(currentTemp);
     if (currentTemp >= GameConfig.COOLING_PROC_LOWER_TEMP &&
         currentTemp <= GameConfig.COOLING_PROC_UPPER_TEMP &&
-        !isValid) {
+        !isValid && !timerIsStarted) {
       temperatureStatus.setValid();
       timer.start(GameConfig.COOLING_PROC_TIMEOUT, onProcFinished);
-    } else {
+      timerIsStarted = true;
+    } else if (!timerIsStarted) {
       temperatureStatus.setInvalid();
       if (isValid && (currentTemp < GameConfig.COOLING_PROC_LOWER_TEMP ||
                       currentTemp > GameConfig.COOLING_PROC_UPPER_TEMP)) {
         timer.cancel();
+        timerIsStarted = false;
       }
     }
     super.update(elapsed);
