@@ -1,7 +1,10 @@
 package ui;
 
 import flixel.FlxSprite;
+import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
 import GameConfig;
@@ -15,6 +18,7 @@ class TimerBar extends FlxSpriteGroup {
   private static inline var DIGIT_HEIGHT = 168;
 
   private var digitScale:Float = 6;
+  private var screenSprite:FlxSprite;
 
   public var currentTime:Int;
   public var digits:Array<FlxSprite>;
@@ -62,8 +66,26 @@ class TimerBar extends FlxSpriteGroup {
     currentTime = GameData.timerTime;
   }
 
-  private function onComplete(timer:FlxTimer):Void {
+  public function onComplete(timer:FlxTimer):Void {
     isStarted = false;
+    FlxG.camera.shake(0.5, 0.5, showEnd);
+  }
+
+  private function showEnd():Void {
+    screenSprite = new FlxSprite(0, 0);
+    screenSprite.makeGraphic(800, 480, FlxColor.WHITE);
+    FlxG.state.clear();
+    FlxG.state.add(screenSprite);
+    FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.2,
+                   { type: FlxTween.ONESHOT, onComplete: onCompleteFirstPhase });
+  }
+
+  private function onCompleteFirstPhase(tween:FlxTween) {
+    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.2,
+                   { type: FlxTween.ONESHOT,
+                     onComplete: function (tween:FlxTween) {
+                       FlxG.state.remove(screenSprite);
+                     }});
   }
 
   override public function update(elapsed:Float):Void {

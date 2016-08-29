@@ -2,7 +2,6 @@ package sprites;
 
 import Std;
 import flixel.FlxSprite;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.tweens.misc.ColorTween;
 import flixel.util.FlxColor;
