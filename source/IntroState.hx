@@ -1,6 +1,7 @@
 package;
 
 import flixel.FlxState;
+import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
@@ -17,10 +18,17 @@ class IntroState extends FlxState {
   override public function create():Void {
     super.create();
     FlxG.mouse.useSystemCursor = true;
+    createTitleScreen();
     createTimerBar();
     createText();
     sound = FlxG.sound.load("assets/sounds/ambient.wav", 0.8, false);
     sound.play();
+  }
+
+  private function createTitleScreen():Void {
+    var titlescreen = new FlxSprite();
+    titlescreen.loadGraphic("assets/images/titlescreen.png");
+    add(titlescreen);
   }
 
   private function createTimerBar():Void {

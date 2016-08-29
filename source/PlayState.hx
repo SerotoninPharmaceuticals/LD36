@@ -56,7 +56,9 @@ class PlayState extends FlxState {
     createTimerBar();
 
     FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
-    machineSound = FlxG.sound.load("assets/sounds/machine.wav", 1, true);
+    machineSound = FlxG.sound.load("assets/sounds/machine.wav", 0.5, true);
+    machineSound.pan = -0.5;
+    machineSound.play();
   }
 
   override public function update(elapsed:Float):Void {
@@ -104,13 +106,15 @@ class PlayState extends FlxState {
     timerBar.kill();
     var machineState = new MachineState(techThing);
     machineState.closeCallback = handleMachineFinish;
-    machineSound.play();
+    machineSound.pan = 0;
+    machineSound.volume = 1;
     openSubState(machineState);
   }
   function handleMachineFinish() {
     timerBar.forceUpdateTime();
     timerBar.revive();
-    machineSound.pause();
+    machineSound.pan = -0.5;
+    machineSound.volume = 0.5;
     machine.startFinishProcess();
   }
 
