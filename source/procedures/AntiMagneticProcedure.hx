@@ -1,5 +1,6 @@
 package procedures;
 
+import flash.globalization.CurrencyParseResult;
 import ui.PercentageText;
 import GameConfig;
 import sprites.TechThing;
@@ -21,6 +22,10 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_SPEED = 200;
   static inline var TAEGET_PERCENTAGE = 0.02;
 
+  static inline var cursor_drop_per_sec = 10;
+  static inline var cursor_min_r:Int = 4;
+  static inline var cursor_gain_per_press:Int = 2;
+
   var erasableStep1:Erasable;
 
   var target:TechThing;
@@ -29,6 +34,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   var percentage:PercentageText;
 
   private var cursor:FlxSprite;
+  private var cursorRadius:Float = CURSOR_RADIUS;
 
   public function new(_target:TechThing, _onFinished) {
     super();
@@ -46,6 +52,13 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     if (erasableStep1 != null && erasableStep1.percentage < TAEGET_PERCENTAGE) {
       onFinsihed();
     }
+
+    if (FlxG.keys.justPressed.X) {
+      cursorRadius = Math.min(CURSOR_RADIUS, cursorRadius + cursor_gain_per_press);
+    } else if(FlxG.keys.pressed.Z) {
+      cursorRadius = Math.max(cursor_min_r, cursorRadius - cursor_drop_per_sec * elapsed);
+    }
+    changeCursorSize(Std.int(cursorRadius));
 
     var currentErasable:Erasable = erasableStep1;
     percentage.setPercentage(currentErasable.percentage);
@@ -67,8 +80,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
-      cursor.x = FlxG.mouse.x;
-      cursor.y = FlxG.mouse.y;
+//      cursor.x = FlxG.mouse.x;
+//      cursor.y = FlxG.mouse.y;
       currentErasable.eraseEnabled = true;
     }
 
@@ -97,6 +110,17 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     }
 
     createCursor();
+  }
+
+  function changeCursorSize(r:Int) {
+    cursor.x = cursor.x + cursor.width/2 - r;
+    cursor.y = cursor.y + cursor.height/2 - r;
+    cursor.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
+    FlxSpriteUtil.drawCircle(cursor, r, r, r, FlxColor.WHITE);
+
+    erasableStep1.brush.setPosition(cursor.x, cursor.y);
+    erasableStep1.brush.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
+    FlxSpriteUtil.drawCircle(erasableStep1.brush, r, r, r, FlxColor.WHITE);
   }
 
   private function moveCursor(action:Int, elapsed:Float) {

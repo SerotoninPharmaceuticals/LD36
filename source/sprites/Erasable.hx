@@ -53,7 +53,9 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
 
     add(origin);
     add(dirt);
-//    add(brush); // for TEST
+    if (GameConfig.DEBUG) {
+      add(brush); // for TEST
+    }
     dirtTotalsPxCount = getSolidPixelsCount(dirt.pixels);
   }
 
@@ -69,10 +71,10 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
       brush.getPosition().inCoords(origin.x, origin.y, origin.width, origin.height)
     ) {
 //      origin.pixels.copyPixels(source.pixels, new Rectangle(brush.x, brush.y, brush.pixels.rect.width, brush.pixels.rect.height), new Point(brush.x, brush.y), brush.pixels);
-      for (innerY in 0...brushRadius*2) {
+      for (innerY in 0...Std.int(brush.height)) {
         var start = -1;
         var end = -1;
-        for(innerX in 0...brushRadius*2) {
+        for(innerX in 0...Std.int(brush.width)) {
           if (start == -1) {
             if (brush.pixels.getPixel(innerX, innerY) != FlxColor.TRANSPARENT) {
               start = innerX;
@@ -84,7 +86,7 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
             }
           }
         }
-        if (end == -1) { end = brushRadius*2; }
+        if (end == -1) { end = Std.int(brush.width); }
 
 //        origin.pixels.copyPixels(dirt.pixels, new Rectangle(brush.x + start, brush.y + y, end - start, 1), new Point(brush.x + start, brush.y + y));
         dirt.framePixels.colorTransform(new Rectangle(brush.x + start - x, brush.y + innerY - y, end - start, 1), new ColorTransform(0, 0, 0, 0));
