@@ -62,7 +62,7 @@ class TechThing extends FlxExtendedSprite {
 
   override public function update(elasped:Float):Void {
     #if flash
-    if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
+    if (draggable && !isDragged && FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
       Mouse.cursor = MouseCursor.HAND;
       color = 0x7F7F7F;
     } else {

@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import procedures.VacuumPackingProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
@@ -22,7 +23,7 @@ class MachineState extends FlxSubState {
   public static inline var SCREEN_WIDTH = 472;
   public static inline var SCREEN_HEIGHT = 281;
 
-  public static var SCREEN_MENU_X = SCREEN_WIDTH - ScreenMenu.SCREEN_MENU_WIDTH;
+  public static var SCREEN_MENU_X = SCREEN_WIDTH - ScreenMenu.SCREEN_MENU_WIDTH - 3;
   public static var SCREEN_MENU_Y = 2;
 
   public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
@@ -93,6 +94,9 @@ class MachineState extends FlxSubState {
     if (GameConfig.DEBUG && FlxG.mouse.justPressed && !FlxG.mouse.getPosition().inCoords(SCREEN_X, SCREEN_Y, SCREEN_WIDTH, SCREEN_HEIGHT)) {
       close();
     }
+    if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
+      timerBar.onComplete(null);
+    }
 
     super.update(elapsed);
   }
@@ -119,5 +123,11 @@ class MachineState extends FlxSubState {
     add(timerBar);
     timerBar.start();
     timerBar.alpha = 0;
+
+    timerBar.completeCallback = handleTimerBarComplete;
+  }
+
+  function handleTimerBarComplete() {
+    close();
   }
 }

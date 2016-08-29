@@ -1,14 +1,12 @@
 package ui;
 
+import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-
-import GameConfig;
-
 
 class TimerBar extends FlxSpriteGroup {
 
@@ -23,10 +21,16 @@ class TimerBar extends FlxSpriteGroup {
   public var currentTime:Int;
   public var digits:Array<FlxSprite>;
 
+  public var state:FlxState;
+
+  public var completeCallback:Void->Void;
+
   public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5.2) {
     currentTime = GameData.timerTime;
     digitScale = scale;
+
     super(X, Y, MaxSize);
+
     timer = new FlxTimer();
     createDigits();
   }
@@ -67,6 +71,9 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   public function onComplete(timer:FlxTimer):Void {
+    if (completeCallback != null) {
+      completeCallback();
+    }
     isStarted = false;
     FlxG.sound.pause();
     FlxG.sound.play("assets/sounds/ending.wav", 0.8, false);
