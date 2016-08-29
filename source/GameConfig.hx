@@ -74,6 +74,9 @@ class GameConfig {
   public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
   public static inline var MACHINE_PATH = "assets/images/machine/";
 
+  public static inline var SCREEN_TECH_THING_X = 55;
+  public static inline var SCREEN_TECH_THING_Y = 37;
+
   public static var techThingConfigs:Array<TechThingConfig> = [
     {
       codeName: "ball",

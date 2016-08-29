@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.FlxSprite;
 import sprites.TechThing;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
@@ -28,6 +29,10 @@ class CoolingProcedure extends FlxSpriteGroup {
     onFinished = _onFinished;
     timer = new FlxTimer();
     setupScreen();
+
+    var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
+    itemBody.loadGraphic(target.config.modeBStep1Image);
+    add(itemBody);
   }
 
   override public function update(elapsed:Float):Void {

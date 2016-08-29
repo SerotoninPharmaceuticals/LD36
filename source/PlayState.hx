@@ -86,19 +86,19 @@ class PlayState extends FlxState {
       config.imageAfter = GameConfig.TECHTHINGS_PATH + config.codeName + "_after.png";
 
       config.modeAStep1FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_front.png";
-      config.modeAStep1BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_back.png";
+      config.modeAStep1BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
       config.modeAStep2FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step2_front.png";
-      config.modeAStep2BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step2_back.png";
+      config.modeAStep2BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
-      config.modeBStep1Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_b_step1.png";
-      config.modeBStep2Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_b_step2.png";
+      config.modeBStep1Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
+      config.modeBStep2Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
-      config.modeCImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_c.png";
+      config.modeCImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
       config.modeDFrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_d_front.png";
-      config.modeDBackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_d_back.png";
+      config.modeDBackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
-      config.modeEImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_e.png";
+      config.modeEImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
       var item = new TechThing(deckPoint.x + config.x, deckPoint.y + config.y, machine, coffin.body, config);
       item.procedures = config.procedureTypes;

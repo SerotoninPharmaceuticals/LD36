@@ -35,6 +35,10 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     cursor = new FlxSprite();
     cursor.loadGraphic("assets/images/procedures/densimeter_cursor.png");
 
+    var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
+    itemBody.loadGraphic(target.config.modeCImage);
+    add(itemBody);
+
     add(sector);
     add(validArea);
     add(cursor);
