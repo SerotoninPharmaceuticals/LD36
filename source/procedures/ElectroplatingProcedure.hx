@@ -28,9 +28,9 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   }
 
   private function createSprites():Void {
-    sector = new FlxSprite(10, 10);
+    sector = new FlxSprite(5, 5);
     sector.loadGraphic("assets/images/procedures/densimeter_sector.png");
-    validArea = new FlxSprite(10, 10);
+    validArea = new FlxSprite(5, 5);
     validArea.loadGraphic("assets/images/procedures/densimeter_valid_area.png");
     cursor = new FlxSprite(5, 5);
     cursor.loadGraphic("assets/images/procedures/densimeter_cursor.png");
