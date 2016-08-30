@@ -14,9 +14,11 @@ class ScreenMenu extends FlxSpriteGroup {
   public static inline var MENU_COATING_INDEX = 3;
   public static inline var MENU_PACKAGING_INDEX = 4;
 
+  public static inline var SCREEN_MENU_COUNT = 5;
   public static inline var SCREEN_MENU_WIDTH = 150;
-  public static inline var SCREEN_MENU_ITEM_HEIGHT = 40;
   public static inline var SCREEN_MENU_TEXT_PADDING = 4;
+
+  public var SCREEN_MENU_ITEM_HEIGHT:Int = Std.int(MachineState.SCREEN_HEIGHT / 5);
 
   private static var MENU_COLOR = GameConfig.SCREEN_COLOR_YELLOW;
   private static var ACTIVATED_MENU_FILL_COLOR = GameConfig.SCREEN_COLOR_YELLOW1;
@@ -25,7 +27,7 @@ class ScreenMenu extends FlxSpriteGroup {
 
   private var currentActivatedBar:FlxBar = null;
 
-  override public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0):Void {
+  public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0):Void {
     super(X, Y, MaxSize);
     bars = new Array<FlxBar>();
     createMenuItem(MENU_CLEANING_INDEX, "Surface Cleaning & Sterilization");
@@ -48,8 +50,8 @@ class ScreenMenu extends FlxSpriteGroup {
 
   private function createMenuItem(index:Int, text:String):Void {
     var itemY = index * SCREEN_MENU_ITEM_HEIGHT;
-    var itemBar = new FlxBar(0, itemY, FlxBarFillDirection.LEFT_TO_RIGHT,
-                             SCREEN_MENU_WIDTH, SCREEN_MENU_ITEM_HEIGHT);
+    var itemBar = new FlxBar(0, itemY, FlxBarFillDirection.LEFT_TO_RIGHT, SCREEN_MENU_WIDTH, SCREEN_MENU_ITEM_HEIGHT);
+
     itemBar.createColoredEmptyBar(FlxColor.TRANSPARENT, true, MENU_COLOR);
     itemBar.createColoredFilledBar(ACTIVATED_MENU_FILL_COLOR, true, MENU_COLOR);
     itemBar.x = 0;
