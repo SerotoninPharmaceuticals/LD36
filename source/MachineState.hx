@@ -5,7 +5,6 @@ import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
 
-import flixel.util.FlxCollision;
 import procedures.VacuumPackingProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
@@ -206,7 +205,10 @@ class MachineState extends FlxSubState {
         openSubState(paperState);
       }
     } else if(paperHover) {
+      #if flash
       Mouse.cursor = MouseCursor.ARROW;
+      #end
+
       paperHover = false;
     }
 

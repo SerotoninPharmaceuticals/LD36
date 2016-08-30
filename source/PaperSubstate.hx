@@ -27,6 +27,8 @@ class PaperSubstate extends FlxSubState {
     add(paper);
   }
 
+  var lastMouseY:Float = -1.0;
+
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
     if (
@@ -37,19 +39,31 @@ class PaperSubstate extends FlxSubState {
       )
     ) {
       close();
+      return;
     }
 
-    else if (FlxG.mouse.wheel != 0) {
-      if (FlxG.mouse.wheel > 0) {
-        if (paper.y < 0) {
-          paper.y = Math.min(paper.y + FlxG.mouse.wheel * wheel_speed, 10);
-        }
-      } else {
-        if (paper.y + paper.height > FlxG.height) {
-          paper.y = Math.max(paper.y + FlxG.mouse.wheel * wheel_speed, FlxG.height - paper.height - 10);
-        }
+    var targetY:Float = 0;
+    var moved = false;
+
+    if (FlxG.mouse.wheel != 0) {
+      targetY = paper.y + FlxG.mouse.wheel * wheel_speed;
+      moved = true;
+    }
+
+    else if (FlxG.mouse.pressed) {
+      if (lastMouseY > 0) {
+        targetY = paper.y + FlxG.mouse.y - lastMouseY;
+        moved = true;
       }
+      lastMouseY = FlxG.mouse.y;
     }
 
+    else if (FlxG.mouse.justReleased) {
+      lastMouseY = -1.0;
+    }
+
+    if (moved) {
+      paper.y = Math.max(Math.min(targetY, 10), FlxG.height - paper.height - 10);
+    }
   }
 }
