@@ -63,7 +63,7 @@ class PaperSubstate extends FlxSubState {
     }
 
     if (moved) {
-      paper.y = Math.max(Math.min(targetY, 10), FlxG.height - paper.height - 10);
+      paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 10), 10);
     }
   }
 }
