@@ -68,7 +68,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadScreen():Void {
-    var screen = new FlxSprite(184, 125);
+    var screen = new FlxSprite(180, 125);
     screen.loadGraphic("assets/images/screen_small.png");
     add(screen);
   }
