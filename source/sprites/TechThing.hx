@@ -1,10 +1,5 @@
 package sprites;
 
-#if flash
-import flash.ui.Mouse;
-import flash.ui.MouseCursor;
-#end
-
 import flixel.util.FlxColor;
 import flixel.util.FlxCollision;
 import GameConfig.TechThingConfig;
@@ -63,21 +58,19 @@ class TechThing extends FlxExtendedSprite {
   }
 
   override public function update(elasped:Float):Void {
-    #if flash
     if (draggable && !isDragged && FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
       if (!hover) {
-        Mouse.cursor = MouseCursor.HAND;
+        GameData.dragHoverCount += 1;
         hover = true;
       }
       color = 0x7F7F7F;
     } else {
       color = FlxColor.WHITE;
       if (hover) {
-        Mouse.cursor = MouseCursor.ARROW;
+        GameData.dragHoverCount -= 1;
         hover = false;
       }
     }
-    #end
 
     switch(state) {
       case TechThingState.Candidate:

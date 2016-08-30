@@ -1,15 +1,13 @@
 package;
 
 #if flash
-import flixel.FlxSprite;
-import flash.display.Sprite;
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
 #end
 
+import flixel.FlxSprite;
 import ui.TimerBar;
 import flixel.FlxG;
-import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import sprites.Paper;
 import sprites.Coffin;
@@ -63,6 +61,18 @@ class PlayState extends FlxState {
   }
 
   override public function update(elapsed:Float):Void {
+    #if flash
+    if (GameData.dragHoverCount > 0) {
+      Mouse.cursor = MouseCursor.HAND;
+    } else if (GameData.hoverCount > 0) {
+      Mouse.cursor = MouseCursor.BUTTON;
+    } else {
+      Mouse.cursor = MouseCursor.ARROW;
+
+      GameData.dragHoverCount = Std.int(Math.max(0, GameData.dragHoverCount));
+      GameData.hoverCount = Std.int(Math.max(0, GameData.hoverCount));
+    }
+    #end
 
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
       timerBar.onComplete(null);

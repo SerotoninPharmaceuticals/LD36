@@ -208,7 +208,6 @@ class MachineState extends FlxSubState {
       #if flash
       Mouse.cursor = MouseCursor.ARROW;
       #end
-
       paperHover = false;
     }
 

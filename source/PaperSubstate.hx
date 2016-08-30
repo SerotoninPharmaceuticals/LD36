@@ -1,5 +1,10 @@
 package;
 
+#if flash
+import flash.ui.MouseCursor;
+import flash.ui.Mouse;
+#end
+
 import flixel.util.FlxAxes;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -32,38 +37,44 @@ class PaperSubstate extends FlxSubState {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
     if (
-      FlxG.mouse.justPressed &&
-      (
-        FlxG.mouse.x < paper.x ||
-        FlxG.mouse.x > paper.x + paper.width
-      )
+      FlxG.mouse.x < paper.x ||
+      FlxG.mouse.x > paper.x + paper.width
     ) {
-      close();
-      return;
-    }
+      #if flash
+      Mouse.cursor = MouseCursor.ARROW;
+      #end
+      if (FlxG.mouse.justPressed) {
+        close();
+        return;
+      }
+    } else {
+      #if flash
+      Mouse.cursor = MouseCursor.HAND;
+      #end
 
-    var targetY:Float = 0;
-    var moved = false;
+      var targetY:Float = 0;
+      var moved = false;
 
-    if (FlxG.mouse.wheel != 0) {
-      targetY = paper.y + FlxG.mouse.wheel * wheel_speed;
-      moved = true;
-    }
-
-    else if (FlxG.mouse.pressed) {
-      if (lastMouseY > 0) {
-        targetY = paper.y + FlxG.mouse.y - lastMouseY;
+      if (FlxG.mouse.wheel != 0) {
+        targetY = paper.y + FlxG.mouse.wheel * wheel_speed;
         moved = true;
       }
-      lastMouseY = FlxG.mouse.y;
-    }
 
-    else if (FlxG.mouse.justReleased) {
-      lastMouseY = -1.0;
-    }
+      else if (FlxG.mouse.pressed) {
+        if (lastMouseY > 0) {
+          targetY = paper.y + FlxG.mouse.y - lastMouseY;
+          moved = true;
+        }
+        lastMouseY = FlxG.mouse.y;
+      }
 
-    if (moved) {
-      paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 10), 10);
+      else if (FlxG.mouse.justReleased) {
+        lastMouseY = -1.0;
+      }
+
+      if (moved) {
+        paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 10), 10);
+      }
     }
   }
 }

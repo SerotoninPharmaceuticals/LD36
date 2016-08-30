@@ -1,10 +1,5 @@
 package sprites;
 
-#if flash
-import flash.ui.MouseCursor;
-import flash.ui.Mouse;
-#end
-
 import flixel.util.FlxCollision;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic.FlxType;
@@ -40,19 +35,18 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   override public function update(elasped:Float):Void {
     handleClick();
 
-    #if flash
     if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
       if (!hover) {
-        Mouse.cursor = MouseCursor.BUTTON;
+        GameData.hoverCount += 1;
         hover = true;
       }
     } else {
       if (hover) {
-        Mouse.cursor = MouseCursor.ARROW;
+        GameData.hoverCount -= 1;
         hover = false;
       }
     }
-    #end
+
     super.update(elasped);
   }
 
