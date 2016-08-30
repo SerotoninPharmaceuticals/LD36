@@ -55,6 +55,7 @@ class GameConfig {
   public static var SCREEN_COLOR_YELLOW = FlxColor.fromRGB(216, 197, 65);
 
   public static inline var SCREEN_COLOR_GREEN = FlxColor.GREEN;
+  public static inline var SCREEN_BG_COLOR = 0xFF37363B;
 
   public static inline var ENABLE_CURSOR_OBLIQUE = false;
 

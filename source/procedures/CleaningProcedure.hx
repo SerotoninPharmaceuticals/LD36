@@ -1,8 +1,6 @@
 package procedures;
 
 import ui.TitleText;
-import flixel.tweens.FlxTween;
-import flixel.text.FlxText;
 import flixel.math.FlxPoint;
 import ui.PercentageText;
 import sprites.TechThing;
@@ -61,7 +59,12 @@ class CleaningProcedure extends FlxSpriteGroup {
     }
 
     var currentErasable:Erasable = erasableStep1 == null ? erasableStep2 : erasableStep1;
-    percentage.setPercentage(currentErasable.percentage);
+
+    if (currentErasable == erasableStep1) {
+      percentage.setPercentage(currentErasable.percentage);
+    } else {
+      percentage.setPercentage(1 - currentErasable.percentage);
+    }
 
 
     if (GameConfig.ENABLE_CURSOR_OBLIQUE) {
@@ -100,8 +103,8 @@ class CleaningProcedure extends FlxSpriteGroup {
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
-//      cursor.x = FlxG.mouse.x;
-//      cursor.y = FlxG.mouse.y;
+      cursor.x = FlxG.mouse.x;
+      cursor.y = FlxG.mouse.y;
       currentErasable.eraseEnabled = true;
     }
 
@@ -157,7 +160,7 @@ class CleaningProcedure extends FlxSpriteGroup {
       MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
       target.config.modeAStep2BackImage,
       target.config.modeAStep2FrontImage,
-      CURSOR_RADIUS
+      CURSOR_RADIUS, true
     );
     for (i in 0...erasableStep2.length) {
       add(erasableStep2.members[i]);

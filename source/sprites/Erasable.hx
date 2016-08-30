@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import openfl.display.BitmapData;
 import flash.geom.ColorTransform;
@@ -31,8 +32,13 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
   var lastBrushX:Float = 0.0;
   var lastBrushY:Float = 0.0;
 
-  public function new(_x:Int, _y:Int, _imageBack:String, _imageFront:String, _brushRaidus:Int):Void {
+  var drawMode = false;
+
+  public function new(_x:Int, _y:Int, _imageBack:String, _imageFront:String, _brushRaidus:Int, _drawMode = false):Void {
     super();
+
+    drawMode = _drawMode;
+    trace(drawMode);
 
     x = _x;
     y = _y;
@@ -44,8 +50,20 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     origin = new FlxSprite(x - 198, y - 48); // dirty fix.
     origin.loadGraphic(imageBack, false, 0, 0, true);
 
-    dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
-    dirt.loadGraphic(imageFront, false, 0, 0, true);
+    if (drawMode) {
+      var toDraw = new FlxSprite(x - 198, y - 48); // dirty fix.
+      toDraw.loadGraphic(imageFront, false, 0, 0, true);
+      add(toDraw);
+
+      dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
+      dirt.loadGraphic(imageFront, false, 0, 0, true);
+      dirt.updateFramePixels();
+      colorOverlay(dirt.framePixels, GameConfig.SCREEN_BG_COLOR);
+    } else {
+      dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
+      dirt.loadGraphic(imageFront, false, 0, 0, true);
+      dirt.updateFramePixels();
+    }
 
     brush = new FlxSprite();
     brush.makeGraphic(brushRadius*2, brushRadius*2, FlxColor.TRANSPARENT, true);
@@ -54,11 +72,28 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     add(origin);
     add(dirt);
     if (GameConfig.DEBUG) {
-      add(brush); // for TEST
+//      add(brush); // for TEST
     }
     dirtTotalsPxCount = getSolidPixelsCount(dirt.pixels);
   }
 
+  function colorOverlay(bitmap:BitmapData, _color:FlxColor) {
+    var color:FlxColor;
+    for (y in 0...bitmap.height) {
+      for (x in 0...bitmap.width) {
+        color = FlxColor.fromInt(bitmap.getPixel32(x, y));
+        if (color.alpha != 0) {
+          bitmap.setPixel32(x, y, _color);
+        }
+      }
+    }
+  }
+
+  var updated = false;
+
+  override public function draw() {
+    super.draw();
+  }
 
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
@@ -88,7 +123,6 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
         }
         if (end == -1) { end = Std.int(brush.width); }
 
-//        origin.pixels.copyPixels(dirt.pixels, new Rectangle(brush.x + start, brush.y + y, end - start, 1), new Point(brush.x + start, brush.y + y));
         dirt.framePixels.colorTransform(new Rectangle(brush.x + start - x, brush.y + innerY - y, end - start, 1), new ColorTransform(0, 0, 0, 0));
       }
 
@@ -104,9 +138,11 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
 
   private function getSolidPixelsCount(bitmap:BitmapData):Int {
     var count = 0;
+    var color:FlxColor;
     for (y in 0...bitmap.height) {
       for (x in 0...bitmap.width) {
-        if (bitmap.getPixel(x, y) != FlxColor.TRANSPARENT) {
+        color = FlxColor.fromInt(bitmap.getPixel32(x, y));
+        if (color.alpha != 0 && (color.red != 0 || color.blue != 0 || color.green != 0)) {
           count += 1;
         }
       }
@@ -116,6 +152,5 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
 
   private function countPercentage() {
     percentage = getSolidPixelsCount(dirt.framePixels) / dirtTotalsPxCount;
-    trace(percentage);
   }
 }
