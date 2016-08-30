@@ -14,7 +14,8 @@
   <!-- ____________________________ Window Settings ___________________________ -->
 
   <!--These window settings apply to all targets-->
-  <window width="800" height="480" fps="60" background="#000000" hardware="true" vsync="true"/>
+  <window width="800" height="480" fps="60" background="#000000" hardware="true" vsync="true" resizable="false"/>
+  <window if="web" orientation="landscape"  resizable="false"  width="800" height="480" />>
 
   <!--HTML5-specific-->
   <window if="html5" resizable="false"/>
