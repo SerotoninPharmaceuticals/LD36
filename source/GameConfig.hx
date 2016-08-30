@@ -263,11 +263,9 @@ class GameConfig {
       y: 77,
 
       procedureTypes: [
-        ProcedureType.VacuumPacking,
-        ProcedureType.AntiMagnetic,
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
-        ProcedureType.Electroplating
+        ProcedureType.VacuumPacking
       ],
 
       image: "",
