@@ -11,7 +11,7 @@ import flixel.util.FlxColor;
 
 class VacuumPackingProcedure extends FlxSpriteGroup {
 
-  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 20;
+  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 10;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
@@ -27,7 +27,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var pressure_per_press = 10;
   static inline var target_pressure = 80;
   static inline var max_pressure = 120;
-  static inline var pressure_drop_per_sec = 5;
+  static inline var pressure_drop_per_sec = 30;
 
   var moveEnabled = false;
 
