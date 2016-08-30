@@ -1,10 +1,6 @@
 package;
 
-#if flash
-import flash.ui.Mouse;
-import flash.ui.MouseCursor;
-#end
-
+import openfl.Assets;
 import flixel.FlxSprite;
 import ui.TimerBar;
 import flixel.FlxG;
@@ -17,6 +13,11 @@ import sprites.TechThing;
 import openfl.geom.Point;
 import flixel.FlxState;
 import flixel.system.FlxSound;
+
+#if flash
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
+#end
 
 
 class PlayState extends FlxState {
@@ -91,6 +92,11 @@ class PlayState extends FlxState {
 
       config.image = GameConfig.TECHTHINGS_PATH + config.codeName + ".png";
       config.imageAfter = GameConfig.TECHTHINGS_PATH + config.codeName + "_after.png";
+
+      if (Assets.exists(GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png")) {
+        trace("has");
+        config.imageHitbox = GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png";
+      }
 
       config.modeAStep1FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_front.png";
       config.modeAStep1BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";

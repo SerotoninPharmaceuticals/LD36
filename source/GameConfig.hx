@@ -19,28 +19,29 @@ typedef TechThingConfig = {
 
   var procedureTypes:Array<ProcedureType>;
 
-  var image:String;
-  var imageAfter:String;
+  @:optional var image:String;
+  @:optional var imageAfter:String;
+  @:optional var imageHitbox: String;
 
   // Mode A
-  var modeAStep1FrontImage:String;
-  var modeAStep1BackImage:String;
-  var modeAStep2FrontImage:String;
-  var modeAStep2BackImage:String;
+  @:optional var modeAStep1FrontImage:String;
+  @:optional var modeAStep1BackImage:String;
+  @:optional var modeAStep2FrontImage:String;
+  @:optional var modeAStep2BackImage:String;
 
   // Mode B
-  var modeBStep1Image:String;
-  var modeBStep2Image:String;
+  @:optional var modeBStep1Image:String;
+  @:optional var modeBStep2Image:String;
 
   // Mode C
-  var modeCImage:String;
+  @:optional var modeCImage:String;
 
   // Mode D
-  var modeDFrontImage:String;
-  var modeDBackImage:String;
+  @:optional var modeDFrontImage:String;
+  @:optional var modeDBackImage:String;
 
   // Mode E
-  var modeEImage:String;
+  @:optional var modeEImage:String;
 };
 
 
@@ -90,25 +91,7 @@ class GameConfig {
       procedureTypes: [
         ProcedureType.Cleaning,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "brain",
@@ -120,25 +103,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "disk",
@@ -150,25 +115,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "david",
@@ -180,25 +127,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Electroplating,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "gun",
@@ -210,25 +139,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Electroplating,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "bible",
@@ -239,25 +150,7 @@ class GameConfig {
       procedureTypes: [
         ProcedureType.Cleaning,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "cola",
@@ -269,25 +162,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "gold",
@@ -299,25 +174,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Electroplating,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "iphone",
@@ -329,25 +186,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "cd",
@@ -359,25 +198,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     },
     {
       codeName: "bonsai",
@@ -389,25 +210,7 @@ class GameConfig {
         ProcedureType.Cleaning,
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
-      ],
-
-      image: "",
-      imageAfter: "",
-
-      modeAStep1FrontImage: "",
-      modeAStep1BackImage: "",
-      modeAStep2FrontImage: "",
-      modeAStep2BackImage: "",
-
-      modeBStep1Image: "",
-      modeBStep2Image: "",
-
-      modeCImage: "",
-
-      modeDFrontImage: "",
-      modeDBackImage: "",
-
-      modeEImage: ""
+      ]
     }
   ];
 }

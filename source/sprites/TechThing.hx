@@ -36,6 +36,8 @@ class TechThing extends FlxExtendedSprite {
 
   var hover = false;
 
+  var hitbox:FlxSprite;
+
   public function new(X:Float = 0, Y:Float = 0, _machine:Machine, _coffinEntrance:Dropable<TechThing>, _config:TechThingConfig) {
     super(X, Y);
     FlxG.plugins.add(new FlxMouseControl());
@@ -51,6 +53,13 @@ class TechThing extends FlxExtendedSprite {
     state = TechThingState.Candidate;
 
     loadGraphic(config.image);
+
+    if (config.imageHitbox != null) {
+      hitbox = new FlxSprite(x, y);
+      hitbox.loadGraphic(config.imageHitbox);
+    } else {
+      hitbox = this;
+    }
   }
 
   public function toAfter() {
@@ -58,7 +67,10 @@ class TechThing extends FlxExtendedSprite {
   }
 
   override public function update(elasped:Float):Void {
-    if (draggable && !isDragged && FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), this)) {
+    if (
+      draggable && !isDragged &&
+      FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)
+    ) {
       if (!hover) {
         GameData.dragHoverCount += 1;
         hover = true;
