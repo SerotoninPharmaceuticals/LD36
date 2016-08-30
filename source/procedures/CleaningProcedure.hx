@@ -13,7 +13,7 @@ import flixel.util.FlxColor;
 
 class CleaningProcedure extends FlxSpriteGroup {
 
-  static inline var CURSOR_RADIUS = 30;
+  static inline var CURSOR_RADIUS = 20;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
