@@ -11,7 +11,7 @@ import flixel.text.FlxText;
 class PressureBarHoriz extends FlxTypedGroup<FlxSprite> {
 
 
-  private static inline var height = 10;
+  private static inline var height = 16;
   private static inline var width = 300;
 
   private static inline var text_width = 80;
@@ -36,6 +36,8 @@ class PressureBarHoriz extends FlxTypedGroup<FlxSprite> {
     total = _total;
 
     title = new FlxText(x, y, text_width, "Pressure");
+    title.color = GameConfig.SCREEN_COLOR_YELLOW;
+    title.size = 13;
     add(title);
 
     var target = new FlxSprite(x + bar_x + (target_start / total) * bar_width + 1, y + 1);
@@ -44,11 +46,16 @@ class PressureBarHoriz extends FlxTypedGroup<FlxSprite> {
 
     border = new FlxSprite(x + bar_x, y);
     border.makeGraphic(bar_width, height, FlxColor.TRANSPARENT);
-    FlxSpriteUtil.drawRect(border, 0, 0, bar_width - 1, height - 1, FlxColor.TRANSPARENT, { color: GameConfig.SCREEN_COLOR_YELLOW0 });
+    FlxSpriteUtil.drawRect(border, 1, 1, bar_width - 2, height - 2, FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      thickness: 2,
+      pixelHinting: true
+    });
+
     add(border);
 
-    cursor = new FlxSprite(x + bar_x, y - 4);
-    cursor.makeGraphic(cursor_width, height + 8, GameConfig.SCREEN_COLOR_YELLOW0);
+    cursor = new FlxSprite(x + bar_x, y - 2);
+    cursor.makeGraphic(cursor_width, height + 4, GameConfig.SCREEN_COLOR_YELLOW);
     add(cursor);
   }
 

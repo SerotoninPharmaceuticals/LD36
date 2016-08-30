@@ -1,5 +1,7 @@
 package procedures;
 
+import flixel.text.FlxText;
+import ui.TitleText;
 import sprites.TechThing;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -17,6 +19,9 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   private static inline var VALID_AREA_DEG = 36.8699;
   private static inline var VALID_AREA_INIT_DEG = 26.5650;
 
+  private static inline var DENSIMETER_X = 220;
+  private static inline var DENSIMETER_Y = 140;
+
   var target:TechThing;
   var onFinsihed:Void->Void;
 
@@ -25,18 +30,27 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
     createSprites();
+
+    add(new TitleText("Electroplating Procedure"));
+
   }
 
   private function createSprites():Void {
-    sector = new FlxSprite(5, 5);
+    sector = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
     sector.loadGraphic("assets/images/procedures/densimeter_sector.png");
-    validArea = new FlxSprite(5, 5);
+    validArea = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
     validArea.loadGraphic("assets/images/procedures/densimeter_valid_area.png");
-    cursor = new FlxSprite(5, 5);
+    cursor = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
     cursor.loadGraphic("assets/images/procedures/densimeter_cursor.png");
+
+    var name = new FlxText(DENSIMETER_X - 50, DENSIMETER_Y + 100, 200, "Current Density");
+    name.size = 15;
+    name.color = GameConfig.SCREEN_COLOR_YELLOW0;
+    add(name);
 
     var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
     itemBody.loadGraphic(target.config.modeCImage);
+
     add(itemBody);
 
     add(sector);

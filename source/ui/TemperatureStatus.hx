@@ -6,9 +6,10 @@ import flixel.text.FlxText;
 
 class TemperatureStatus extends FlxSpriteGroup {
 
-  private static inline var WIDTH = 300;
-  private static inline var TEMP_TEXT_X = 20;
-  private static inline var TEMP_TEXT_Y = 20;
+  private static inline var WIDTH = 130;
+  private static inline var TEMP_SIZE = 30;
+  private static inline var NAME_SIZE = 14;
+  private static inline var LINE_GAP = 8;
 
   private var tempText:FlxText;
   private var name:FlxText;
@@ -16,8 +17,15 @@ class TemperatureStatus extends FlxSpriteGroup {
   public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, InitialTemp:Float = 30.5):Void {
     super(X, Y, MaxSize);
 
-    name = new FlxText(0, 0, WIDTH, "Temperature");
-    tempText = new FlxText(TEMP_TEXT_X, TEMP_TEXT_Y, WIDTH, tempToText(InitialTemp));
+    tempText = new FlxText(0, 0, WIDTH, tempToText(InitialTemp));
+    name = new FlxText(0, TEMP_SIZE + LINE_GAP, WIDTH, "Temperature");
+
+    tempText.alignment = FlxTextAlign.RIGHT;
+    tempText.size = TEMP_SIZE;
+
+    name.alignment = FlxTextAlign.RIGHT;
+    name.size = NAME_SIZE;
+
     add(name);
     add(tempText);
     setInvalid();
@@ -28,13 +36,13 @@ class TemperatureStatus extends FlxSpriteGroup {
   }
 
   public function setValid():Void {
-    name.setFormat(null, 14, 0xFF00FC00);
-    tempText.setFormat(null, 15, 0xFF00FC00);
+    name.color = 0xFF00FC00;
+    tempText.color = 0xFF00FC00;
   }
 
   public function setInvalid():Void {
-    name.setFormat(null, 14, GameConfig.SCREEN_COLOR_YELLOW0);
-    tempText.setFormat(null, 15, GameConfig.SCREEN_COLOR_YELLOW0);
+    name.color = GameConfig.SCREEN_COLOR_YELLOW;
+    tempText.color = GameConfig.SCREEN_COLOR_YELLOW;
   }
 
   private function tempToText(temp:Float) {

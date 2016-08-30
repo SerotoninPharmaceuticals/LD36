@@ -1,8 +1,10 @@
 package procedures;
 
+import ui.TitleText;
+import flixel.tweens.FlxTween;
+import flixel.text.FlxText;
 import flixel.math.FlxPoint;
 import ui.PercentageText;
-import flixel.text.FlxText;
 import sprites.TechThing;
 import sprites.Erasable;
 import flixel.util.FlxSpriteUtil;
@@ -13,7 +15,7 @@ import flixel.util.FlxColor;
 
 class CleaningProcedure extends FlxSpriteGroup {
 
-  static inline var CURSOR_RADIUS = 20;
+  static inline var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 10;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
@@ -33,13 +35,18 @@ class CleaningProcedure extends FlxSpriteGroup {
 
   private var cursor:FlxSprite;
 
+  var titleText:TitleText;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText(0, 0);
+    percentage = new PercentageText(10, 248);
     add(percentage);
+
+    titleText = new TitleText();
+    add(titleText);
 
     createStep1();
   }
@@ -107,7 +114,13 @@ class CleaningProcedure extends FlxSpriteGroup {
     cursor = new FlxSprite();
     cursor.setPosition(MachineState.SCREEN_MAIN_WIDTH/2, MachineState.SCREEN_MAIN_HEIGHT/2);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.WHITE);
+
+    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      pixelHinting: true,
+      thickness: 2
+    });
+
     cursor.drag = new FlxPoint(CURSOR_DRAG, CURSOR_DRAG);
     cursor.maxVelocity = new FlxPoint(CURSOR_MOVE_MAX_SPEED, CURSOR_MOVE_MAX_SPEED);
     add(cursor);
@@ -123,6 +136,8 @@ class CleaningProcedure extends FlxSpriteGroup {
     for (i in 0...erasableStep1.length) {
       add(erasableStep1.members[i]);
     }
+
+    titleText.setText("Surface Cleansing");
 
     createCursor();
   }
@@ -147,6 +162,8 @@ class CleaningProcedure extends FlxSpriteGroup {
     for (i in 0...erasableStep2.length) {
       add(erasableStep2.members[i]);
     }
+
+    titleText.setText("Gramma-Ray Sterillization");
 
     createCursor();
   }

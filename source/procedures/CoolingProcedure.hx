@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TitleText;
 import flixel.FlxSprite;
 import sprites.TechThing;
 import flixel.FlxG;
@@ -10,8 +11,8 @@ import ui.TemperatureStatus;
 
 class CoolingProcedure extends FlxSpriteGroup {
 
-  static inline var SCREEN_TEMP_STATUS_X = 200;
-  static inline var SCREEN_TEMP_STATUS_Y = 40;
+  static inline var SCREEN_TEMP_STATUS_X = 180;
+  static inline var SCREEN_TEMP_STATUS_Y = 207;
 
   private var temperatureStatus:TemperatureStatus;
   private var timer:FlxTimer;
@@ -34,6 +35,8 @@ class CoolingProcedure extends FlxSpriteGroup {
     var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
     itemBody.loadGraphic(target.config.modeBStep1Image);
     add(itemBody);
+
+    add(new TitleText("Flash Freezing"));
   }
 
   override public function update(elapsed:Float):Void {

@@ -222,7 +222,7 @@ class MachineState extends FlxSubState {
   private function createScreen():Void {
     screen = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
     var screenBg = new FlxSprite(0, 0);
-    screenBg.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, FlxColor.GREEN, true);
+    screenBg.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, FlxColor.TRANSPARENT, true);
     screen.add(screenBg);
     createScreenMenu();
 

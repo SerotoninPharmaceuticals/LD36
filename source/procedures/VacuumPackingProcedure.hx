@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TitleText;
 import ui.PressureBarHoriz;
 import GameConfig;
 import sprites.TechThing;
@@ -19,15 +20,15 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_DOWN = 3;
   static inline var CURSOR_MOVE_SPEED = 200;
 
-  static inline var anchor_x = 40;
-  static inline var anchor_y = 50;
-  static inline var anchor_h_margin = 80;
-  static inline var anchor_v_margin = 150;
+  static inline var anchor_x = 48;
+  static inline var anchor_y = 53;
+  static inline var anchor_h_margin = 93;
+  static inline var anchor_v_margin = 166;
 
   static inline var pressure_per_press = 10;
   static inline var target_pressure = 80;
   static inline var max_pressure = 120;
-  static inline var pressure_drop_per_sec = 30;
+  static inline var pressure_drop_per_sec = 50;
 
   var moveEnabled = false;
 
@@ -53,6 +54,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
       [0, anchor_v_margin], [anchor_h_margin, anchor_v_margin], [anchor_h_margin*2, anchor_v_margin]
     ];
     remainAnchorCounts = anchorPoints.length;
+
+    add(new TitleText("Vacuum Packaging"));
 
     createStep1();
   }
@@ -119,24 +122,40 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     cursor = new FlxSprite();
     cursor.setPosition(MachineState.SCREEN_MAIN_WIDTH/2, MachineState.SCREEN_MAIN_HEIGHT/2);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.WHITE);
+    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      pixelHinting: true,
+      thickness: 2
+    });
     add(cursor);
   }
 
   function createAnchor():Void {
     for(i in 0...anchorPoints.length) {
-      var anchor = new FlxSprite(anchor_x + anchorPoints[i][0], anchor_y + anchorPoints[i][1]);
-      anchor.makeGraphic(30, 30, FlxColor.YELLOW);
+      var anchor = new FlxSprite();
+      anchor.loadGraphic(GameConfig.IMAGE_PATH + "procedures/anchor.png");
+      anchor.x = anchor_x + anchorPoints[i][0] - anchor.width / 2;
+      anchor.y = anchor_y + anchorPoints[i][1] - anchor.height / 2;
       anchors.push(anchor);
       add(anchor);
     }
   }
 
   function createPressureBar() {
-    pressureBar = new PressureBarHoriz(10, 230, target_pressure, max_pressure, max_pressure);
+    pressureBar = new PressureBarHoriz(10, 240, target_pressure, max_pressure, max_pressure);
     for (i in 0...pressureBar.length) {
       add(pressureBar.members[i]);
     }
+  }
+
+  function createRect() {
+    var rect = new FlxSprite(0, 0);
+    rect.makeGraphic(MachineState.SCREEN_MAIN_WIDTH, MachineState.SCREEN_MAIN_HEIGHT, FlxColor.TRANSPARENT);
+    FlxSpriteUtil.drawRect(rect, anchor_x - 1, anchor_y - 1, anchor_h_margin * 2 , anchor_v_margin , FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW1,
+      pixelHinting: true
+    });
+    add(rect);
   }
 
   function createStep1():Void {
@@ -144,6 +163,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     itemBody.loadGraphic(target.config.modeEImage);
     add(itemBody);
 
+    createRect();
     createAnchor();
     createCursor();
     createPressureBar();

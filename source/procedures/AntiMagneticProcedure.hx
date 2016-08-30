@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TitleText;
 import sprites.TechThing;
 import flixel.math.FlxPoint;
 import ui.PercentageText;
@@ -13,7 +14,7 @@ import flixel.util.FlxColor;
 
 class AntiMagneticProcedure extends FlxSpriteGroup {
 
-  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 20;
+  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 15;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
@@ -23,7 +24,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
   var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
-  static inline var cursor_drop_per_sec = 10;
+  static inline var cursor_drop_per_sec = 20;
   static inline var cursor_min_r:Int = 4;
   static inline var cursor_gain_per_press:Int = 2;
 
@@ -42,8 +43,10 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText(0, 0);
+    percentage = new PercentageText(10, 248);
     add(percentage);
+
+    add(new TitleText("Anti-Magnetic Coating"));
 
     createStep1();
   }
@@ -114,7 +117,13 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     cursor = new FlxSprite();
     cursor.setPosition(MachineState.SCREEN_MAIN_WIDTH/2, MachineState.SCREEN_MAIN_HEIGHT/2);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.WHITE);
+
+    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      pixelHinting: true,
+      thickness: 2
+    });
+
     cursor.drag = new FlxPoint(CURSOR_DRAG, CURSOR_DRAG);
     cursor.maxVelocity = new FlxPoint(CURSOR_MOVE_MAX_SPEED, CURSOR_MOVE_MAX_SPEED);
     add(cursor);
@@ -138,7 +147,11 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     cursor.x = cursor.x + cursor.width/2 - r;
     cursor.y = cursor.y + cursor.height/2 - r;
     cursor.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(cursor, r, r, r, FlxColor.WHITE);
+    FlxSpriteUtil.drawCircle(cursor, r, r, r, FlxColor.TRANSPARENT, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      pixelHinting: true,
+      thickness: 2
+    });
 
     erasableStep1.brush.setPosition(cursor.x, cursor.y);
     erasableStep1.brush.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
