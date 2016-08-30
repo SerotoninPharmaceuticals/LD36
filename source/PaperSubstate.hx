@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 
 class PaperSubstate extends FlxSubState {
+  var wheel_speed = 5;
   var paper:FlxSprite;
   public function new(_paper:FlxSprite):Void {
     super();
@@ -41,11 +42,11 @@ class PaperSubstate extends FlxSubState {
     else if (FlxG.mouse.wheel != 0) {
       if (FlxG.mouse.wheel > 0) {
         if (paper.y < 0) {
-          paper.y = Math.min(paper.y + FlxG.mouse.wheel, 10);
+          paper.y = Math.min(paper.y + FlxG.mouse.wheel * wheel_speed, 10);
         }
       } else {
         if (paper.y + paper.height > FlxG.height) {
-          paper.y = Math.max(paper.y + FlxG.mouse.wheel, FlxG.height - paper.height - 10);
+          paper.y = Math.max(paper.y + FlxG.mouse.wheel * wheel_speed, FlxG.height - paper.height - 10);
         }
       }
     }
