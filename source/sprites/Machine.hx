@@ -49,7 +49,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadEntrance():Void {
-    entrance = new Dropable(151, 362, "assets/images/hatchin.png", null);
+    entrance = new Dropable(151, 364, "assets/images/hatchin.png", null);
     add(entrance);
     entrance.handleDrop = handleEntranceDrop;
   }
