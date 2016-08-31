@@ -60,12 +60,7 @@ class CleaningProcedure extends FlxSpriteGroup {
 
     var currentErasable:Erasable = erasableStep1 == null ? erasableStep2 : erasableStep1;
 
-    if (currentErasable == erasableStep1) {
-      percentage.setPercentage(currentErasable.percentage);
-    } else {
-      percentage.setPercentage(1 - currentErasable.percentage);
-    }
-
+    percentage.setPercentage(1 - currentErasable.percentage);
 
     if (GameConfig.ENABLE_CURSOR_OBLIQUE) {
       var upOrDownPressed:Bool = (FlxG.keys.pressed.UP || FlxG.keys.pressed.DOWN ||
