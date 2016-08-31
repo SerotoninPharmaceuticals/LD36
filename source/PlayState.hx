@@ -152,7 +152,6 @@ class PlayState extends FlxState {
   }
 
   function loadPapers() {
-    add(new Paper(papersPoint.x, papersPoint.y, "assets/images/paper1_small.png", "assets/images/paper1.png", handleOpenPaper));
 
     add(new Paper(305, 102, "assets/images/tech_thing_papers/note_1_sphere_small.png",
                   "assets/images/tech_thing_papers/note_1_sphere.png", handleOpenPaper));

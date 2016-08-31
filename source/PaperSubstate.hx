@@ -28,7 +28,7 @@ class PaperSubstate extends FlxSubState {
     add(background);
 
     paper.screenCenter(FlxAxes.X);
-    paper.y = 10;
+    paper.y = 40;
     add(paper);
   }
 
@@ -73,7 +73,7 @@ class PaperSubstate extends FlxSubState {
       }
 
       if (moved) {
-        paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 10), 10);
+        paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 40), 40);
       }
     }
   }
