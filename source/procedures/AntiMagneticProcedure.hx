@@ -65,7 +65,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     changeCursorSize(Std.int(cursorRadius));
 
     var currentErasable:Erasable = erasableStep1;
-    percentage.setPercentage(currentErasable.percentage);
+    percentage.setPercentage(1 - currentErasable.percentage);
 
     if (GameConfig.ENABLE_CURSOR_OBLIQUE) {
       var upOrDownPressed:Bool = (FlxG.keys.pressed.UP || FlxG.keys.pressed.DOWN ||
@@ -134,7 +134,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
       MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
       target.config.modeDBackImage,
       target.config.modeDFrontImage,
-      CURSOR_RADIUS
+      CURSOR_RADIUS, true
     );
     for (i in 0...erasableStep1.length) {
       add(erasableStep1.members[i]);
