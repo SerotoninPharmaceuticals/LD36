@@ -191,7 +191,7 @@ class GameConfig {
     {
       codeName: "cd",
       name: "CD",
-      x: 316,
+      x: 326,
       y: 92,
 
       procedureTypes: [
