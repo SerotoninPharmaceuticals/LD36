@@ -113,6 +113,7 @@ class GameConfig {
 
       procedureTypes: [
         ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
       ]
@@ -160,7 +161,7 @@ class GameConfig {
 
       procedureTypes: [
         ProcedureType.Cleaning,
-        ProcedureType.Cooling,
+        ProcedureType.Electroplating,
         ProcedureType.VacuumPacking
       ]
     },
@@ -184,6 +185,7 @@ class GameConfig {
 
       procedureTypes: [
         ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
       ]
@@ -196,7 +198,7 @@ class GameConfig {
 
       procedureTypes: [
         ProcedureType.Cleaning,
-        ProcedureType.AntiMagnetic,
+        ProcedureType.Electroplating,
         ProcedureType.VacuumPacking
       ]
     },
