@@ -68,6 +68,7 @@ class TechThing extends FlxExtendedSprite {
   override public function update(elasped:Float):Void {
     if (
       draggable && !isDragged &&
+      !FlxMouseControl.isDragging &&
       FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)
     ) {
       if (!hover) {
