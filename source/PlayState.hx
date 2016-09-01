@@ -170,7 +170,7 @@ class PlayState extends FlxState {
     add(new Paper(710, 195, "assets/images/tech_thing_papers/note_11_bonsai_small.png",
                   "assets/images/tech_thing_papers/note_11_bonsai.png", handleOpenPaper));
     // Manual
-    add(new Paper(174, 262, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
+    add(new Paper(174, 258, "assets/images/manual_small.png", "assets/images/manual.png", handleOpenPaper));
   }
 
   function loadFrontPapers() {
