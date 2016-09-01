@@ -1,5 +1,6 @@
 package;
 
+import flixel.addons.plugin.FlxMouseControl;
 import openfl.Assets;
 import flixel.FlxSprite;
 import ui.TimerBar;
@@ -30,15 +31,19 @@ class PlayState extends FlxState {
 
   // Sprites
   var techThingGroup:FlxTypedSpriteGroup<TechThing>;
+  var techThingFrontGroup:FlxTypedSpriteGroup<TechThing>;
   var machine:Machine;
   var coffin:Coffin;
 
   var timerBar:TimerBar;
 
+  var mouseControl:FlxMouseControl = new FlxMouseControl();
+
   override public function create():Void {
     super.create();
     FlxG.mouse.useSystemCursor = true;
 
+    FlxG.plugins.add(mouseControl);
 
     var bg = new FlxSprite();
     bg.loadGraphic("assets/images/bg.png");
@@ -53,6 +58,9 @@ class PlayState extends FlxState {
     loadTechObjects();
     loadFrontPapers();
 
+    techThingFrontGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
+    add(techThingFrontGroup);
+
     createTimerBar();
 
     FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
@@ -60,6 +68,7 @@ class PlayState extends FlxState {
     machineSound.pan = -0.5;
     machineSound.play();
   }
+
 
   override public function update(elapsed:Float):Void {
     #if flash
@@ -75,6 +84,26 @@ class PlayState extends FlxState {
     }
     #end
 
+    // Moving dragging tech thing to front.
+    if (
+      FlxMouseControl.isDragging &&
+      Type.getClass(FlxMouseControl.dragTarget) == TechThing &&
+      techThingFrontGroup.length == 0
+    ) {
+      techThingFrontGroup.add(techThingGroup.remove(cast(FlxMouseControl.dragTarget, TechThing)));
+    }
+
+    // Moving the just draged tech thing back.
+    if (
+      !FlxMouseControl.isDragging &&
+      techThingFrontGroup.length > 0
+    ) {
+      techThingFrontGroup.forEach(function(techThing:TechThing) {
+        techThingGroup.add(techThing);
+      });
+      techThingFrontGroup.clear();
+    }
+
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
       timerBar.onComplete(null);
     }
@@ -87,6 +116,7 @@ class PlayState extends FlxState {
     add(gunSupport);
 
     techThingGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
+
     for(i in 0...GameConfig.techThingConfigs.length) {
       var config = GameConfig.techThingConfigs[i];
 

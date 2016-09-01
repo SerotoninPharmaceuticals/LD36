@@ -40,7 +40,6 @@ class TechThing extends FlxExtendedSprite {
 
   public function new(X:Float = 0, Y:Float = 0, _machine:Machine, _coffinEntrance:Dropable<TechThing>, _config:TechThingConfig) {
     super(X, Y);
-    FlxG.plugins.add(new FlxMouseControl());
 
     machine = _machine;
     machineEntrance = _machine.entrance;
