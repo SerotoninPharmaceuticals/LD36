@@ -165,9 +165,11 @@ class TechThing extends FlxExtendedSprite {
 
 
   private function onDragStart(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
+    scale.x = scale.y = 1.1;
   }
 
   private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
+    scale.x = scale.y = 1;
     machineEntrance.stopHint();
     coffinEntrance.stopHint();
     Log.trace(state);
