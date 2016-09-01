@@ -10,7 +10,7 @@ import flixel.util.FlxTimer;
 
 class TimerBar extends FlxSpriteGroup {
 
-  public static inline var TIME_SPEED = 20;
+  public static inline var TIME_SPEED = 6;
 
   private static inline var DIGIT_WIDTH = 138;
   private static inline var DIGIT_HEIGHT = 168;

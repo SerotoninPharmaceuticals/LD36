@@ -38,15 +38,9 @@ class IntroState extends FlxState {
   }
 
   private function createText():Void {
-    var titleText = new FlxText(0, 120, 800, "A FUNERAL");
-    titleText.setFormat("assets/fonts/Avera-Sans-Cn-Lt.ttf", 120, FlxColor.WHITE, CENTER);
-    var text0 = new FlxText(0, 285, 800, "A Short Game for Ludum Dare 36");
-    text0.setFormat("assets/fonts/Avera-Sans-Cn-Lt.ttf", 24, FlxColor.WHITE, CENTER);
-    var text1 = new FlxText(0, 315, 800, "- click anywhere to start -");
-    text1.setFormat("assets/fonts/Avera-Sans-Cn-Lt.ttf", 18, FlxColor.WHITE, CENTER);
-    add(titleText);
-    add(text0);
-    add(text1);
+    var titletext = new FlxSprite(304,135); 
+    titletext.loadGraphic("assets/images/titletext.png");
+        add(titletext);
   }
 
   override public function update(elapsed:Float):Void {
