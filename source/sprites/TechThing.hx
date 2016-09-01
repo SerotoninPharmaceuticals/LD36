@@ -155,7 +155,7 @@ class TechThing extends FlxExtendedSprite {
     mouseStartDragCallback = onDragStart;
     mouseStopDragCallback = onDragStop;
 
-    enableMouseDrag();
+    enableMouseDrag(false, true);
   }
 
   public function setState(_state:TechThingState):Void {
