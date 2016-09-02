@@ -165,7 +165,7 @@ class TechThing extends FlxExtendedSprite {
 
 
   private function onDragStart(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
-    scale.x = scale.y = 1.1;
+    scale.x = scale.y = 1.08;
   }
 
   private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
