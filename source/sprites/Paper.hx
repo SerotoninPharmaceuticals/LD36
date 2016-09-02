@@ -1,5 +1,6 @@
 package sprites;
 
+import openfl.Assets;
 import flixel.util.FlxCollision;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxBasic.FlxType;
@@ -12,19 +13,29 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   var onOpen:FlxSprite->Void;
 
   var paper:FlxSprite;
+  var hitbox:FlxSprite;
 
   var largeImage:String;
   var paperSound:FlxSound;
 
   var hover = false;
 
-  public function new(X:Float = 0, Y:Float = 0, image:String, _largeImage:String, _onOpen:FlxSprite->Void) {
+  public function new(X:Float = 0, Y:Float = 0, name:String, _onOpen:FlxSprite->Void) {
     super();
     paper = new FlxSprite(X, Y);
+    var image:String = GameConfig.IMAGE_PATH + name + '_small.png';
+
     paper.loadGraphic(image);
+    largeImage = GameConfig.IMAGE_PATH + name + '.png';
 
+    if (Assets.exists(GameConfig.IMAGE_PATH + name + "_small_hitbox.png")) {
+      hitbox = new FlxSprite(X, Y);
+      hitbox.loadGraphic(GameConfig.IMAGE_PATH + name + "_small_hitbox.png");
+      trace("loaded hitbox");
+    } else {
+      hitbox = paper;
+    }
 
-    largeImage = _largeImage;
     onOpen = _onOpen;
 
     paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.6, false);
@@ -35,7 +46,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   override public function update(elasped:Float):Void {
     handleClick();
 
-    if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
+    if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)) {
       if (!hover) {
         GameData.hoverCount += 1;
         hover = true;
@@ -52,7 +63,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
   function handleClick() {
     if (FlxG.mouse.justPressed && !opened) {
-      if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), paper)) {
+      if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)) {
 //      if (paper.pixels.getPixel(FlxG.mouse.x, FlxG.mouse.y) != FlxColor.TRANSPARENT) {
         var largePaper = new FlxSprite(50, 0);
         paperSound.play();
