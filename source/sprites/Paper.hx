@@ -10,7 +10,7 @@ import flixel.system.FlxSound;
 
 class Paper extends FlxTypedGroup<FlxSprite> {
   var opened = false;
-  var onOpen:FlxSprite->Void;
+  var onOpen:FlxSprite->(Void->Void)->Void;
 
   var paper:FlxSprite;
   var hitbox:FlxSprite;
@@ -20,7 +20,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
   var hover = false;
 
-  public function new(X:Float = 0, Y:Float = 0, name:String, _onOpen:FlxSprite->Void) {
+  public function new(X:Float = 0, Y:Float = 0, name:String, _onOpen:FlxSprite->(Void->Void)->Void) {
     super();
     paper = new FlxSprite(X, Y);
     var image:String = GameConfig.IMAGE_PATH + name + '_small.png';
@@ -64,11 +64,15 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   function handleClick() {
     if (FlxG.mouse.justPressed && !opened) {
       if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)) {
-//      if (paper.pixels.getPixel(FlxG.mouse.x, FlxG.mouse.y) != FlxColor.TRANSPARENT) {
         var largePaper = new FlxSprite(50, 0);
         paperSound.play();
         largePaper.loadGraphic(largeImage);
-        onOpen(largePaper);
+
+        paper.kill();
+
+        onOpen(largePaper, function() {
+          paper.revive();
+        });
       }
     }
   }

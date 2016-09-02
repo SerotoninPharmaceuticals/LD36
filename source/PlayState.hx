@@ -199,8 +199,10 @@ class PlayState extends FlxState {
     add(new Paper(602, 105, "tech_thing_papers/note_5_pistol", handleOpenPaper));
   }
 
-  function handleOpenPaper(paper:FlxSprite) {
-    openSubState(new PaperSubstate(paper));
+  function handleOpenPaper(paper:FlxSprite, onClose:Void->Void) {
+    var substate:PaperSubstate = new PaperSubstate(paper);
+    substate.closeCallback = onClose;
+    openSubState(substate);
   }
 
   private function createTimerBar():Void {
