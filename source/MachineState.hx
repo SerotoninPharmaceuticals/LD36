@@ -89,7 +89,7 @@ class MachineState extends FlxSubState {
     var i:Int;
     var light:FlxSprite;
     for (i in 0...5) {
-      light = new FlxSprite(734, 52 + 60 * i);
+      light = new FlxSprite(707, 34 + 55 * i);
       light.loadGraphic(LIGHT_OFF_IMAGE);
       lights.push(light);
       add(light);
@@ -99,15 +99,15 @@ class MachineState extends FlxSubState {
   private function turnOnLight(index):Void {
     var light:FlxSprite = lights[index];
     light.loadGraphic(LIGHT_ON_IMAGE);
-    light.x = 709;
-    light.y = 27 + 60 * index;
+    light.x = 707;
+    light.y = 34 + 55 * index;
   }
 
   private function turnOffLight(index):Void {
     var light:FlxSprite = lights[index];
     light.loadGraphic(LIGHT_OFF_IMAGE);
-    light.x = 734;
-    light.y = 52 + 60 * index;
+    light.x = 707;
+    light.y = 34 + 55 * index;
   }
 
   private function createControlStick():Void {
