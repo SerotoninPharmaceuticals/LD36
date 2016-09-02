@@ -56,7 +56,7 @@ class TimerBar extends FlxSpriteGroup {
 
   public function start():Void {
     isStarted = true;
-    timer.start(currentTime / GameConfig.TIME_SCALE, onComplete);
+    timer.start(currentTime / (GameConfig.TIME_SCALE / 60), onComplete);
   }
 
   public function pause():Void {
@@ -102,7 +102,7 @@ class TimerBar extends FlxSpriteGroup {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
     if (isStarted) {
-      currentTime = Std.int(timer.timeLeft * GameConfig.TIME_SCALE);
+      currentTime = Std.int(timer.timeLeft * GameConfig.TIME_SCALE / 60);
       var min:Int = currentTime % 60;
       var hour:Int = Std.int(currentTime / 60);
       digits[0].animation.frameIndex = Std.int(hour / 10);
