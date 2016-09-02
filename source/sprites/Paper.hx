@@ -3,7 +3,6 @@ package sprites;
 import openfl.Assets;
 import flixel.util.FlxCollision;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.FlxBasic.FlxType;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxSound;
@@ -31,7 +30,6 @@ class Paper extends FlxTypedGroup<FlxSprite> {
     if (Assets.exists(GameConfig.IMAGE_PATH + name + "_small_hitbox.png")) {
       hitbox = new FlxSprite(X, Y);
       hitbox.loadGraphic(GameConfig.IMAGE_PATH + name + "_small_hitbox.png");
-      trace("loaded hitbox");
     } else {
       hitbox = paper;
     }
