@@ -81,6 +81,8 @@ class GameConfig {
   public static inline var SCREEN_TECH_THING_X = 55;
   public static inline var SCREEN_TECH_THING_Y = 37;
 
+  public static inline var TIME_SCALE = 6;  // The scale factor of the play time
+
   public static var techThingConfigs:Array<TechThingConfig> = [
     {
       codeName: "ball",

@@ -10,8 +10,6 @@ import flixel.util.FlxTimer;
 
 class TimerBar extends FlxSpriteGroup {
 
-  public static inline var TIME_SPEED = 6;
-
   private static inline var DIGIT_WIDTH = 138;
   private static inline var DIGIT_HEIGHT = 168;
 
@@ -58,7 +56,7 @@ class TimerBar extends FlxSpriteGroup {
 
   public function start():Void {
     isStarted = true;
-    timer.start(currentTime / TIME_SPEED, onComplete);
+    timer.start(currentTime / GameConfig.TIME_SCALE, onComplete);
   }
 
   public function pause():Void {
@@ -104,7 +102,7 @@ class TimerBar extends FlxSpriteGroup {
   override public function update(elapsed:Float):Void {
     super.update(elapsed);
     if (isStarted) {
-      currentTime = Std.int(timer.timeLeft * TIME_SPEED);
+      currentTime = Std.int(timer.timeLeft * GameConfig.TIME_SCALE);
       var min:Int = currentTime % 60;
       var hour:Int = Std.int(currentTime / 60);
       digits[0].animation.frameIndex = Std.int(hour / 10);
