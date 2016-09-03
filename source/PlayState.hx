@@ -127,9 +127,9 @@ class PlayState extends FlxState {
         config.imageHitbox = GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png";
       }
 
-      config.modeAStep1FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step1_front.png";
+      config.modeAStep1FrontImage = "assets/images/pattern1.png";
       config.modeAStep1BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
-      config.modeAStep2FrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_a_step2_front.png";
+      config.modeAStep2FrontImage = "assets/images/pattern2.png";
       config.modeAStep2BackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
       config.modeBStep1Image = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
@@ -137,7 +137,7 @@ class PlayState extends FlxState {
 
       config.modeCImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
-      config.modeDFrontImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_d_front.png";
+      config.modeDFrontImage = "assets/images/pattern3.png";
       config.modeDBackImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";
 
       config.modeEImage = GameConfig.TECHTHINGS_PATH + config.codeName + "_mode_back.png";

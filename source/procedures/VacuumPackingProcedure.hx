@@ -18,7 +18,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_RIGHT = 1;
   static inline var CURSOR_MOVE_UP = 2;
   static inline var CURSOR_MOVE_DOWN = 3;
-  static inline var CURSOR_MOVE_SPEED = 200;
+  static inline var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
 
   static inline var anchor_x = 48;
   static inline var anchor_y = 53;
@@ -182,7 +182,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   }
 
   private function moveCursor(action:Int, elapsed:Float) {
-    var movement = elapsed * CURSOR_MOVE_SPEED;
+    var movement = elapsed * CURSOR_MOVE_MAX_SPEED;
     switch(action) {
       case CURSOR_MOVE_UP:
         cursor.y -= movement;
