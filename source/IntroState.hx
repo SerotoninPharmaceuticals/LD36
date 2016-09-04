@@ -24,15 +24,6 @@ class IntroState extends FlxState {
     createText();
     sound = FlxG.sound.load("assets/sounds/ambient.wav", 0.8, false);
     sound.play();
-
-    // TEST
-    var erasableStep1 = new Erasable(
-      MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
-      "assets/images/screen_small.png",
-      "assets/images/pattern1.png",
-      10, true
-    );
-    add(erasableStep1);
   }
 
   private function createTitleScreen():Void {
