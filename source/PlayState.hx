@@ -201,7 +201,11 @@ class PlayState extends FlxState {
 
   function handleOpenPaper(paper:FlxSprite, onClose:Void->Void) {
     var substate:PaperSubstate = new PaperSubstate(paper);
-    substate.closeCallback = onClose;
+    substate.closeCallback = function () {
+      timerBar.start();
+      onClose();
+    }
+    timerBar.pause();
     openSubState(substate);
   }
 

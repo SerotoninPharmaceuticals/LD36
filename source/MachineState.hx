@@ -202,6 +202,7 @@ class MachineState extends FlxSubState {
         paperCover.revive();
         var paperState = new PaperSubstate(paperLarge);
         paperState.closeCallback = handlePaperClose;
+        timerBar.pause();
         openSubState(paperState);
       }
     } else if(paperHover) {
@@ -216,6 +217,7 @@ class MachineState extends FlxSubState {
 
   function handlePaperClose() {
     paperCover.kill();
+    timerBar.start();
   }
 
   private function createScreen():Void {
