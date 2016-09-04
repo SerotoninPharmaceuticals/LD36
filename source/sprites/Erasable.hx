@@ -1,6 +1,8 @@
 package sprites;
 
 import Std;
+import Std;
+import Std;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import openfl.display.BitmapData;
@@ -63,6 +65,7 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     if (drawMode) {
       var toDraw = new FlxSprite(x - 198, y - 48); // dirty fix.
       toDraw.makeGraphic(Std.int(origin.width), Std.int(origin.height), 0, true);
+      toDraw.updateFramePixels();
       toDraw.framePixels = patternOverlay(origin.framePixels, patternBitmap);
       add(toDraw);
 
@@ -87,10 +90,10 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     add(dirt);
 
     if (GameConfig.DEBUG) {
-//      add(brush); // for TEST
+      add(brush); // for TEST
     }
-    trace("new");
-    dirtTotalsPxCount = getSolidPixelsCount(dirt.pixels);
+
+    dirtTotalsPxCount = getSolidPixelsCount(dirt.framePixels);
   }
 
   function drawOutline(b:BitmapData, border:Int, borderColor:FlxColor):BitmapData {
@@ -125,8 +128,6 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
         nb.setPixel32(x, y, pattern.getPixel32(x % pattern.width, y % pattern.height));
       }
     }
-    trace("has drawed:");
-    trace(drawed);
     return nb;
   }
 
@@ -157,7 +158,7 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
   private function handleErase():Void {
     if (
       eraseEnabled &&
-      brush.getPosition().inCoords(origin.x, origin.y, origin.width, origin.height)
+      brush.getPosition().inCoords(dirt.x, dirt.y, dirt.width, dirt.height)
     ) {
 //      origin.pixels.copyPixels(source.pixels, new Rectangle(brush.x, brush.y, brush.pixels.rect.width, brush.pixels.rect.height), new Point(brush.x, brush.y), brush.pixels);
       for (innerY in 0...Std.int(brush.height)) {
@@ -201,12 +202,10 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
         }
       }
     }
-    trace(count);
     return count;
   }
 
   private function countPercentage() {
-    trace("count");
     percentage = getSolidPixelsCount(dirt.framePixels) / dirtTotalsPxCount;
   }
 }
