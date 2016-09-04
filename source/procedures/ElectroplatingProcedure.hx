@@ -1,5 +1,6 @@
 package procedures;
 
+import sprites.Outline;
 import flixel.text.FlxText;
 import ui.TitleText;
 import sprites.TechThing;
@@ -48,10 +49,14 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     name.color = GameConfig.SCREEN_COLOR_YELLOW0;
     add(name);
 
-    var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
-    itemBody.loadGraphic(target.config.modeCImage);
 
-    add(itemBody);
+    var itemBody = new Outline(
+    MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
+    target.config.modeEImage
+    );
+    for (i in 0...itemBody.length) {
+      add(itemBody.members[i]);
+    }
 
     add(sector);
     add(validArea);

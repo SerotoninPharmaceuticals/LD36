@@ -1,5 +1,6 @@
 package procedures;
 
+import sprites.Outline;
 import ui.TitleText;
 import ui.PressureBarHoriz;
 import GameConfig;
@@ -159,9 +160,13 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   }
 
   function createStep1():Void {
-    var itemBody = new FlxSprite(GameConfig.SCREEN_TECH_THING_X, GameConfig.SCREEN_TECH_THING_Y);
-    itemBody.loadGraphic(target.config.modeEImage);
-    add(itemBody);
+    var itemBody = new Outline(
+      MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
+      target.config.modeEImage
+    );
+    for (i in 0...itemBody.length) {
+      add(itemBody.members[i]);
+    }
 
     createRect();
     createAnchor();
