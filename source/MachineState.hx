@@ -1,6 +1,7 @@
 package;
 
 #if flash
+import flash.ui.GameInputControlType;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
@@ -24,12 +25,12 @@ import ui.ScreenMenu;
 import ui.TimerBar;
 
 class MachineState extends FlxSubState {
-  public static inline var SCREEN_X = 198;
-  public static inline var SCREEN_Y = 48;
-  public static inline var SCREEN_WIDTH = 472;
-  public static inline var SCREEN_HEIGHT = 281;
+  public static inline var SCREEN_X = 201;
+  public static inline var SCREEN_Y = 51;
+  public static inline var SCREEN_WIDTH = 466;
+  public static inline var SCREEN_HEIGHT = 276;
 
-  public static var SCREEN_MENU_X = SCREEN_WIDTH - ScreenMenu.SCREEN_MENU_WIDTH - 3;
+  public static var SCREEN_MENU_X = SCREEN_WIDTH - ScreenMenu.SCREEN_MENU_WIDTH;
   public static var SCREEN_MENU_Y = 2;
 
   public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
@@ -223,10 +224,10 @@ class MachineState extends FlxSubState {
   private function createScreen():Void {
     screen = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
     var screenBg = new FlxSprite(0, 0);
-    screenBg.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, FlxColor.TRANSPARENT, true);
-    screen.add(screenBg);
+    screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
     createScreenMenu();
 
+    screen.add(screenBg);
     add(screen);
   }
 
