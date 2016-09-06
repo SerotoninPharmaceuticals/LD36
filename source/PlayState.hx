@@ -190,7 +190,7 @@ class PlayState extends FlxState {
     add(new Paper(663, 191, "tech_thing_papers/note_10_farewell", handleOpenPaper));
     add(new Paper(710, 195, "tech_thing_papers/note_11_bonsai", handleOpenPaper));
     // Manual
-    add(new Paper(174, 258, "manual", handleOpenPaper));
+    add(new Paper(170, 255, "manual", handleOpenPaper));
   }
 
   function loadFrontPapers() {
