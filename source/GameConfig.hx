@@ -83,6 +83,14 @@ class GameConfig {
 
   public static inline var TIME_SCALE = 6 * 60;  // The scale factor of the play time compare to the real time
 
+  public static var allProcedures = [
+    ProcedureType.Cleaning,
+    ProcedureType.Cooling,
+    ProcedureType.Electroplating,
+    ProcedureType.AntiMagnetic,
+    ProcedureType.VacuumPacking
+  ];
+
   public static var techThingConfigs:Array<TechThingConfig> = [
     {
       codeName: "ball",

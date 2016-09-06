@@ -87,28 +87,28 @@ class MachineState extends FlxSubState {
 
   private function createLights():Void {
     lights = new Array<FlxSprite>();
-    var i:Int;
-    var light:FlxSprite;
-    for (i in 0...5) {
-      light = new FlxSprite(707, 34 + 55 * i);
-      light.loadGraphic(LIGHT_OFF_IMAGE);
+    for (i in 0...GameConfig.allProcedures.length) {
+      var light = new FlxSprite(707, 34 + 55 * i);
       lights.push(light);
+
+      if (target.config.procedureTypes.indexOf(GameConfig.allProcedures[i]) == -1) {
+        turnOffLight(i);
+      } else {
+        turnOnLight(i);
+      }
+
       add(light);
     }
   }
 
-  private function turnOnLight(index):Void {
+  private function turnOnLight(index:Int):Void {
     var light:FlxSprite = lights[index];
     light.loadGraphic(LIGHT_ON_IMAGE);
-    light.x = 707;
-    light.y = 34 + 55 * index;
   }
 
-  private function turnOffLight(index):Void {
+  private function turnOffLight(index:Int):Void {
     var light:FlxSprite = lights[index];
     light.loadGraphic(LIGHT_OFF_IMAGE);
-    light.x = 707;
-    light.y = 34 + 55 * index;
   }
 
   private function createControlStick():Void {
@@ -138,7 +138,7 @@ class MachineState extends FlxSubState {
       close();
       return;
     }
-    turnOnLight(currentProcIndex);
+
 
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
