@@ -65,6 +65,34 @@ class TechThing extends FlxExtendedSprite {
     loadGraphic(config.imageAfter);
   }
 
+  // Only changed the checked target when pixelPerfectPointCheck()
+  override private function checkForClick():Void
+  {
+    #if !FLX_NO_MOUSE
+    if (mouseOver && FlxG.mouse.justPressed)
+    {
+      //	If we don't need a pixel perfect check, then don't bother running one! By this point we know the mouse is over the sprite already
+      if (_clickPixelPerfect == false && _dragPixelPerfect == false)
+      {
+        FlxMouseControl.addToStack(this);
+        return;
+      }
+
+      if (_clickPixelPerfect && FlxCollision.pixelPerfectPointCheck(Math.floor(FlxG.mouse.x), Math.floor(FlxG.mouse.y), hitbox, _clickPixelPerfectAlpha))
+      {
+        FlxMouseControl.addToStack(this);
+        return;
+      }
+
+      if (_dragPixelPerfect && FlxCollision.pixelPerfectPointCheck(Math.floor(FlxG.mouse.x), Math.floor(FlxG.mouse.y), hitbox, _dragPixelPerfectAlpha))
+      {
+        FlxMouseControl.addToStack(this);
+        return;
+      }
+    }
+    #end
+  }
+
   override public function update(elasped:Float):Void {
     if (
       draggable && !isDragged &&
