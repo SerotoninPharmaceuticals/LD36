@@ -24,7 +24,7 @@ class PaperSubstate extends FlxSubState {
 
     var background:FlxSprite = new FlxSprite(0, 0);
     background.makeGraphic(FlxG.width, FlxG.height, 0xff000000);
-    background.alpha = 0.3;
+    background.alpha = 0.65;
     add(background);
 
     paper.screenCenter(FlxAxes.X);

@@ -118,7 +118,7 @@ class GameConfig {
     {
       codeName: "disk",
       name: "Disk",
-      x: 133,
+      x: 134,
       y: 13,
 
       procedureTypes: [
