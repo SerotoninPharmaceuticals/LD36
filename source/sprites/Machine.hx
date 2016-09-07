@@ -1,15 +1,12 @@
 package sprites;
 
-import haxe.Log;
+import flixel.input.mouse.FlxMouseEventManager;
 import flixel.tweens.FlxTween;
 import sprites.TechThing.TechThingState;
-import openfl.geom.Point;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.ui.FlxButton;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.system.FlxSound;
-import flixel.util.FlxColor;
 
 
 class Machine extends FlxTypedGroup<FlxSprite> {
@@ -20,11 +17,12 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public var entrance:Dropable<TechThing>;
   public var exit:FlxSprite;
+  public var hatchin:FlxSprite;
 
   public var currentTechThing:TechThing;
 
-  private var exitOpenSound:FlxSound;
-  private var exitCloseSound:FlxSound;
+  private var hatchOpenSound:FlxSound;
+  private var hatchCloseSound:FlxSound;
 
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
@@ -33,12 +31,13 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     onBeginProcedures = _onBeginProcedures;
 
     loadEntrance();
+    loadHatchin();
     loadExit();
     loadScreen();
-    exitOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.5, false);
-    exitOpenSound.pan = -0.8;
-    exitCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
-    exitCloseSound.pan = -0.8;
+    hatchOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.5, false);
+    hatchOpenSound.pan = -0.8;
+    hatchCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
+    hatchCloseSound.pan = -0.8;
   }
 
   override public function update(elasped:Float):Void {
@@ -49,16 +48,40 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadEntrance():Void {
-    entrance = new Dropable(151, 364, "assets/images/hatchin.png", null);
+    entrance = new Dropable(151, 364, "assets/images/hatchin_bg.png", null);
     add(entrance);
     entrance.handleDrop = handleEntranceDrop;
   }
+
+  function loadHatchin():Void {
+    hatchin = new FlxSprite(151, 365);
+    hatchin.loadGraphic("assets/images/hatchin.png");
+
+    FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
+      hatchOpenSound.play();
+      FlxTween.tween(target, {y: 468}, 0.2, { type: FlxTween.ONESHOT });
+      GameData.hatchinOpened = true;
+    }, null, function(target) {
+      GameData.hoverCount += 1;
+    }, function(target) {
+      GameData.hoverCount -= 1;
+    });
+
+    add(hatchin);
+  }
+  function openHatchin() {
+
+  }
+
   function handleEntranceDrop(techThing:TechThing) {
     currentTechThing = techThing;
     entrance.setHover(false, techThing);
     entrance.isItemPlaced = true;
     onBeginProcedures(techThing);
     currentTechThing.alpha = 0;
+
+    FlxTween.tween(hatchin, {y: 365}, 0.2, { type: FlxTween.ONESHOT });
+    GameData.hatchinOpened = false;
   }
 
   function loadExit():Void {
@@ -74,7 +97,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   public function closeExit():Void {
-    exitCloseSound.play();
+    hatchCloseSound.play();
     FlxTween.tween(exit, {x: 0}, 0.2, { type: FlxTween.ONESHOT });
   }
 
@@ -88,7 +111,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function onFinishedProcess(?tween:FlxTween):Void {
-    exitOpenSound.play();
+    hatchOpenSound.play();
     FlxTween.tween(exit, {x: -100}, 0.2, { type: FlxTween.ONESHOT });
     // exit.alpha = 0;
     entrance.setHover(false);

@@ -12,6 +12,7 @@ import flixel.addons.display.FlxExtendedSprite;
 import flixel.addons.plugin.FlxMouseControl;
 
 enum TechThingState {
+  Standby;
   Candidate;
   Selected;
   Processed;
@@ -49,7 +50,7 @@ class TechThing extends FlxExtendedSprite {
     originalX = X;
     originalY = Y;
 
-    state = TechThingState.Candidate;
+    state = TechThingState.Standby;
 
     loadGraphic(config.image);
 
@@ -112,6 +113,12 @@ class TechThing extends FlxExtendedSprite {
       }
     }
 
+    if (state == TechThingState.Standby && GameData.hatchinOpened) {
+      setState(TechThingState.Candidate);
+    } else if (state == TechThingState.Candidate && !GameData.hatchinOpened) {
+      setState(TechThingState.Standby);
+    }
+
     switch(state) {
       case TechThingState.Candidate:
         handleCandidate();
@@ -145,10 +152,10 @@ class TechThing extends FlxExtendedSprite {
       enableDrag();
       return;
     }
-    if (draggable && machineEntrance.relatedItem != null && machineEntrance.isItemPlaced){
-      disableMouseDrag();
-      return;
-    }
+//    if (draggable && machineEntrance.relatedItem != null && machineEntrance.isItemPlaced){
+//      disableMouseDrag();
+//      return;
+//    }
 
     if (isDragged) {
       if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y, machineEntrance.width, machineEntrance.height)) {
