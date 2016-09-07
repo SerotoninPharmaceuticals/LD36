@@ -31,9 +31,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     onBeginProcedures = _onBeginProcedures;
 
     loadEntrance();
-    loadHatchin();
     loadExit();
     loadScreen();
+    loadHatchin();
     hatchOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.5, false);
     hatchOpenSound.pan = -0.8;
     hatchCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
@@ -69,18 +69,18 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
     add(hatchin);
   }
-  function openHatchin() {
-
-  }
 
   function handleEntranceDrop(techThing:TechThing) {
     currentTechThing = techThing;
     entrance.setHover(false, techThing);
     entrance.isItemPlaced = true;
-    onBeginProcedures(techThing);
-    currentTechThing.alpha = 0;
 
-    FlxTween.tween(hatchin, {y: 365}, 0.2, { type: FlxTween.ONESHOT });
+    FlxTween.tween(hatchin, {y: 365}, 0.2, {
+      type: FlxTween.ONESHOT,
+      onComplete: function(tween) {
+        onBeginProcedures(techThing);
+      }
+    });
     GameData.hatchinOpened = false;
   }
 

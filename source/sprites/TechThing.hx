@@ -220,7 +220,6 @@ class TechThing extends FlxExtendedSprite {
           }
         }
       case TechThingState.ProcessFinished:
-        Log.trace(coffinEntrance.relatedItem);
         if (coffinEntrance.relatedItem == this) {
           coffinEntrance.handleDrop(this);
           setState(TechThingState.Buried);
