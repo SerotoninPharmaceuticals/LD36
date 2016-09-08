@@ -33,7 +33,6 @@ class Dropable<T> extends FlxSprite {
 
   public function showHint():Void {
     if (brightnessTween == null) {
-      trace("Hint");
       var stopColor = FlxColor.fromRGB(255, 255, 255);
       stopColor.brightness = 0.5;
       brightnessTween = FlxTween.color(this, 0.8, FlxColor.WHITE, stopColor,
