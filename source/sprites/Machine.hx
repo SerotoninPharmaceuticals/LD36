@@ -135,12 +135,20 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   public function startFinishProcess():Void {
-
     if (currentTechThing == null) { return; }
     currentTechThing.toAfter();
     currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.alpha = 1;
-    onFinishedProcess();
+
+    FlxMouseEventManager.add(exit, function(target:FlxSprite) {
+      onFinishedProcess();
+      FlxMouseEventManager.remove(target);
+      GameData.hoverCount -= 1;
+    }, null, function(target) {
+      GameData.hoverCount += 1;
+    }, function(target) {
+      GameData.hoverCount -= 1;
+    }, false, true, false);
   }
 
   function onFinishedProcess(?tween:FlxTween):Void {
