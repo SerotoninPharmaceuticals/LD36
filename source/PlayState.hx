@@ -59,7 +59,11 @@ class PlayState extends FlxState {
     loadFrontPapers();
 
     techThingFrontGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
+
+    add(machine.frontGroup);
+
     add(techThingFrontGroup);
+
 
     createTimerBar();
 
@@ -158,6 +162,7 @@ class PlayState extends FlxState {
   function loadMachine():Void {
     machine = new Machine(20, 100, handleBeginProcedures);
     add(machine);
+    add(machine.backGroup);
   }
   function handleBeginProcedures(techThing:TechThing) {
     timerBar.kill();

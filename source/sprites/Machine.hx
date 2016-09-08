@@ -15,6 +15,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   var y:Float;
   var onBeginProcedures:TechThing->Void;
 
+  public var backGroup = new FlxTypedGroup<FlxSprite>();
+  public var frontGroup = new FlxTypedGroup<FlxSprite>();
+
   public var entrance:Dropable<TechThing>;
   public var exit:FlxSprite;
   public var hatchin:FlxSprite;
@@ -23,6 +26,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   private var hatchOpenSound:FlxSound;
   private var hatchCloseSound:FlxSound;
+
 
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
@@ -49,7 +53,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   function loadEntrance():Void {
     entrance = new Dropable(151, 364, "assets/images/hatchin_bg.png", null);
-    add(entrance);
+    backGroup.add(entrance);
     entrance.handleDrop = handleEntranceDrop;
   }
 
@@ -67,7 +71,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
       GameData.hoverCount -= 1;
     });
 
-    add(hatchin);
+    frontGroup.add(hatchin);
   }
 
   function handleEntranceDrop(techThing:TechThing) {
@@ -87,13 +91,13 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   function loadExit():Void {
     exit = new FlxSprite(0, 253);
     exit.loadGraphic("assets/images/hatchout.png");
-    add(exit);
+    frontGroup.add(exit);
   }
 
   function loadScreen():Void {
     var screen = new FlxSprite(180, 125);
     screen.loadGraphic("assets/images/screen_small.png");
-    add(screen);
+    backGroup.add(screen);
   }
 
   public function closeExit():Void {
