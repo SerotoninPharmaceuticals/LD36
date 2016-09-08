@@ -120,6 +120,8 @@ class TechThing extends FlxExtendedSprite {
     }
 
     switch(state) {
+      case TechThingState.Standby:
+        handleStandby();
       case TechThingState.Candidate:
         handleCandidate();
       case TechThingState.ProcessFinished:
@@ -147,15 +149,18 @@ class TechThing extends FlxExtendedSprite {
     super.setPosition(X, Y);
   }
 
+  function handleStandby() {
+    if (!draggable && machine.currentTechThing == null) {
+      enableDrag();
+      return;
+    }
+  }
+
   function handleCandidate() {
     if (!draggable && machine.currentTechThing == null) {
       enableDrag();
       return;
     }
-//    if (draggable && machineEntrance.relatedItem != null && machineEntrance.isItemPlaced){
-//      disableMouseDrag();
-//      return;
-//    }
 
     if (isDragged) {
       if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y, machineEntrance.width, machineEntrance.height)) {
