@@ -1,5 +1,8 @@
 package sprites;
 
+import flixel.tweens.FlxEase;
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
 import flixel.input.mouse.FlxMouseEventManager;
 import flixel.tweens.FlxTween;
 import sprites.TechThing.TechThingState;
@@ -23,6 +26,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   public var hatchin:FlxSprite;
 
   public var currentTechThing:TechThing;
+
+  var standby:FlxSprite;
 
   private var hatchOpenSound:FlxSound;
   private var hatchCloseSound:FlxSound;
@@ -82,10 +87,19 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     FlxTween.tween(hatchin, {y: 365}, 0.2, {
       type: FlxTween.ONESHOT,
       onComplete: function(tween) {
-        onBeginProcedures(techThing);
+        turnOnScreen();
       }
     });
     GameData.hatchinOpened = false;
+  }
+
+  function turnOnScreen() {
+    standby.revive();
+    standby.alpha = 0;
+    FlxTween.color(standby, 0.4, FlxColor.TRANSPARENT, FlxColor.WHITE, {
+      type: FlxTween.ONESHOT,
+      ease: FlxEase.elasticOut
+    });
   }
 
   function loadExit():Void {
@@ -97,7 +111,22 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   function loadScreen():Void {
     var screen = new FlxSprite(180, 125);
     screen.loadGraphic("assets/images/screen_small.png");
+
+    standby = new FlxSprite(218, 147);
+    standby.loadGraphic("assets/images/standby.png");
+    standby.kill();
+
+    FlxMouseEventManager.add(standby, function(target:FlxSprite) {
+      onBeginProcedures(currentTechThing);
+      standby.kill();
+    }, null, function(target) {
+      GameData.hoverCount += 1;
+    }, function(target) {
+      GameData.hoverCount -= 1;
+    }, false, true, false);
+
     backGroup.add(screen);
+    backGroup.add(standby);
   }
 
   public function closeExit():Void {
