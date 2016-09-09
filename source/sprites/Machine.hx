@@ -68,6 +68,10 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchin = new FlxSprite(151, 365);
     hatchin.loadGraphic("assets/images/hatchin.png");
 
+    var machineFront = new FlxSprite(0, 0);
+    machineFront.loadGraphic("assets/images/machine_front.png");
+
+    frontGroup.add(machineFront);
     frontGroup.add(hatchin);
   }
 
