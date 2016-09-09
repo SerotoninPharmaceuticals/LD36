@@ -65,7 +65,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadHatchin():Void {
-    hatchin = new FlxSprite(151, 365);
+    hatchin = new FlxSprite(150, 364);
     hatchin.loadGraphic("assets/images/hatchin.png");
 
     var machineFront = new FlxSprite(0, 0);
@@ -79,7 +79,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchinClickable = true;
     FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
       hatchOpenSound.play();
-      FlxTween.tween(target, {y: 468}, 0.2, { type: FlxTween.ONESHOT });
+      FlxTween.tween(target, {y: 460}, 0.2, { type: FlxTween.ONESHOT });
       GameData.hatchinOpened = true;
       GameData.hoverCount -= 1;
 
