@@ -46,9 +46,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     loadScreen();
     loadHatchin();
     hatchOpenSound = FlxG.sound.load("assets/sounds/exit_open.wav", 0.5, false);
-    hatchOpenSound.pan = -0.8;
+    hatchOpenSound.pan = -0.35;
     hatchCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
-    hatchCloseSound.pan = -0.8;
+    hatchCloseSound.pan = -0.35;
   }
 
   override public function update(elasped:Float):Void {
@@ -79,7 +79,10 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchinClickable = true;
     FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
       hatchOpenSound.play();
-      FlxTween.tween(target, {y: 460}, 0.2, { type: FlxTween.ONESHOT });
+      FlxTween.tween(target, { y: 460 }, 0.5, {
+		  type: FlxTween.ONESHOT,
+		  ease: FlxEase.circInOut
+		  });
       GameData.hatchinOpened = true;
       GameData.hoverCount -= 1;
 
@@ -96,9 +99,11 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     currentTechThing = techThing;
     entrance.setHover(false, techThing);
     entrance.isItemPlaced = true;
-
-    FlxTween.tween(hatchin, {y: 365}, 0.2, {
+	
+	hatchCloseSound.play();
+    FlxTween.tween(hatchin, {y: 365}, 0.4, {
       type: FlxTween.ONESHOT,
+	  ease: FlxEase.circIn,
       onComplete: function(tween) {
         turnOnScreen();
       }
