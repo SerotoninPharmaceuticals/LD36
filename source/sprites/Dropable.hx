@@ -42,7 +42,6 @@ class Dropable<T> extends FlxSprite {
 
   public function stopHint():Void {
     if (brightnessTween != null) {
-      trace("Stop hint");
       brightnessTween.cancel();
       brightnessTween = null;
       color = FlxColor.WHITE;
