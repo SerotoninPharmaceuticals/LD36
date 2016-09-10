@@ -22,7 +22,7 @@ class Coffin extends FlxTypedGroup<FlxSprite> {
     y = _y;
 
     body = new Dropable<TechThing>(_x, _y, GameConfig.IMAGE_PATH + "coffin.png", GameConfig.IMAGE_PATH + "coffin.png");
-    add(body);
+    add(body.body);
     body.handleDrop = handleDrop;
   }
 

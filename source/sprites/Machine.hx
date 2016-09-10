@@ -3,7 +3,6 @@ package sprites;
 import GameData;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
-import flixel.text.FlxText;
 import flixel.input.mouse.FlxMouseEventManager;
 import flixel.tweens.FlxTween;
 import sprites.TechThing.TechThingState;
@@ -59,8 +58,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function loadEntrance():Void {
-    entrance = new Dropable(151, 364, "assets/images/hatchin_bg.png", null);
-    backGroup.add(entrance);
+    entrance = new Dropable<TechThing>(151, 364, "assets/images/hatchin_bg.png", null);
+    backGroup.add(entrance.body);
     entrance.handleDrop = handleEntranceDrop;
   }
 

@@ -1,15 +1,19 @@
 package sprites;
 
+import flixel.group.FlxGroup.FlxTypedGroup;
 import Std;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.tweens.misc.ColorTween;
 import flixel.util.FlxColor;
 
-class Dropable<T> extends FlxSprite {
+class Dropable<T> extends FlxTypedGroup<FlxSprite> {
   public var relatedItem:T;
   public var isItemPlaced:Bool = false;
   public var handleDrop:T->Void;
+  public var x:Float;
+  public var y:Float;
+  public var body:FlxSprite;
 
   private var brightnessTween:ColorTween = null;
 
@@ -19,9 +23,15 @@ class Dropable<T> extends FlxSprite {
   var onDropImage:String;
 
   public function new(X:Float = 0, Y:Float = 0, _normalImage:String, _onDropImage:String) {
-    super(X, Y);
+    super();
     normalImage = _normalImage;
     onDropImage = _onDropImage;
+
+    x = X;
+    y = Y;
+
+    body = new FlxSprite(x, y);
+    add(body);
 
     setHover(isHover);
   }
@@ -34,7 +44,7 @@ class Dropable<T> extends FlxSprite {
     if (brightnessTween == null) {
       var stopColor = FlxColor.fromRGB(255, 255, 255);
       stopColor.brightness = 0.5;
-      brightnessTween = FlxTween.color(this, 0.8, FlxColor.WHITE, stopColor,
+      brightnessTween = FlxTween.color(body, 0.8, FlxColor.WHITE, stopColor,
                                        { type: FlxTween.PINGPONG });
     }
   }
@@ -43,24 +53,24 @@ class Dropable<T> extends FlxSprite {
     if (brightnessTween != null) {
       brightnessTween.cancel();
       brightnessTween = null;
-      color = FlxColor.WHITE;
+      body.color = FlxColor.WHITE;
     }
   }
 
-  public function setHover(_isHover:Bool = true, ?_item:T):Void {
+  public function setHover(_isHover:Bool = true, _item:T = null):Void {
     isHover = _isHover;
     relatedItem = _item;
     if (isHover) {
       if (onDropImage != null) {
-        loadGraphic(onDropImage);
+        body.loadGraphic(onDropImage);
       } else {
-        makeGraphic(Std.int(width), Std.int(height), FlxColor.TRANSPARENT);
+        body.makeGraphic(Std.int(body.width), Std.int(body.height), FlxColor.TRANSPARENT);
       }
     } else {
       if (normalImage != null) {
-        loadGraphic(normalImage);
+        body.loadGraphic(normalImage);
       } else {
-        makeGraphic(Std.int(width), Std.int(height), FlxColor.TRANSPARENT);
+        body.makeGraphic(Std.int(body.width), Std.int(body.height), FlxColor.TRANSPARENT);
       }
     }
   }
