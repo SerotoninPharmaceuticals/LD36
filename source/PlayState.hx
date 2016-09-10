@@ -49,7 +49,6 @@ class PlayState extends FlxState {
     bg.loadGraphic("assets/images/bg.png");
     add(bg);
 
-    loadCoffin();
 
     loadPapers();
 
@@ -60,6 +59,7 @@ class PlayState extends FlxState {
 
     techThingFrontGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
 
+    loadCoffin();
     add(machine.frontGroup);
 
     add(techThingFrontGroup);

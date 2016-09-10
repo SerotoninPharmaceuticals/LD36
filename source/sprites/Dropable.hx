@@ -20,7 +20,6 @@ class Dropable<T> extends FlxSprite {
 
   public function new(X:Float = 0, Y:Float = 0, _normalImage:String, _onDropImage:String) {
     super(X, Y);
-
     normalImage = _normalImage;
     onDropImage = _onDropImage;
 

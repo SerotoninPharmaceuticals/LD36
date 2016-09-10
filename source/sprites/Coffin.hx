@@ -27,9 +27,7 @@ class Coffin extends FlxTypedGroup<FlxSprite> {
   }
 
   function handleDrop(item:TechThing):Void {
-    item.setPosition(x + techThingCount * techThingMargin + techThingsPoint.x, y + techThingsPoint.y);
     techThingCount += 1;
-    item.alpha = 0;
 
     body.setHover(false, item);
   }

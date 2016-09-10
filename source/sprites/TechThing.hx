@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxCollision;
 import GameConfig.TechThingConfig;
@@ -166,11 +167,11 @@ class TechThing extends FlxExtendedSprite {
       if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y, machineEntrance.width, machineEntrance.height)) {
 //        haxe.Log.trace("onDrop");
         machineEntrance.setHover(true, this);
-        machineEntrance.stopHint();
+//        machineEntrance.stopHint();
       } else {
 //        haxe.Log.trace("not onDrop");
         machineEntrance.setHover(false);
-        machineEntrance.showHint();
+//        machineEntrance.showHint();
       }
     }
   }
@@ -183,10 +184,10 @@ class TechThing extends FlxExtendedSprite {
     if (isDragged) {
       if (getMidpoint().inCoords(coffinEntrance.x, coffinEntrance.y, coffinEntrance.width, coffinEntrance.height)) {
         coffinEntrance.setHover(true, this);
-        coffinEntrance.stopHint();
+//        coffinEntrance.stopHint();
       } else {
         coffinEntrance.setHover(false);
-        coffinEntrance.showHint();
+//        coffinEntrance.showHint();
       }
     }
   }
@@ -217,7 +218,9 @@ class TechThing extends FlxExtendedSprite {
       case TechThingState.Candidate:
         if (machineEntrance.relatedItem == this) {
           x = machineEntrance.getMidpoint().x - width/2;
-          y = machineEntrance.getMidpoint().y - height/2;
+          y = machineEntrance.y - 5;
+          color = 0x7F7F7F;
+          FlxTween.linearMotion(this, x, y, x, y+100, 0.5);
           setState(TechThingState.Selected);
 
           if(machineEntrance.handleDrop != null) {
