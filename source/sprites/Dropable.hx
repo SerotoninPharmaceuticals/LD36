@@ -14,6 +14,7 @@ class Dropable<T> extends FlxTypedGroup<FlxSprite> {
   public var x:Float;
   public var y:Float;
   public var body:FlxSprite;
+  public var hintArrow:FlxSprite;
 
   private var brightnessTween:ColorTween = null;
 
@@ -33,11 +34,20 @@ class Dropable<T> extends FlxTypedGroup<FlxSprite> {
     body = new FlxSprite(x, y);
     add(body);
 
+    loadHintArrow();
+
     setHover(isHover);
   }
 
   override public function update(elasped:Float):Void {
     super.update(elasped);
+  }
+
+  public function loadHintArrow() {
+    hintArrow = new FlxSprite(x, y);
+    hintArrow.loadGraphic(GameConfig.IMAGE_PATH + "arrow.png");
+    add(hintArrow);
+    hintArrow.kill();
   }
 
   public function showHint():Void {
@@ -66,12 +76,19 @@ class Dropable<T> extends FlxTypedGroup<FlxSprite> {
       } else {
         body.makeGraphic(Std.int(body.width), Std.int(body.height), FlxColor.TRANSPARENT);
       }
+      if (relatedItem != null) {
+        var target = cast(relatedItem, FlxSprite);
+        hintArrow.x = target.x + target.width/2 - hintArrow.width/2;
+        hintArrow.y = target.y + target.height - hintArrow.height/2;
+        hintArrow.revive();
+      }
     } else {
       if (normalImage != null) {
         body.loadGraphic(normalImage);
       } else {
         body.makeGraphic(Std.int(body.width), Std.int(body.height), FlxColor.TRANSPARENT);
       }
+      hintArrow.kill();
     }
   }
 }

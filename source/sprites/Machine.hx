@@ -20,6 +20,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public var backGroup = new FlxTypedGroup<FlxSprite>();
   public var frontGroup = new FlxTypedGroup<FlxSprite>();
+  public var uiGroup = new FlxTypedGroup<FlxSprite>();
 
   public var entrance:Dropable<TechThing>;
   public var exit:FlxSprite;
@@ -60,6 +61,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   function loadEntrance():Void {
     entrance = new Dropable<TechThing>(151, 364, "assets/images/hatchin_bg.png", null);
     backGroup.add(entrance.body);
+    uiGroup.add(entrance.hintArrow);
     entrance.handleDrop = handleEntranceDrop;
   }
 

@@ -63,6 +63,8 @@ class PlayState extends FlxState {
     add(machine.frontGroup);
     add(techThingFrontGroup);
 
+    add(machine.uiGroup);
+    add(coffin.body.hintArrow);
 
     createTimerBar();
 
