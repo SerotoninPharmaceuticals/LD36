@@ -237,9 +237,9 @@ class TechThing extends FlxExtendedSprite {
       case TechThingState.ProcessFinished:
         if (coffinEntrance.relatedItem == this) {
           x = coffinEntrance.body.getMidpoint().x - width/2;
-          y = coffinEntrance.y;
-          FlxTween.linearMotion(this, x, y, x, y+100, 0.8, true, {
-            ease: FlxEase.bounceOut
+          y = coffinEntrance.y - 25;
+          FlxTween.linearMotion(this, x, y, x, y+150, 0.55, true, {
+            ease: FlxEase.backIn
           });
 
           setState(TechThingState.Buried);

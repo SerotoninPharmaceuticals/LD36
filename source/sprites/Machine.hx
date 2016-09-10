@@ -172,7 +172,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   function onFinishedProcess(?tween:FlxTween):Void {
     hatchOpenSound.play();
-    FlxTween.tween(exit, { x: -200 }, 0.48, {type: FlxTween.ONESHOT, ease:FlxEase.circIn});
+    FlxTween.tween(exit, { x: -200 }, 0.42, {type: FlxTween.ONESHOT, ease:FlxEase.circIn});
     // exit.alpha = 0;
     entrance.setHover(false);
     entrance.isItemPlaced = false;
