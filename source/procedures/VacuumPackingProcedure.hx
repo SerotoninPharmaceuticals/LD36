@@ -107,10 +107,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     }
 
     if (GameConfig.DEBUG) {
-      // TEST, remove me!
-//      cursor.x = FlxG.mouse.x;
-//      cursor.y = FlxG.mouse.y;
-//      moveEnabled = true;
+      cursor.x = FlxG.mouse.x;
+      cursor.y = FlxG.mouse.y;
+      moveEnabled = true;
     }
 
     detectAnchor();

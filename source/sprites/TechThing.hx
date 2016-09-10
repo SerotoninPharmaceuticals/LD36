@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxCollision;
@@ -211,16 +212,18 @@ class TechThing extends FlxExtendedSprite {
 
   private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
     scale.x = scale.y = 1;
-    machineEntrance.stopHint();
-    coffinEntrance.stopHint();
-    Log.trace(state);
+//    machineEntrance.stopHint();
+//    coffinEntrance.stopHint();
+//    Log.trace(state);
     switch(state) {
       case TechThingState.Candidate:
         if (machineEntrance.relatedItem == this) {
           x = machineEntrance.getMidpoint().x - width/2;
           y = machineEntrance.y - 5;
           color = 0x7F7F7F;
-          FlxTween.linearMotion(this, x, y, x, y+100, 0.5);
+          FlxTween.linearMotion(this, x, y, x, y+100, 0.8, true, {
+            ease: FlxEase.bounceOut
+          });
           setState(TechThingState.Selected);
 
           if(machineEntrance.handleDrop != null) {
@@ -229,8 +232,16 @@ class TechThing extends FlxExtendedSprite {
         }
       case TechThingState.ProcessFinished:
         if (coffinEntrance.relatedItem == this) {
-          coffinEntrance.handleDrop(this);
+
+          x = coffinEntrance.getMidpoint().x - width/2;
+          y = coffinEntrance.y;
+          FlxTween.linearMotion(this, x, y, x, y+100, 0.8, true, {
+            ease: FlxEase.bounceOut
+          });
+
           setState(TechThingState.Buried);
+
+          coffinEntrance.handleDrop(this);
           machine.closeExit();
           GameData.finishedTechThings.push(config);
 
