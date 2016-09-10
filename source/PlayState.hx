@@ -51,17 +51,16 @@ class PlayState extends FlxState {
 
 
     loadPapers();
-
     loadMachine();
+    loadCoffin();
 
     loadTechObjects();
     loadFrontPapers();
 
     techThingFrontGroup = new FlxTypedSpriteGroup<TechThing>(0, 0);
 
-    loadCoffin();
+    add(coffin);
     add(machine.frontGroup);
-
     add(techThingFrontGroup);
 
 
@@ -182,7 +181,6 @@ class PlayState extends FlxState {
 
   function loadCoffin() {
     coffin = new Coffin(428, 240);
-    add(coffin);
   }
 
   function loadPapers() {
