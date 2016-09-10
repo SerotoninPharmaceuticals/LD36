@@ -20,6 +20,7 @@ typedef TechThingConfig = {
   var procedureTypes:Array<ProcedureType>;
 
   @:optional var image:String;
+  @:optional var imageDraggin:String;
   @:optional var imageAfter:String;
   @:optional var imageHitbox: String;
 

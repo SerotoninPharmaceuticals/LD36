@@ -109,7 +109,7 @@ class TechThing extends FlxExtendedSprite {
       }
       color = 0x7F7F7F;
     } else{
-  if(!inMachine || isDragged) color = FlxColor.WHITE;
+	  if(!inMachine || isDragged) color = FlxColor.WHITE;
       if (hover) {
         GameData.dragHoverCount -= 1;
         hover = false;
@@ -208,10 +208,12 @@ class TechThing extends FlxExtendedSprite {
 
 
   private function onDragStart(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
-    scale.x = scale.y = 1.08;
+	if(!inMachine) loadGraphic(config.imageDraggin);  
+    scale.x = scale.y = 1.1;
   }
 
-  private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void {
+  private function onDragStop(sprite:FlxExtendedSprite, _x:Float, _y:Float):Void { 
+	if (!inMachine) loadGraphic(config.image);  
     scale.x = scale.y = 1;
 //    machineEntrance.stopHint();
 //    coffinEntrance.stopHint();

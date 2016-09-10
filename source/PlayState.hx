@@ -127,6 +127,7 @@ class PlayState extends FlxState {
 
       config.image = GameConfig.TECHTHINGS_PATH + config.codeName + ".png";
       config.imageAfter = GameConfig.TECHTHINGS_PATH + config.codeName + "_after.png";
+	  config.imageDraggin = GameConfig.TECHTHINGS_PATH + config.codeName + "_draggin.png";
 
       if (Assets.exists(GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png")) {
         config.imageHitbox = GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png";
