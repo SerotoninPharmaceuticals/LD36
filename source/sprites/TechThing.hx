@@ -221,6 +221,8 @@ class TechThing extends FlxExtendedSprite {
           x = machineEntrance.body.getMidpoint().x - width/2 + 15;
           y = machineEntrance.y + 15;
           color = 0x7F7F7F;
+          FlxTween.linearMotion(this, x, y, x, y+70, 0.4, true, {
+            ease: FlxEase.backIn
           });
           setState(TechThingState.Selected);
 
