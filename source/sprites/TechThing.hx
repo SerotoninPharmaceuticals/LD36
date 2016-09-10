@@ -165,7 +165,7 @@ class TechThing extends FlxExtendedSprite {
     }
 
     if (isDragged) {
-      if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y, machineEntrance.body.width, machineEntrance.body.height)) {
+      if (getMidpoint().inCoords(machineEntrance.x, machineEntrance.y - height/4, machineEntrance.body.width, machineEntrance.body.height)) {
 //        haxe.Log.trace("onDrop");
         machineEntrance.setHover(true, this);
 //        machineEntrance.stopHint();
