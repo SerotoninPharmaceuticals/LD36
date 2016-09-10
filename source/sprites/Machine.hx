@@ -80,7 +80,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchinClickable = true;
     FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
       hatchOpenSound.play();
-      FlxTween.tween(target, { y: 460 }, 0.58, {
+      FlxTween.tween(target, { y: 466 }, 0.58, {
 		  type: FlxTween.ONESHOT,
 		  ease: FlxEase.circInOut
 		  });

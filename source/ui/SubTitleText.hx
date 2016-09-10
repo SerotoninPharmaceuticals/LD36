@@ -5,9 +5,9 @@ import flixel.text.FlxText;
 class SubTitleText extends FlxText {
 
   public function new(title:String = ""):Void {
-    super(6, 26);
+    super(4, 18);
     color = GameConfig.SCREEN_COLOR_YELLOW;
-    size = 12;
+    size = 10;
     setText(title);
   }
 

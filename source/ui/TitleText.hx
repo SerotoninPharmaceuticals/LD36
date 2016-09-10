@@ -7,7 +7,7 @@ class TitleText extends FlxText {
   public function new(title:String = ""):Void {
     super(GameConfig.SCREEN_LEFT_PADDING, GameConfig.SCREEN_TOP_PADDING);
     color = GameConfig.SCREEN_COLOR_YELLOW;
-    size = 18;
+    size = 14;
     setText(title);
   }
 

@@ -56,9 +56,9 @@ class ScreenMenu extends FlxSpriteGroup {
     itemBar.createColoredFilledBar(ACTIVATED_MENU_FILL_COLOR, false);
     itemBar.x = 0;
     itemBar.y = itemY;
-    var text = new FlxText(SCREEN_MENU_TEXT_PADDING, itemY + SCREEN_MENU_TEXT_PADDING,
+    var text = new FlxText(SCREEN_MENU_TEXT_PADDING + 2, itemY + SCREEN_MENU_TEXT_PADDING,
                            SCREEN_MENU_WIDTH - 2 * SCREEN_MENU_TEXT_PADDING, text);
-    text.setFormat(null, 12, MENU_COLOR);
+    text.setFormat(null, 13, MENU_COLOR);
     bars.insert(index, itemBar);
     itemBar.percent = 0;
     add(itemBar);

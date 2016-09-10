@@ -79,8 +79,8 @@ class GameConfig {
   public static inline var SCREEN_TECH_THING_X = 55;
   public static inline var SCREEN_TECH_THING_Y = 37;
 
-  public static inline var SCREEN_LEFT_PADDING = 6;
-  public static inline var SCREEN_TOP_PADDING = 4;
+  public static inline var SCREEN_LEFT_PADDING = 4;
+  public static inline var SCREEN_TOP_PADDING = 2;
 
   public static inline var IMAGE_PATH = "assets/images/";
   public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
