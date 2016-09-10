@@ -150,7 +150,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public function closeExit():Void {
     hatchCloseSound.play();
-    FlxTween.tween(exit, {x: 0}, 0.2, { type: FlxTween.ONESHOT });
+    FlxTween.tween(exit, {x: 0}, 0.5, { type: FlxTween.ONESHOT, ease:FlxEase.circOut});
   }
 
   public function startFinishProcess():Void {
@@ -172,7 +172,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   function onFinishedProcess(?tween:FlxTween):Void {
     hatchOpenSound.play();
-    FlxTween.tween(exit, {x: -100}, 0.2, { type: FlxTween.ONESHOT });
+    FlxTween.tween(exit, { x: -200 }, 0.48, {type: FlxTween.ONESHOT, ease:FlxEase.circIn});
     // exit.alpha = 0;
     entrance.setHover(false);
     entrance.isItemPlaced = false;
