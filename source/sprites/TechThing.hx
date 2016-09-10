@@ -179,6 +179,7 @@ class TechThing extends FlxExtendedSprite {
 
   function handleProcessFinished() {
     if (!draggable) {
+      hitbox = this;
       enableDrag();
       return;
     }
