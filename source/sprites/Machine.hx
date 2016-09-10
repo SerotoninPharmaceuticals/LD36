@@ -103,7 +103,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 	hatchCloseSound.play();
     FlxTween.tween(hatchin, {y: 365}, 0.4, {
       type: FlxTween.ONESHOT,
-	  ease: FlxEase.circIn,
+      ease: FlxEase.circIn,
       onComplete: function(tween) {
         turnOnScreen();
       }
