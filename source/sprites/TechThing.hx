@@ -218,8 +218,8 @@ class TechThing extends FlxExtendedSprite {
     switch(state) {
       case TechThingState.Candidate:
         if (machineEntrance.relatedItem == this) {
-          x = machineEntrance.body.getMidpoint().x - width/2;
-          y = machineEntrance.y - 5;
+          x = machineEntrance.body.getMidpoint().x - width/2 + 15;
+          y = machineEntrance.y + 8;
           color = 0x7F7F7F;
           FlxTween.linearMotion(this, x, y, x, y+100, 0.8, true, {
             ease: FlxEase.bounceOut
