@@ -180,7 +180,7 @@ class PlayState extends FlxState {
   }
 
   function loadCoffin() {
-    coffin = new Coffin(428, 240);
+    coffin = new Coffin(430, 242);
   }
 
   function loadPapers() {
