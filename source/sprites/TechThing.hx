@@ -37,6 +37,7 @@ class TechThing extends FlxExtendedSprite {
   public var state:TechThingState;
 
   var hover = false;
+  var inMachine = false;
 
   var hitbox:FlxSprite;
 
@@ -107,8 +108,8 @@ class TechThing extends FlxExtendedSprite {
         hover = true;
       }
       color = 0x7F7F7F;
-    } else {
-      color = FlxColor.WHITE;
+    } else{
+  if(!inMachine || isDragged) color = FlxColor.WHITE;
       if (hover) {
         GameData.dragHoverCount -= 1;
         hover = false;
@@ -218,8 +219,9 @@ class TechThing extends FlxExtendedSprite {
     switch(state) {
       case TechThingState.Candidate:
         if (machineEntrance.relatedItem == this) {
+		  inMachine = true;		
           x = machineEntrance.body.getMidpoint().x - width/2 + 15;
-          y = machineEntrance.y + 15;
+          y = machineEntrance.y + 15;		  
           color = 0x7F7F7F;
           FlxTween.linearMotion(this, x, y, x, y+70, 0.4, true, {
             ease: FlxEase.backIn
@@ -232,7 +234,6 @@ class TechThing extends FlxExtendedSprite {
         }
       case TechThingState.ProcessFinished:
         if (coffinEntrance.relatedItem == this) {
-
           x = coffinEntrance.body.getMidpoint().x - width/2;
           y = coffinEntrance.y;
           FlxTween.linearMotion(this, x, y, x, y+100, 0.8, true, {
