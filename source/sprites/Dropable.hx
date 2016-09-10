@@ -78,8 +78,8 @@ class Dropable<T> extends FlxTypedGroup<FlxSprite> {
       }
       if (relatedItem != null) {
         var target = cast(relatedItem, FlxSprite);
-        hintArrow.x = target.x + target.width/2 - hintArrow.width/2;
-        hintArrow.y = target.y + target.height - hintArrow.height/2;
+        hintArrow.x = target.x + target.width/2 - hintArrow.width/2 - 2;
+        hintArrow.y = target.y + target.height - 2;
         hintArrow.revive();
       }
     } else {
