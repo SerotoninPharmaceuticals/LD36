@@ -96,6 +96,7 @@ class TechThing extends FlxExtendedSprite {
   }
 
   override public function update(elasped:Float):Void {
+    super.update(elasped);
     if (
       draggable && !isDragged &&
       !FlxMouseControl.isDragging &&
@@ -131,7 +132,6 @@ class TechThing extends FlxExtendedSprite {
         if (draggable) { disableMouseDrag(); }
     }
 
-    super.update(elasped);
 
     if (draggable && !isDragged) {
       x = originalX;
