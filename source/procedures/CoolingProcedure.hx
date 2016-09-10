@@ -41,7 +41,7 @@ class CoolingProcedure extends FlxSpriteGroup {
       add(itemBody.members[i]);
     }
 
-    add(new TitleText("Flash Freezing"));
+    add(new TitleText("Mode.B"));
   }
 
   override public function update(elapsed:Float):Void {

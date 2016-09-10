@@ -32,7 +32,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     onFinsihed = _onFinished;
     createSprites();
 
-    add(new TitleText("Electroplating Procedure"));
+    add(new TitleText("Mode.C"));
 
   }
 

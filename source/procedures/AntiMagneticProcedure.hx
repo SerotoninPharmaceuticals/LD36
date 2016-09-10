@@ -43,10 +43,10 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText(10, 248);
+    percentage = new PercentageText();
     add(percentage);
 
-    add(new TitleText("Anti-Magnetic Coating"));
+    add(new TitleText("Mode.D"));
 
     createStep1();
   }

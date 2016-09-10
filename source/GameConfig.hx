@@ -74,12 +74,16 @@ class GameConfig {
   public static inline var CURSOR_MOVE_MAX_SPEED = 80;
   public static inline var CURSOR_DRAG = 1000;
 
-  public static inline var IMAGE_PATH = "assets/images/";
-  public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
-  public static inline var MACHINE_PATH = "assets/images/machine/";
 
   public static inline var SCREEN_TECH_THING_X = 55;
   public static inline var SCREEN_TECH_THING_Y = 37;
+
+  public static inline var SCREEN_LEFT_PADDING = 6;
+  public static inline var SCREEN_TOP_PADDING = 4;
+
+  public static inline var IMAGE_PATH = "assets/images/";
+  public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
+  public static inline var MACHINE_PATH = "assets/images/machine/";
 
   public static inline var TIME_SCALE = 6 * 60;  // The scale factor of the play time compare to the real time
 

@@ -56,7 +56,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     ];
     remainAnchorCounts = anchorPoints.length;
 
-    add(new TitleText("Vacuum Packaging"));
+    add(new TitleText("Mode.E"));
 
     createStep1();
   }

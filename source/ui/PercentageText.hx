@@ -6,13 +6,13 @@ class PercentageText extends FlxText {
 
   private static inline var WIDTH = 300;
 
-  public function new(X:Float = 0, Y:Float = 0):Void {
-    super(X, Y, WIDTH, "100%");
+  public function new():Void {
+    super(GameConfig.SCREEN_LEFT_PADDING, 180, WIDTH, "100%");
     color = GameConfig.SCREEN_COLOR_YELLOW;
-    size = 20;
+    size = 12;
   }
 
   public function setPercentage(percentage:Float) {
-    text = "" + Std.int(percentage * 100) + "." + (Std.int(percentage * 10000) % 100) + "%";
+    text = "Completion: " + Std.int(percentage * 100) + "." + (Std.int(percentage * 10000) % 100) + "%";
   }
 }

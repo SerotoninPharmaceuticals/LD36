@@ -2,12 +2,12 @@ package ui;
 
 import flixel.text.FlxText;
 
-class TitleText extends FlxText {
+class SubTitleText extends FlxText {
 
   public function new(title:String = ""):Void {
-    super(GameConfig.SCREEN_LEFT_PADDING, GameConfig.SCREEN_TOP_PADDING);
+    super(6, 26);
     color = GameConfig.SCREEN_COLOR_YELLOW;
-    size = 18;
+    size = 12;
     setText(title);
   }
 

@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.SubTitleText;
 import ui.TitleText;
 import flixel.math.FlxPoint;
 import ui.PercentageText;
@@ -34,17 +35,20 @@ class CleaningProcedure extends FlxSpriteGroup {
   private var cursor:FlxSprite;
 
   var titleText:TitleText;
+  var subtitleText:SubTitleText;
 
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText(10, 248);
+    percentage = new PercentageText();
     add(percentage);
 
     titleText = new TitleText();
     add(titleText);
+    subtitleText = new SubTitleText();
+    add(subtitleText);
 
     createStep1();
   }
@@ -135,7 +139,8 @@ class CleaningProcedure extends FlxSpriteGroup {
       add(erasableStep1.members[i]);
     }
 
-    titleText.setText("Surface Cleansing");
+    titleText.setText("Mode.A.Step1");
+    subtitleText.setText("Surface Cleaning");
 
     createCursor();
   }
@@ -161,7 +166,8 @@ class CleaningProcedure extends FlxSpriteGroup {
       add(erasableStep2.members[i]);
     }
 
-    titleText.setText("Gramma-Ray Sterillization");
+    titleText.setText("Mode.A.Step2");
+    subtitleText.setText("Gramma-Ray Sterillization");
 
     createCursor();
   }
