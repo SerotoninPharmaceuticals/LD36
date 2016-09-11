@@ -33,13 +33,13 @@ class IntroState extends FlxState {
   }
 
   private function createTimerBar():Void {
-    var timerBar = new TimerBar(-50, 90, 0, 0.6);
+    var timerBar = new TimerBar(-80, 83, 0, 0.57);
     timerBar.start();
     add(timerBar);
   }
 
   private function createText():Void {
-    var titletext = new FlxSprite(304,135);
+    var titletext = new FlxSprite(302,136);
     titletext.loadGraphic("assets/images/titletext.png");
         add(titletext);
   }
