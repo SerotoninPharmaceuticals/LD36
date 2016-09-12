@@ -78,7 +78,13 @@ class MachineState extends FlxSubState {
     buttonSound = FlxG.sound.load("assets/sounds/button.wav", 0.5, false);
     createPaper();
     createTimerBar();
+
     createScreen();
+
+    var screenBg = new FlxSprite(SCREEN_X, SCREEN_Y);
+    screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
+    add(screenBg);
+
     createControlStick();
     createKeys();
     createLights();
@@ -221,11 +227,8 @@ class MachineState extends FlxSubState {
 
   private function createScreen():Void {
     screen = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
-    var screenBg = new FlxSprite(0, 0);
-    screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
     createScreenMenu();
 
-    screen.add(screenBg);
     add(screen);
   }
 
