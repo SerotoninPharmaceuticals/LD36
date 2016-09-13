@@ -22,6 +22,7 @@ class TemperatureStatus extends FlxSpriteGroup {
   private var name:FlxText;
   var highlightBg:FlxSprite;
 
+
   public function new(InitialTemp:Float = 30.5):Void {
     super(0, 201, 0);
 

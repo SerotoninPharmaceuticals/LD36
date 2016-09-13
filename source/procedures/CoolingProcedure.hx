@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.text.FlxText;
 import sprites.Outline;
 import ui.TitleText;
 import sprites.TechThing;
@@ -21,6 +22,7 @@ class CoolingProcedure extends FlxSpriteGroup {
   var target:TechThing;
   var onFinished:Void->Void;
 
+  var debugTime:FlxText;
 
   public function new(_target:TechThing, _onFinished) {
     super();
@@ -38,6 +40,11 @@ class CoolingProcedure extends FlxSpriteGroup {
       add(itemBody.members[i]);
     }
 
+    if (GameConfig.DEBUG) {
+      debugTime = new FlxText(10, 200, 200, '');
+      add(debugTime);
+    }
+
     add(new TitleText("Mode.B"));
   }
 
@@ -50,19 +57,28 @@ class CoolingProcedure extends FlxSpriteGroup {
     }
     temperatureStatus.setTemperature(currentTemp);
 
-    if (currentTemp >= GameConfig.COOLING_PROC_LOWER_TEMP &&
-        currentTemp <= GameConfig.COOLING_PROC_UPPER_TEMP &&
-        !isValid && !timerIsStarted) {
-      temperatureStatus.setValid();
-      timer.start(GameConfig.COOLING_PROC_TIMEOUT, onProcFinished);
-      timerIsStarted = true;
-    } else if (!timerIsStarted) {
-      temperatureStatus.setInvalid();
-      if (isValid && (currentTemp < GameConfig.COOLING_PROC_LOWER_TEMP ||
-                      currentTemp > GameConfig.COOLING_PROC_UPPER_TEMP)) {
+    if (timerIsStarted) {
+      if (
+        currentTemp < GameConfig.COOLING_PROC_LOWER_TEMP ||
+        currentTemp > GameConfig.COOLING_PROC_UPPER_TEMP
+      ) {
         timer.cancel();
         timerIsStarted = false;
+        temperatureStatus.setInvalid();
       }
+    } else {
+      if (
+        currentTemp >= GameConfig.COOLING_PROC_LOWER_TEMP &&
+        currentTemp <= GameConfig.COOLING_PROC_UPPER_TEMP
+      ) {
+        timer.start(GameConfig.COOLING_PROC_TIMEOUT, onProcFinished);
+        timerIsStarted = true;
+        temperatureStatus.setValid();
+      }
+    }
+
+    if (debugTime != null) {
+      debugTime.text = timer.timeLeft + '';
     }
 
     super.update(elapsed);
