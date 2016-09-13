@@ -23,9 +23,9 @@ class TemperatureStatus extends FlxSpriteGroup {
   var highlightBg:FlxSprite;
 
 
-  public function new(InitialTemp:Float = 30.5):Void {
+  public function new():Void {
     super(0, 201, 0);
-
+    var InitialTemp = GameConfig.ROOM_TEMP_HI - 1;
     tempText = new FlxText(0, PADDING_TOP, WIDTH, tempToText(InitialTemp));
     name = new FlxText(0, PADDING_TOP + TEMP_SIZE + LINE_GAP, WIDTH, "TEMP");
 
@@ -45,7 +45,31 @@ class TemperatureStatus extends FlxSpriteGroup {
     setInvalid();
   }
 
+  public var currentTemp:Float = GameConfig.ROOM_TEMP_HI - 1;
+  var durationAfterLastJitter:Float = 0;
+
+  override public function update(elapsed:Float) {
+    trace(currentTemp);
+    if (currentTemp < GameConfig.ROOM_TEMP_LO) {
+      setTemperature(currentTemp + elapsed * GameConfig.TEMP_INC_SPEED);
+    } else if (currentTemp > GameConfig.ROOM_TEMP_HI) {
+      setTemperature(currentTemp - elapsed * GameConfig.TEMP_INC_SPEED);
+    } else {
+      if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
+        trace('jitter');
+        setTemperature(currentTemp + Math.random() * 2 - 1);
+        durationAfterLastJitter = 0;
+      } else {
+        durationAfterLastJitter += elapsed;
+        trace('no jitter');
+        trace(durationAfterLastJitter);
+      }
+    }
+    super.update(elapsed);
+  }
+
   public function setTemperature(temp:Float) {
+    currentTemp = temp;
     tempText.text = tempToText(temp);
     if (temp <= -100 || temp >= 1000) {
       tempText.size = TEMP_SMALL_SIZE;

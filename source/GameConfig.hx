@@ -61,12 +61,15 @@ class GameConfig {
 
   public static inline var ENABLE_CURSOR_OBLIQUE = false;
 
-  public static inline var COOLING_PROC_INITIAL_TEMP = 21.4;
+  public static inline var ROOM_TEMP_LO = 14.8;
+  public static inline var ROOM_TEMP_HI = 17.3;
+  public static inline var ROOM_TEMP_JITTER_INTERVAL = 2;
+
   public static inline var COOLING_PROC_TEMP_DEC = 1.0;
   public static inline var COOLING_PROC_TIMEOUT = 10;
   public static inline var COOLING_PROC_LOWER_TEMP = -42;
   public static inline var COOLING_PROC_UPPER_TEMP = -38;
-  public static inline var COOLING_PROC_TEMP_INC_SPEED = 2.6;
+  public static inline var TEMP_INC_SPEED = 2.6;
 
   public static inline var ELECTROP_PROC_CURSOR_INC_SPEED= 60;
   public static inline var ELECTROP_PROC_CURSOR_DEC_SPEED= 90;

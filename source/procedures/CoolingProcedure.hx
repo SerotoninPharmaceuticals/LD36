@@ -17,7 +17,6 @@ class CoolingProcedure extends FlxSpriteGroup {
   private var timerIsStarted:Bool = false;
   private var isValid = false;
 
-  private var currentTemp:Float = GameConfig.COOLING_PROC_INITIAL_TEMP;
 
   var target:TechThing;
   var onFinished:Void->Void;
@@ -49,18 +48,14 @@ class CoolingProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (currentTemp < GameConfig.COOLING_PROC_INITIAL_TEMP) {
-      currentTemp += elapsed * GameConfig.COOLING_PROC_TEMP_INC_SPEED;
-    }
     if (FlxG.keys.justPressed.Z) {
-      currentTemp -= GameConfig.COOLING_PROC_TEMP_DEC;
+      temperatureStatus.setTemperature(temperatureStatus.currentTemp - GameConfig.COOLING_PROC_TEMP_DEC);
     }
-    temperatureStatus.setTemperature(currentTemp);
 
     if (timerIsStarted) {
       if (
-        currentTemp < GameConfig.COOLING_PROC_LOWER_TEMP ||
-        currentTemp > GameConfig.COOLING_PROC_UPPER_TEMP
+        temperatureStatus.currentTemp < GameConfig.COOLING_PROC_LOWER_TEMP ||
+        temperatureStatus.currentTemp > GameConfig.COOLING_PROC_UPPER_TEMP
       ) {
         timer.cancel();
         timerIsStarted = false;
@@ -68,8 +63,8 @@ class CoolingProcedure extends FlxSpriteGroup {
       }
     } else {
       if (
-        currentTemp >= GameConfig.COOLING_PROC_LOWER_TEMP &&
-        currentTemp <= GameConfig.COOLING_PROC_UPPER_TEMP
+        temperatureStatus.currentTemp >= GameConfig.COOLING_PROC_LOWER_TEMP &&
+        temperatureStatus.currentTemp <= GameConfig.COOLING_PROC_UPPER_TEMP
       ) {
         timer.start(GameConfig.COOLING_PROC_TIMEOUT, onProcFinished);
         timerIsStarted = true;
