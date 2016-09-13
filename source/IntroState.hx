@@ -39,9 +39,9 @@ class IntroState extends FlxState {
   }
 
   private function createText():Void {
-    var titletext = new FlxSprite(302,136);
+    var titletext = new FlxSprite(270,122);
     titletext.loadGraphic("assets/images/titletext.png");
-        add(titletext);
+    add(titletext);
   }
 
   override public function update(elapsed:Float):Void {
@@ -53,7 +53,7 @@ class IntroState extends FlxState {
   }
 
   private function fadeOut():Void {
-    FlxG.camera.fade(FlxColor.BLACK, 1, false, startPlayState, true);
+    FlxG.camera.fade(FlxColor.BLACK, 0.8, false, startPlayState, true);
     sound.fadeOut(1);
   }
 
