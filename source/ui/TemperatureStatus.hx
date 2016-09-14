@@ -57,7 +57,7 @@ class TemperatureStatus extends FlxSpriteGroup {
     } else {
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
         trace('jitter');
-        setTemperature(currentTemp + Math.random() * 2 - 1);
+        setTemperature(currentTemp + (Math.random() - 0.5) * 1.2);
         durationAfterLastJitter = 0;
       } else {
         durationAfterLastJitter += elapsed;

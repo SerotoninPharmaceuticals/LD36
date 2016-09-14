@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TemperatureStatus;
 import ui.TitleText;
 import sprites.TechThing;
 import flixel.math.FlxPoint;
@@ -47,6 +48,9 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     add(percentage);
 
     add(new TitleText("Mode.D"));
+
+    var temperatureStatus = new TemperatureStatus();
+    add(temperatureStatus);
 
     createStep1();
   }

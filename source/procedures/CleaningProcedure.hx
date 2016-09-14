@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TemperatureStatus;
 import ui.SubTitleText;
 import ui.TitleText;
 import flixel.math.FlxPoint;
@@ -49,6 +50,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(titleText);
     subtitleText = new SubTitleText();
     add(subtitleText);
+
+    var temperatureStatus = new TemperatureStatus();
+    add(temperatureStatus);
 
     createStep1();
   }

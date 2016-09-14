@@ -63,7 +63,7 @@ class GameConfig {
 
   public static inline var ROOM_TEMP_LO = 14.8;
   public static inline var ROOM_TEMP_HI = 17.3;
-  public static inline var ROOM_TEMP_JITTER_INTERVAL = 2;
+  public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.2;
 
   public static inline var COOLING_PROC_TEMP_DEC = 1.0;
   public static inline var COOLING_PROC_TIMEOUT = 10;

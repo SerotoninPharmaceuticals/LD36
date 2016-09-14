@@ -1,5 +1,7 @@
 package procedures;
 
+import ui.TemperatureStatus;
+import ui.TemperatureStatus;
 import sprites.Outline;
 import flixel.text.FlxText;
 import ui.TitleText;
@@ -30,6 +32,10 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     super();
     target = _target;
     onFinsihed = _onFinished;
+
+    var temperatureStatus = new TemperatureStatus();
+    add(temperatureStatus);
+
     createSprites();
 
     add(new TitleText("Mode.C"));

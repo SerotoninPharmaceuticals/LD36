@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.TemperatureStatus;
 import sprites.Outline;
 import ui.TitleText;
 import ui.PressureBarHoriz;
@@ -57,6 +58,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     remainAnchorCounts = anchorPoints.length;
 
     add(new TitleText("Mode.E"));
+
+    var temperatureStatus = new TemperatureStatus();
+    add(temperatureStatus);
 
     createStep1();
   }
