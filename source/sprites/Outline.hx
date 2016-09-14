@@ -10,7 +10,7 @@ import flixel.util.FlxSpriteUtil;
 import flixel.FlxSprite;
 
 class Outline extends FlxTypedGroup<FlxSprite> {
-  public var border:Int = 3;
+  public var border:Int = 2;
   public var borderColor:FlxColor = GameConfig.SCREEN_COLOR_YELLOW;
 
   var imageBack:String;

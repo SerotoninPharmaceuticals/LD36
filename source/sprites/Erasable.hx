@@ -17,7 +17,7 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
   public var brush:FlxSprite;
   public var eraseEnabled = false;
   public var percentage:Float = 1.0;
-  public var border:Int = 3;
+  public var border:Int = 2;
   public var borderColor:FlxColor = GameConfig.SCREEN_COLOR_YELLOW;
 
   var imageBack:String;
