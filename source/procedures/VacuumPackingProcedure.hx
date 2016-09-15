@@ -54,8 +54,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
     add(new TitleText("Mode.E"));
 
-    var temperatureStatus = new TemperatureStatus();
-    add(temperatureStatus);
+    add(new TemperatureStatus());
 
     createStep1();
   }

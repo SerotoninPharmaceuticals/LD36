@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.PressureBarHoriz;
 import ui.TemperatureStatus;
 import ui.TemperatureStatus;
 import sprites.Outline;
@@ -35,6 +36,8 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
 
     var temperatureStatus = new TemperatureStatus();
     add(temperatureStatus);
+
+    add(new PressureBarHoriz(0, 1, 100, true));
 
     createSprites();
 

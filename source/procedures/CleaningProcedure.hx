@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.PressureBarHoriz;
 import ui.TemperatureStatus;
 import ui.SubTitleText;
 import ui.TitleText;
@@ -51,8 +52,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     subtitleText = new SubTitleText();
     add(subtitleText);
 
-    var temperatureStatus = new TemperatureStatus();
-    add(temperatureStatus);
+
+    add(new TemperatureStatus());
+    add(new PressureBarHoriz(0, 1, 100, true));
 
     createStep1();
   }

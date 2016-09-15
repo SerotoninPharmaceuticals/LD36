@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.PressureBarHoriz;
 import flixel.text.FlxText;
 import sprites.Outline;
 import ui.TitleText;
@@ -29,6 +30,8 @@ class CoolingProcedure extends FlxSpriteGroup {
     onFinished = _onFinished;
     timer = new FlxTimer();
     setupScreen();
+
+    add(new PressureBarHoriz(0, 1, 100, true));
 
     var itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,

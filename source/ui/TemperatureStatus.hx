@@ -49,20 +49,16 @@ class TemperatureStatus extends FlxSpriteGroup {
   var durationAfterLastJitter:Float = 0;
 
   override public function update(elapsed:Float) {
-    trace(currentTemp);
     if (currentTemp < GameConfig.ROOM_TEMP_LO) {
       setTemperature(currentTemp + elapsed * GameConfig.TEMP_INC_SPEED);
     } else if (currentTemp > GameConfig.ROOM_TEMP_HI) {
       setTemperature(currentTemp - elapsed * GameConfig.TEMP_INC_SPEED);
     } else {
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
-        trace('jitter');
         setTemperature(currentTemp + (Math.random() - 0.5) * 1.2);
         durationAfterLastJitter = 0;
       } else {
         durationAfterLastJitter += elapsed;
-        trace('no jitter');
-        trace(durationAfterLastJitter);
       }
     }
     super.update(elapsed);
