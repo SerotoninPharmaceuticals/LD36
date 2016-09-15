@@ -141,7 +141,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   }
 
   function createPressureBar() {
-    pressureBar = new PressureBarHoriz(10, 240, target_pressure, max_pressure, max_pressure);
+    pressureBar = new PressureBarHoriz(target_pressure, max_pressure, max_pressure);
     for (i in 0...pressureBar.length) {
       add(pressureBar.members[i]);
     }
