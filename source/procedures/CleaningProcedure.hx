@@ -134,8 +134,8 @@ class CleaningProcedure extends FlxSpriteGroup {
 
   function createStep1():Void {
     erasableStep1 = new Erasable(
-      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
-      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
+      MachineState.SCREEN_TECH_THING_CENTER_X,
+      MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeAStep1BackImage,
       target.config.modeAStep1FrontImage,
       CURSOR_RADIUS
@@ -162,8 +162,8 @@ class CleaningProcedure extends FlxSpriteGroup {
     cleanStep1();
 
     erasableStep2 = new Erasable(
-      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
-      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
+      MachineState.SCREEN_TECH_THING_CENTER_X,
+      MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeAStep2BackImage,
       target.config.modeAStep2FrontImage,
       CURSOR_RADIUS, true

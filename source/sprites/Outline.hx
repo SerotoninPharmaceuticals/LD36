@@ -4,9 +4,7 @@ import Std;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import openfl.display.BitmapData;
-import flash.geom.ColorTransform;
 import flash.geom.Rectangle;
-import flixel.util.FlxSpriteUtil;
 import flixel.FlxSprite;
 
 class Outline extends FlxTypedGroup<FlxSprite> {

@@ -31,8 +31,8 @@ class CoolingProcedure extends FlxSpriteGroup {
     setupScreen();
 
     var itemBody = new Outline(
-      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
-      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
+      MachineState.SCREEN_TECH_THING_CENTER_X,
+      MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeEImage
     );
 

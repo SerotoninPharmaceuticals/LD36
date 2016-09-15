@@ -39,6 +39,9 @@ class MachineState extends FlxSubState {
   public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
   public static var SCREEN_MAIN_HEIGHT = SCREEN_DASHBOARD_Y;
 
+  public static var SCREEN_TECH_THING_CENTER_X = MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2;
+  public static var SCREEN_TECH_THING_CENTER_Y = MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2 + 10;
+
   public static var X_KEY_IMAGE = "assets/images/machine/x.png";
   public static var X_KEY_DOWN_IMAGE = "assets/images/machine/x_down.png";
   public static var Z_KEY_IMAGE = "assets/images/machine/z.png";
