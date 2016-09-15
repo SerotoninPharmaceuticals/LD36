@@ -16,7 +16,7 @@ class Outline extends FlxTypedGroup<FlxSprite> {
   var x:Float;
   var y:Float;
 
-  var origin:FlxSprite;
+  public var origin:FlxSprite;
   var dirt:FlxSprite;
 
   public function new(_x:Float, _y:Float, _imageBack:String):Void {

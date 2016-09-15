@@ -22,11 +22,6 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_DOWN = 3;
   static inline var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
 
-  static inline var anchor_x = 48;
-  static inline var anchor_y = 53;
-  static inline var anchor_h_margin = 93;
-  static inline var anchor_v_margin = 166;
-
   static inline var pressure_per_press = 10;
   static inline var target_pressure = 80;
   static inline var max_pressure = 120;
@@ -38,7 +33,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var onFinsihed:Void->Void;
 
   var anchors:Array<FlxSprite> = new Array<FlxSprite>();
-  var anchorPoints:Array<Array<Int>>;
+  var anchorPoints:Array<Array<Float>>;
   var remainAnchorCounts = 6;
 
   var pressure:Float = 0;
@@ -52,8 +47,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     onFinsihed = _onFinished;
 
     anchorPoints = [
-      [0, 0], [anchor_h_margin, 0], [anchor_h_margin*2, 0],
-      [0, anchor_v_margin], [anchor_h_margin, anchor_v_margin], [anchor_h_margin*2, anchor_v_margin]
+      [0, 0], [1/2, 0], [1, 0],
+      [0, 1], [1/2, 1], [1, 1]
     ];
     remainAnchorCounts = anchorPoints.length;
 
@@ -134,12 +129,12 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(cursor);
   }
 
-  function createAnchor():Void {
+  function createAnchor(target:FlxSprite):Void {
     for(i in 0...anchorPoints.length) {
       var anchor = new FlxSprite();
       anchor.loadGraphic(GameConfig.IMAGE_PATH + "procedures/anchor.png");
-      anchor.x = anchor_x + anchorPoints[i][0] - anchor.width / 2;
-      anchor.y = anchor_y + anchorPoints[i][1] - anchor.height / 2;
+      anchor.x = Std.int(target.x) + target.width * anchorPoints[i][0] - anchor.width / 2;
+      anchor.y = Std.int(target.y) + target.height * anchorPoints[i][1] - anchor.height / 2;
       anchors.push(anchor);
       add(anchor);
     }
@@ -152,10 +147,11 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     }
   }
 
-  function createRect() {
+  function createRect(target:FlxSprite) {
     var rect = new FlxSprite(0, 0);
     rect.makeGraphic(MachineState.SCREEN_MAIN_WIDTH, MachineState.SCREEN_MAIN_HEIGHT, FlxColor.TRANSPARENT);
-    FlxSpriteUtil.drawRect(rect, anchor_x - 1, anchor_y - 1, anchor_h_margin * 2 , anchor_v_margin , FlxColor.TRANSPARENT, {
+    FlxSpriteUtil.fill(rect, 0); // WHY???
+    FlxSpriteUtil.drawRect(rect, Std.int(target.x) - 1, Std.int(target.y) - 1, target.width, target.height, FlxColor.TRANSPARENT, {
       color: GameConfig.SCREEN_COLOR_YELLOW1,
       pixelHinting: true
     });
@@ -164,16 +160,16 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
   function createStep1():Void {
     var itemBody = new Outline(
-      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
-      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
+      MachineState.SCREEN_TECH_THING_CENTER_X,
+      MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeEImage
     );
     for (i in 0...itemBody.length) {
       add(itemBody.members[i]);
     }
 
-    createRect();
-    createAnchor();
+    createRect(itemBody.origin);
+    createAnchor(itemBody.origin);
     createCursor();
     createPressureBar();
   }
