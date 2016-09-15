@@ -90,6 +90,11 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     } else if (cursor.angle >= validAreaStartDeg &&
                cursor.angle <= validAreaStartDeg + VALID_AREA_DEG) {
       validArea.angle += GameConfig.ELECTROP_PROC_VALID_AREA_SPEED * elapsed;
+
+      if (GameConfig.DEBUG) {
+        validArea.angle += 3 * GameConfig.ELECTROP_PROC_VALID_AREA_SPEED * elapsed;
+      }
+
     }
 
     super.update(elapsed);
