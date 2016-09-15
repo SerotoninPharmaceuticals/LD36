@@ -79,9 +79,6 @@ class GameConfig {
   public static inline var CURSOR_DRAG = 1000;
 
 
-  public static inline var SCREEN_TECH_THING_X = 55;
-  public static inline var SCREEN_TECH_THING_Y = 37;
-
   public static inline var SCREEN_LEFT_PADDING = 4;
   public static inline var SCREEN_TOP_PADDING = 2;
 

@@ -15,27 +15,30 @@ class Outline extends FlxTypedGroup<FlxSprite> {
 
   var imageBack:String;
 
-  var x:Int;
-  var y:Int;
+  var x:Float;
+  var y:Float;
 
   var origin:FlxSprite;
   var dirt:FlxSprite;
 
-  public function new(_x:Int, _y:Int, _imageBack:String):Void {
+  public function new(_x:Float, _y:Float, _imageBack:String):Void {
     super();
 
-    x = _x;
-    y = _y;
     imageBack = _imageBack;
 
-    origin = new FlxSprite(x - 198, y - 48); // dirty fix.
+    origin = new FlxSprite();
     origin.loadGraphic(imageBack, false, 0, 0, true);
+
+    x = _x - origin.width/2;
+    y = _y - origin.height/2;
+    origin.x = x - MachineState.SCREEN_X; // dirty fix.
+    origin.y = y - MachineState.SCREEN_Y;
+
     origin.updateFramePixels(); // required
     origin.alpha = 0.5;
 
-
     var outlineBitmap:BitmapData = drawOutline(origin.framePixels, border, borderColor);
-    var outline:FlxSprite = new FlxSprite(x - 198 - border, y - 48 - border);
+    var outline:FlxSprite = new FlxSprite(origin.x - border, origin.y - border);
     outline.makeGraphic(outlineBitmap.width, outlineBitmap.height, 0, true);
     outline.updateFramePixels(); // required
     outline.framePixels = outlineBitmap;

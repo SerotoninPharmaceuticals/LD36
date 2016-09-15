@@ -23,8 +23,8 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
   var imageBack:String;
   var imageFront:String;
 
-  var x:Int;
-  var y:Int;
+  var x:Float;
+  var y:Float;
 
   var origin:FlxSprite;
   var dirt:FlxSprite;
@@ -39,21 +39,25 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
 
   var drawMode = false;
 
-  public function new(_x:Int, _y:Int, _imageBack:String, _pattern:String, _brushRaidus:Int, _drawMode = false):Void {
+  public function new(_x:Float, _y:Float, _imageBack:String, _pattern:String, _brushRaidus:Int, _drawMode = false):Void {
     super();
 
     drawMode = _drawMode;
 
-    x = _x;
-    y = _y;
     imageBack = _imageBack;
     brushRadius = _brushRaidus;
 
-    origin = new FlxSprite(x - 198, y - 48); // dirty fix.
+    origin = new FlxSprite();
     origin.loadGraphic(imageBack, false, 0, 0, true);
 
+    x = _x - origin.width/2;
+    y = _y - origin.height/2;
+    origin.x = x - MachineState.SCREEN_X; // dirty fix.
+    origin.y = y - MachineState.SCREEN_Y;
+
     var outlineBitmap:BitmapData = drawOutline(origin.framePixels, border, borderColor);
-    var outline:FlxSprite = new FlxSprite(x - 198 - border, y - 48 - border);
+    var outline:FlxSprite = new FlxSprite(origin.x - border, origin.y - border);
+
     outline.makeGraphic(outlineBitmap.width, outlineBitmap.height, 0, true);
     outline.updateFramePixels(); // required
     outline.framePixels = outlineBitmap;
@@ -63,19 +67,19 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     var patternBitmap = pattern.framePixels;
 
     if (drawMode) {
-      var toDraw = new FlxSprite(x - 198, y - 48); // dirty fix.
+      var toDraw = new FlxSprite(origin.x, origin.y); // dirty fix.
       toDraw.makeGraphic(Std.int(origin.width), Std.int(origin.height), 0, true);
       toDraw.updateFramePixels();
       toDraw.framePixels = patternOverlay(origin.framePixels, patternBitmap);
       add(toDraw);
 
-      dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
+      dirt = new FlxSprite(origin.x, origin.y);
       dirt.makeGraphic(Std.int(origin.width), Std.int(origin.height), 0, true);
       dirt.updateFramePixels(); // required
       dirt.framePixels = toDraw.framePixels.clone();
       colorOverlay(dirt.framePixels, GameConfig.SCREEN_BG_COLOR);
     } else {
-      dirt = new FlxSprite(x - 198, y - 48); // dirty fix.
+      dirt = new FlxSprite(origin.x, origin.y);
       dirt.makeGraphic(Std.int(origin.width), Std.int(origin.height), 0, true);
       dirt.updateFramePixels(); // required
       dirt.framePixels = patternOverlay(origin.framePixels, patternBitmap);

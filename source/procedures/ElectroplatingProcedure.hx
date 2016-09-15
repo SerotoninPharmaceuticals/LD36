@@ -57,8 +57,9 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
 
 
     var itemBody = new Outline(
-    MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
-    target.config.modeEImage
+      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
+      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
+      target.config.modeEImage
     );
     for (i in 0...itemBody.length) {
       add(itemBody.members[i]);

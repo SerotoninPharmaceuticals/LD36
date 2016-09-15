@@ -135,7 +135,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
 
   function createStep1():Void {
     erasableStep1 = new Erasable(
-      MachineState.SCREEN_X + GameConfig.SCREEN_TECH_THING_X, MachineState.SCREEN_Y + GameConfig.SCREEN_TECH_THING_Y,
+      MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2,
+      MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2,
       target.config.modeDBackImage,
       target.config.modeDFrontImage,
       CURSOR_RADIUS, true
