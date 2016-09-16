@@ -1,5 +1,7 @@
 package procedures;
 
+import ui.PercentageText;
+import ui.PercentageText;
 import ui.DensityBarHoriz;
 import ui.TemperatureStatus;
 import sprites.Outline;
@@ -40,6 +42,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var pressure:Float = 0;
   var pressureBar:PressureBarHoriz;
 
+  var percentageText:PercentageText;
+
   private var cursor:FlxSprite;
 
   public function new(_target:TechThing, _onFinished) {
@@ -57,6 +61,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
+
+    percentageText = new PercentageText();
+    add(percentageText);
 
     createStep1();
   }
@@ -114,6 +121,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     }
 
     detectAnchor();
+
     if (remainAnchorCounts == 0) {
       onFinsihed();
     }
@@ -184,6 +192,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
         if (anchor.overlaps(cursor, true)) {
           anchor.kill();
           remainAnchorCounts -= 1;
+          percentageText.setPercentage(1 - remainAnchorCounts/6);
         }
       }
     }
