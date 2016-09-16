@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
 import ui.TemperatureStatus;
 import ui.TitleText;
@@ -53,6 +54,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     var temperatureStatus = new TemperatureStatus();
     add(temperatureStatus);
     add(new PressureBarHoriz(0, 1, 100, true));
+    add(new DensityBarHoriz());
 
     createStep1();
   }

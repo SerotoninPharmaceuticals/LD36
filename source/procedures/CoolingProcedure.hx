@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
 import flixel.text.FlxText;
 import sprites.Outline;
@@ -32,6 +33,7 @@ class CoolingProcedure extends FlxSpriteGroup {
     setupScreen();
 
     add(new PressureBarHoriz(0, 1, 100, true));
+    add(new DensityBarHoriz());
 
     var itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,

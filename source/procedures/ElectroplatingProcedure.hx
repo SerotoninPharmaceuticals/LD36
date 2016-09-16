@@ -1,7 +1,8 @@
 package procedures;
 
+import ui.PercentageText;
+import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
-import ui.TemperatureStatus;
 import ui.TemperatureStatus;
 import sprites.Outline;
 import flixel.text.FlxText;
@@ -14,51 +15,52 @@ import flixel.group.FlxSpriteGroup;
 
 class ElectroplatingProcedure extends FlxSpriteGroup {
 
-  private var cursor:FlxSprite;
-  private var sector:FlxSprite;
   private var validArea:FlxSprite;
-
-  private static inline var MAX_DEG = 223;
-  private static inline var CURSOR_MIN_DEG = 10;
-  private static inline var VALID_AREA_DEG = 36.8699;
-  private static inline var VALID_AREA_INIT_DEG = 26.5650;
-
-  private static inline var DENSIMETER_X = 220;
-  private static inline var DENSIMETER_Y = 140;
 
   var target:TechThing;
   var onFinsihed:Void->Void;
+
+  static inline var density_gain_per_sec = 20;
+  static inline var density_drop_per_sec = 50;
+  static inline var max_density = 100;
+
+  static inline var target_gain_per_sec = 10;
+  static inline var target_drop_per_sec = 10;
+  static inline var target_width = 10;
+  static inline var target_limit = 60;
+  static inline var target_min = 10;
+
+  var density:Float = 0;
+  var targetValue:Float = target_min;
+  var percentage:Float = 0;
+
+  var densityBar:DensityBarHoriz;
+  var percentageText:PercentageText;
+
 
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
     onFinsihed = _onFinished;
 
+    percentageText = new PercentageText();
+    add(percentageText);
+
     var temperatureStatus = new TemperatureStatus();
     add(temperatureStatus);
 
     add(new PressureBarHoriz(0, 1, 100, true));
 
+    densityBar = new DensityBarHoriz(target_min, target_width, target_limit, max_density, false);
+    add(densityBar);
+
     createSprites();
 
     add(new TitleText("Mode.C"));
-
   }
+  var text:FlxText;
 
   private function createSprites():Void {
-    sector = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
-    sector.loadGraphic("assets/images/procedures/densimeter_sector.png");
-    validArea = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
-    validArea.loadGraphic("assets/images/procedures/densimeter_valid_area.png");
-    cursor = new FlxSprite(DENSIMETER_X, DENSIMETER_Y);
-    cursor.loadGraphic("assets/images/procedures/densimeter_cursor.png");
-
-    var name = new FlxText(DENSIMETER_X - 50, DENSIMETER_Y + 100, 200, "Current Density");
-    name.size = 15;
-    name.color = GameConfig.SCREEN_COLOR_YELLOW0;
-    add(name);
-
-
     var itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
@@ -67,38 +69,35 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     for (i in 0...itemBody.length) {
       add(itemBody.members[i]);
     }
-
-    add(sector);
-    add(validArea);
-    add(cursor);
-    cursor.angle = CURSOR_MIN_DEG;
   }
 
   override public function update(elapsed:Float):Void {
     if (FlxG.keys.pressed.Z) {
-      if (cursor.angle < MAX_DEG) {
-        cursor.angle += GameConfig.ELECTROP_PROC_CURSOR_INC_SPEED * elapsed;
+      density += density_gain_per_sec * elapsed;
+    } else {
+      density -= density_drop_per_sec * elapsed;
+    }
+    density = Math.min(max_density, Math.max(0, density));
+
+    if (density >= targetValue && density <= targetValue + target_width) {
+      targetValue += target_gain_per_sec * elapsed;
+      if (targetValue >= target_limit) {
+        percentage += 0.1 * elapsed;
       }
     } else {
-      cursor.angle -= GameConfig.ELECTROP_PROC_CURSOR_DEC_SPEED * elapsed;
-      if (cursor.angle < CURSOR_MIN_DEG) {
-        cursor.angle = CURSOR_MIN_DEG;
-      }
+      targetValue -= target_drop_per_sec * elapsed;
     }
+    targetValue = Math.min(target_limit, Math.max(target_min, targetValue));
 
-    var validAreaStartDeg = validArea.angle + VALID_AREA_INIT_DEG;
-    if (validAreaStartDeg >= MAX_DEG - VALID_AREA_DEG) {
-      trace("Game finished.");
+    densityBar.setValue(density);
+    densityBar.setTargetValue(targetValue);
+
+    if (percentage >= 1) {
+      percentageText.setPercentage(1);
       onFinsihed();
-    } else if (cursor.angle >= validAreaStartDeg &&
-               cursor.angle <= validAreaStartDeg + VALID_AREA_DEG) {
-      validArea.angle += GameConfig.ELECTROP_PROC_VALID_AREA_SPEED * elapsed;
-
-      if (GameConfig.DEBUG) {
-        validArea.angle += 3 * GameConfig.ELECTROP_PROC_VALID_AREA_SPEED * elapsed;
-      }
-
     }
+
+    percentageText.setPercentage(percentage);
 
     super.update(elapsed);
   }

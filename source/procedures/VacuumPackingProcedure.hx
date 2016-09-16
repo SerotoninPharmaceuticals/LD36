@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.DensityBarHoriz;
 import ui.TemperatureStatus;
 import sprites.Outline;
 import ui.TitleText;
@@ -55,6 +56,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.E"));
 
     add(new TemperatureStatus());
+    add(new DensityBarHoriz());
 
     createStep1();
   }
@@ -68,9 +70,10 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     } else {
       pressure -= pressure_drop_per_sec * elapsed;
     }
+
     pressure = Math.min(max_pressure, Math.max(0, pressure));
     trace(pressure);
-    pressureBar.setValue(Std.int(pressure));
+    pressureBar.setValue(pressure);
 
     if (moveEnabled) {
       if (GameConfig.ENABLE_CURSOR_OBLIQUE) {
@@ -114,6 +117,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     if (remainAnchorCounts == 0) {
       onFinsihed();
     }
+    super.update(elapsed);
   }
 
   private function createCursor():Void {

@@ -1,13 +1,13 @@
 package ui;
 
-import flixel.group.FlxSpriteGroup;
 import Std;
+import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 
-class PressureBarHoriz extends FlxSpriteGroup {
+class DensityBarHoriz extends FlxSpriteGroup {
 
   private static inline var bar_height = 14;
   private static inline var bar_width = 204;
@@ -20,29 +20,36 @@ class PressureBarHoriz extends FlxSpriteGroup {
   private static inline var bar_y = font_size + 6;
 
   var total:Int;
+  var targetLimit:Int;
   var autorun:Bool;
 
   private var title:FlxText;
 
   var cursor:FlxSprite;
   var border:FlxSprite;
+  var target:FlxSprite;
 
   var originalValue:Int;
 
-  public function new(target_start:Int = 0, target_end:Int = 1, _total:Int = 100, _autorun:Bool = false):Void {
-    super(105, 238);
+  public function new(target_start:Int = 0, target_width:Int = 0, _target_limit = 70, _total:Int = 100, _autorun:Bool = true):Void {
+    super(105, 204);
     total = _total;
+    targetLimit = _target_limit;
     autorun = _autorun;
 
-    title = new FlxText(0, 0, text_width, "Internal Pressure");
+    title = new FlxText(0, 0, text_width, "Current Density");
     title.color = GameConfig.SCREEN_COLOR_YELLOW;
     title.size = font_size;
     add(title);
 
     if (!autorun) {
-      var target = new FlxSprite(bar_x + (1 - target_end / total) * bar_width + 1, bar_y + 1);
-      target.makeGraphic(Std.int((target_end - target_start)/total * bar_width) - 2, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);
+      target = new FlxSprite(bar_x + (target_start / total) * bar_width + 1, bar_y + 1);
+      target.makeGraphic(Std.int(target_width / total * bar_width) - 2, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);
       add(target);
+
+      var targetBoundary = new FlxSprite(bar_x + (targetLimit / total) * (bar_width - cursor_width) + target.width, bar_y);
+      targetBoundary.loadGraphic('assets/images/procedures/bar_dash.png');
+      add(targetBoundary);
     }
 
     border = new FlxSprite(bar_x, bar_y);
@@ -76,6 +83,10 @@ class PressureBarHoriz extends FlxSpriteGroup {
   }
 
   public function setValue(value:Float) {
-    cursor.setPosition(border.x + (1 - value / total) * (bar_width - cursor.width), cursor.y);
+    cursor.setPosition(border.x + (value / total) * (bar_width - cursor.width), cursor.y);
+  }
+  public function setTargetValue(value:Float) {
+    value = Std.int(Math.min(targetLimit, value));
+    target.setPosition(border.x + (value / total) * (bar_width - cursor.width), target.y);
   }
 }
