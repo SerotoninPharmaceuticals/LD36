@@ -86,7 +86,7 @@ class DensityBarHoriz extends FlxSpriteGroup {
     cursor.setPosition(border.x + (value / total) * (bar_width - cursor.width), cursor.y);
   }
   public function setTargetValue(value:Float) {
-    value = Std.int(Math.min(targetLimit, value));
+    value = Math.min(targetLimit, value);
     target.setPosition(border.x + (value / total) * (bar_width - cursor.width), target.y);
   }
 }
