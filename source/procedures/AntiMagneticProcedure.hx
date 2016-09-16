@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.CoordText;
 import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
 import ui.TemperatureStatus;
@@ -37,6 +38,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   var onFinsihed:Void->Void;
 
   var percentage:PercentageText;
+  var coordText:CoordText;
 
   private var cursor:FlxSprite;
   private var cursorRadius:Float = CURSOR_RADIUS;
@@ -55,6 +57,9 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     add(temperatureStatus);
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+
+    coordText = new CoordText();
+    add(coordText);
 
     createStep1();
   }
@@ -111,10 +116,12 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
-//      cursor.x = FlxG.mouse.x;
-//      cursor.y = FlxG.mouse.y;
+      cursor.x = FlxG.mouse.x;
+      cursor.y = FlxG.mouse.y;
       currentErasable.eraseEnabled = true;
     }
+
+    coordText.setPos(cursor.x, cursor.y);
 
     currentErasable.brush.setPosition(cursor.x, cursor.y);
     currentErasable.update(elapsed);

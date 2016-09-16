@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.CoordText;
 import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
 import ui.TemperatureStatus;
@@ -40,6 +41,8 @@ class CleaningProcedure extends FlxSpriteGroup {
   var titleText:TitleText;
   var subtitleText:SubTitleText;
 
+  var coordText:CoordText;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
@@ -57,6 +60,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(new TemperatureStatus());
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+
+    coordText = new CoordText();
+    add(coordText);
 
     createStep1();
   }
@@ -114,6 +120,8 @@ class CleaningProcedure extends FlxSpriteGroup {
       cursor.y = FlxG.mouse.y;
       currentErasable.eraseEnabled = true;
     }
+
+    coordText.setPos(cursor.x, cursor.y);
 
     currentErasable.brush.setPosition(cursor.x, cursor.y);
     currentErasable.update(elapsed);

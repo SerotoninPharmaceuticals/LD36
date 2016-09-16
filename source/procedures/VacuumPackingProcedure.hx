@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.CoordText;
 import ui.PercentageText;
 import ui.PercentageText;
 import ui.DensityBarHoriz;
@@ -43,6 +44,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var pressureBar:PressureBarHoriz;
 
   var percentageText:PercentageText;
+  var coordText:CoordText;
 
   private var cursor:FlxSprite;
 
@@ -64,6 +66,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
     percentageText = new PercentageText();
     add(percentageText);
+
+    coordText = new CoordText();
+    add(coordText);
 
     createStep1();
   }
@@ -120,6 +125,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
       moveEnabled = true;
     }
 
+    coordText.setPos(cursor.x, cursor.y);
     detectAnchor();
 
     if (remainAnchorCounts == 0) {

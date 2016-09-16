@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.CoordText;
 import ui.PercentageText;
 import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
@@ -53,6 +54,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
 
     densityBar = new DensityBarHoriz(target_min, target_width, target_limit, max_density, false);
     add(densityBar);
+    add(new CoordText());
 
     createSprites();
 

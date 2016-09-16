@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.CoordText;
 import ui.DensityBarHoriz;
 import ui.PressureBarHoriz;
 import flixel.text.FlxText;
@@ -34,6 +35,7 @@ class CoolingProcedure extends FlxSpriteGroup {
 
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+    add(new CoordText());
 
     var itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
@@ -49,6 +51,7 @@ class CoolingProcedure extends FlxSpriteGroup {
       debugTime = new FlxText(10, 200, 200, '');
       add(debugTime);
     }
+
 
     add(new TitleText("Mode.B"));
   }
