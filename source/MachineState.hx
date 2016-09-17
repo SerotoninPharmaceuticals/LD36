@@ -42,8 +42,11 @@ class MachineState extends FlxSubState {
   public static var SCREEN_MAIN_WIDTH = SCREEN_MENU_X; // in where cursor moves.
   public static var SCREEN_MAIN_HEIGHT = SCREEN_DASHBOARD_Y;
 
-  public static var SCREEN_TECH_THING_CENTER_X = MachineState.SCREEN_X + MachineState.SCREEN_MAIN_WIDTH/2;
-  public static var SCREEN_TECH_THING_CENTER_Y = MachineState.SCREEN_Y + MachineState.SCREEN_MAIN_HEIGHT/2 + 10;
+  public static var SCREEN_TECH_THING_CENTER_X_R = MachineState.SCREEN_MAIN_WIDTH/2;
+  public static var SCREEN_TECH_THING_CENTER_Y_R = MachineState.SCREEN_MAIN_HEIGHT/2 + 6;
+  public static var SCREEN_TECH_THING_CENTER_X = MachineState.SCREEN_X + SCREEN_TECH_THING_CENTER_X_R;
+  public static var SCREEN_TECH_THING_CENTER_Y = MachineState.SCREEN_Y + SCREEN_TECH_THING_CENTER_Y_R;
+
 
   public static var X_KEY_IMAGE = "assets/images/machine/x.png";
   public static var X_KEY_DOWN_IMAGE = "assets/images/machine/x_down.png";
@@ -149,8 +152,6 @@ class MachineState extends FlxSubState {
     } else {
       showComplete();
 
-      FlxG.log.notice("start timer");
-
       var timer = new FlxTimer();
       timer.start(0.2, function(t:FlxTimer) {
         screen.remove(currentProc);
@@ -158,8 +159,6 @@ class MachineState extends FlxSubState {
           turnOffLight(currentProcIndex);
         }
         currentProcIndex += 1;
-
-        FlxG.log.notice(currentProcIndex);
 
         if (currentProcIndex >= target.procedures.length) {
           close();
