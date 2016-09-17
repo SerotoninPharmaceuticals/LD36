@@ -27,9 +27,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
 
   static inline var pressure_per_press = 10;
-  static inline var target_pressure = 80;
+  static inline var target_pressure = 20;
   static inline var max_pressure = 120;
-  static inline var pressure_drop_per_sec = 50;
+  static inline var pressure_gain_per_sec = 50;
 
   var moveEnabled = false;
 
@@ -40,7 +40,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var anchorPoints:Array<Array<Float>>;
   var remainAnchorCounts = 6;
 
-  var pressure:Float = 0;
+  var pressure:Float = max_pressure;
   var pressureBar:PressureBarHoriz;
 
   var percentageText:PercentageText;
@@ -75,12 +75,12 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
   override public function update(elapsed:Float):Void {
 
-    moveEnabled = pressure > target_pressure;
+    moveEnabled = pressure < target_pressure;
 
     if (FlxG.keys.justPressed.X) {
-      pressure += pressure_per_press;
+      pressure -= pressure_per_press;
     } else {
-      pressure -= pressure_drop_per_sec * elapsed;
+      pressure += pressure_gain_per_sec * elapsed;
     }
 
     pressure = Math.min(max_pressure, Math.max(0, pressure));
@@ -158,7 +158,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   }
 
   function createPressureBar() {
-    pressureBar = new PressureBarHoriz(target_pressure, max_pressure, max_pressure);
+    pressureBar = new PressureBarHoriz(0, target_pressure, max_pressure);
     for (i in 0...pressureBar.length) {
       add(pressureBar.members[i]);
     }

@@ -1,5 +1,6 @@
 package procedures;
 
+import ui.SubTitleText;
 import ui.PercentageText;
 import ui.CoordText;
 import ui.DensityBarHoriz;
@@ -9,7 +10,6 @@ import ui.TitleText;
 import sprites.TechThing;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
-import flixel.util.FlxTimer;
 
 import ui.TemperatureStatus;
 
@@ -48,7 +48,8 @@ class CoolingProcedure extends FlxSpriteGroup {
     }
 
 
-    add(new TitleText("Mode.B"));
+    add(new TitleText("Mode.B.Step1"));
+    add(new SubTitleText("Flash Freezing"));
   }
 
   override public function update(elapsed:Float):Void {
