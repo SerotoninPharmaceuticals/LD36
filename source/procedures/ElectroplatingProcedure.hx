@@ -108,6 +108,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
 
     if (percentage >= 1) {
       percentageText.setPercentage(1);
+      completed = true;
       onFinsihed();
     }
 

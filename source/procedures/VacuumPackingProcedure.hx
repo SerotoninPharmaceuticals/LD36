@@ -140,6 +140,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     detectAnchor();
 
     if (remainAnchorCounts == 0) {
+      completed = true;
       onFinsihed();
     }
     super.update(elapsed);

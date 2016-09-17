@@ -80,6 +80,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     }
 
     if (erasableStep1 != null && erasableStep1.percentage < TAEGET_PERCENTAGE) {
+      percentage.setPercentage(1);
+      completed = true;
       onFinsihed();
     }
 

@@ -86,6 +86,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     }
     if (erasableStep2 != null && erasableStep2.percentage < TAEGET_PERCENTAGE) {
       completed = true;
+      percentage.setPercentage(1);
       onFinsihed();
     }
 

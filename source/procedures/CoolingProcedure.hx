@@ -87,6 +87,7 @@ class CoolingProcedure extends FlxSpriteGroup {
     super.update(elapsed);
 
     if (percentage >= 1) {
+      completed = true;
       onFinished();
     }
   }
