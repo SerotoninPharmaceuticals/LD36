@@ -13,6 +13,6 @@ class PercentageText extends FlxText {
   }
 
   public function setPercentage(percentage:Float) {
-    text = "Completion: " + Std.int(percentage * 100) + "." + (Std.int(percentage * 10000) % 100) + "%";
+    text = "Completion: " + Std.int(percentage * 100) + "." + (Std.int(percentage * 10000) % 10) + "%";
   }
 }
