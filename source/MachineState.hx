@@ -1,6 +1,7 @@
 package;
 
 #if flash
+import procedures.VacuumDryingProcedure;
 import flash.ui.GameInputControlType;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
@@ -158,7 +159,8 @@ class MachineState extends FlxSubState {
         screenMenu.activateBar(ScreenMenu.MENU_CLEANING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Cooling:
-        currentProc = new CoolingProcedure(target, startNextProc);
+//        currentProc = new CoolingProcedure(target, startNextProc);
+        currentProc = new VacuumDryingProcedure(target, startNextProc);
         screenMenu.activateBar(ScreenMenu.MENU_DEHYDRATION_INDEX);
         screen.add(currentProc);
       case ProcedureType.Electroplating:

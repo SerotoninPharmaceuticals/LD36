@@ -70,6 +70,10 @@ class GameConfig {
   public static inline var COOLING_PROC_UPPER_TEMP = -38 + (GameConfig.DEBUG ? 40 : 0);
   public static inline var TEMP_INC_SPEED = 2.6;
 
+  public static inline var DRYING_PROC_TEMP_GAIN = 1.0;
+  public static inline var DRYING_PROC_LOWER_TEMP = 25 + (GameConfig.DEBUG ? -8 : 0);
+  public static inline var DRYING_PROC_UPPER_TEMP = 30 + (GameConfig.DEBUG ? 40 : 0);
+
   public static inline var ELECTROP_PROC_CURSOR_INC_SPEED= 60;
   public static inline var ELECTROP_PROC_CURSOR_DEC_SPEED= 90;
   public static inline var ELECTROP_PROC_VALID_AREA_SPEED= 10;
