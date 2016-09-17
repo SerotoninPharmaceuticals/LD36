@@ -1,7 +1,7 @@
 package procedures;
 
+import flixel.util.FlxTimer;
 import ui.CoordText;
-import ui.PercentageText;
 import ui.PercentageText;
 import ui.DensityBarHoriz;
 import ui.TemperatureStatus;
@@ -48,6 +48,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
 
   private var cursor:FlxSprite;
 
+  var completed = false;
+  var initialized = false;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
@@ -71,9 +74,17 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(coordText);
 
     createStep1();
+
+    var timer = new FlxTimer();
+    timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+      initialized = true;
+    });
   }
 
   override public function update(elapsed:Float):Void {
+    if (completed || !initialized) {
+      return;
+    }
 
     moveEnabled = pressure < target_pressure;
 

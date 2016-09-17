@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.util.FlxTimer;
 import ui.SubTitleText;
 import ui.PercentageText;
 import ui.CoordText;
@@ -23,6 +24,9 @@ class CoolingProcedure extends FlxSpriteGroup {
 
   var target:TechThing;
   var onFinished:Void->Void;
+
+  var completed = false;
+  var initialized = false;
 
   public function new(_target:TechThing, _onFinished) {
     super();
@@ -50,9 +54,18 @@ class CoolingProcedure extends FlxSpriteGroup {
 
     add(new TitleText("Mode.B.Step1"));
     add(new SubTitleText("Flash Freezing"));
+
+    var timer = new FlxTimer();
+    timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+      initialized = true;
+    });
   }
 
   override public function update(elapsed:Float):Void {
+    if (completed || !initialized) {
+      return;
+    }
+
     if (FlxG.keys.justPressed.Z) {
       temperatureStatus.setTemperature(temperatureStatus.currentTemp - GameConfig.COOLING_PROC_TEMP_DEC);
     }

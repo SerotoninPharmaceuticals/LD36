@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.util.FlxTimer;
 import ui.CoordText;
 import ui.PercentageText;
 import ui.DensityBarHoriz;
@@ -38,6 +39,8 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   var densityBar:DensityBarHoriz;
   var percentageText:PercentageText;
 
+  var completed = false;
+  var initialized = false;
 
   public function new(_target:TechThing, _onFinished) {
     super();
@@ -59,6 +62,11 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     createSprites();
 
     add(new TitleText("Mode.C"));
+
+    var timer = new FlxTimer();
+    timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+      initialized = true;
+    });
   }
   var text:FlxText;
 
@@ -74,6 +82,10 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
+    if (completed || !initialized) {
+      return;
+    }
+
     if (FlxG.keys.pressed.Z) {
       density += density_gain_per_sec * elapsed;
     } else {

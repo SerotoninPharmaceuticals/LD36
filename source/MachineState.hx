@@ -1,12 +1,14 @@
 package;
 
 #if flash
-import procedures.VacuumDryingProcedure;
-import flash.ui.GameInputControlType;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
 
+import flixel.util.FlxTimer;
+import flixel.util.FlxSpriteUtil;
+import flixel.text.FlxText;
+import procedures.VacuumDryingProcedure;
 import procedures.VacuumPackingProcedure;
 import procedures.AntiMagneticProcedure;
 import GameConfig.ProcedureType;
@@ -54,6 +56,8 @@ class MachineState extends FlxSubState {
   public static var BG_IMAGE = GameConfig.MACHINE_PATH + "bg.png";
   public static var BG_NO_MANUAL_IMAGE = GameConfig.MACHINE_PATH + "bg_no_manual.png";
 
+  public static var PROCEDURE_INIT_TIME:Float = 0.5;
+
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
   public var target:TechThing;
@@ -62,7 +66,7 @@ class MachineState extends FlxSubState {
   private var buttonSound:FlxSound;
 
   private var currentProc:FlxSpriteGroup;
-  private var currentProcIndex:Int = -1;
+  private var currentProcIndex:Int = 0;
 
   private var leftKey:FlxSprite;
   private var rightKey:FlxSprite;
@@ -87,6 +91,7 @@ class MachineState extends FlxSubState {
     createTimerBar();
 
     createScreen();
+    createScreenMessage();
 
     var screenBg = new FlxSprite(SCREEN_X, SCREEN_Y);
     screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
@@ -138,20 +143,46 @@ class MachineState extends FlxSubState {
     add(rightKey);
   }
 
-  public function startNextProc():Void {
-    if (currentProc != null) {
-      screen.remove(currentProc);
-      if (currentProcIndex >= 0) {
-        turnOffLight(currentProcIndex);
-      }
-    }
-    currentProcIndex += 1;
+  public function startNextProc() {
+    if (currentProc == null) {
+      startNewProc();
+    } else {
+      showComplete();
 
-    if (currentProcIndex >= target.procedures.length) {
-      close();
-      return;
-    }
+      FlxG.log.notice("start timer");
 
+      var timer = new FlxTimer();
+      timer.start(0.2, function(t:FlxTimer) {
+        screen.remove(currentProc);
+        if (currentProcIndex >= 0) {
+          turnOffLight(currentProcIndex);
+        }
+        currentProcIndex += 1;
+
+        FlxG.log.notice(currentProcIndex);
+
+        if (currentProcIndex >= target.procedures.length) {
+          close();
+          return;
+        }
+
+        hideComplete();
+        startNewProc();
+      });
+    }
+  }
+
+  function startNewProc() {
+    showInit();
+    _startNewProc();
+
+    var timer = new FlxTimer();
+    timer.start(PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+      hideInit();
+    });
+  }
+
+  function _startNewProc():Void {
 
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
@@ -242,6 +273,70 @@ class MachineState extends FlxSubState {
 
     add(screen);
   }
+
+  var initMsg:FlxSpriteGroup;
+  var compMsg:FlxSpriteGroup;
+  function createScreenMessage() {
+    initMsg = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
+
+    var width = 200;
+    var height = 40;
+    var initRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2);
+    initRect.makeGraphic(width, height);
+    FlxSpriteUtil.drawRect(initRect, 1, 1, width - 2, height - 2, GameConfig.SCREEN_COLOR_YELLOW1, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      thickness: 2,
+      pixelHinting: true
+    });
+    initMsg.add(initRect);
+
+    var initText = new FlxText(0, SCREEN_MAIN_HEIGHT/2 - 8, SCREEN_MAIN_WIDTH, "INITIALIZING...");
+    initText.alignment = FlxTextAlign.CENTER;
+    initText.size = 12;
+    initText.color = GameConfig.SCREEN_COLOR_YELLOW;
+    initMsg.add(initText);
+
+    add(initMsg);
+    initMsg.kill();
+
+    compMsg = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
+
+    width = 200;
+    height = 60;
+    var compRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2);
+    compRect.makeGraphic(width, height);
+    FlxSpriteUtil.drawRect(compRect, 1, 1, width - 2, height - 2, GameConfig.SCREEN_COLOR_YELLOW1, {
+      color: GameConfig.SCREEN_COLOR_YELLOW,
+      thickness: 2,
+      pixelHinting: true
+    });
+    compMsg.add(compRect);
+
+    var compText = new FlxText(0, SCREEN_MAIN_HEIGHT/2 - 16, SCREEN_MAIN_WIDTH, "PROCEDURE\nCOMPELTE");
+    compText.alignment = FlxTextAlign.CENTER;
+    compText.size = 12;
+    compText.color = GameConfig.SCREEN_COLOR_YELLOW;
+    compMsg.add(compText);
+
+    add(compMsg);
+
+    initMsg.kill();
+    compMsg.kill();
+  }
+  function showInit() {
+    initMsg.revive();
+  }
+  function hideInit() {
+    initMsg.kill();
+  }
+
+  function showComplete() {
+    compMsg.revive();
+  }
+  function hideComplete() {
+    compMsg.kill();
+  }
+
 
   private function createScreenMenu():Void {
     screenMenu = new ScreenMenu();
