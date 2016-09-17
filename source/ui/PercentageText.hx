@@ -7,7 +7,7 @@ class PercentageText extends FlxText {
   private static inline var WIDTH = 300;
 
   public function new():Void {
-    super(GameConfig.SCREEN_LEFT_PADDING, 185, WIDTH, "100%");
+    super(GameConfig.SCREEN_LEFT_PADDING, 185, WIDTH, "Completion: 0.0%");
     color = GameConfig.SCREEN_COLOR_YELLOW;
     size = 10;
   }
