@@ -89,6 +89,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
       if (this.canClick()) {
         GameData.hoverCount += 1;
       } else {
+        FlxG.log.notice("+1");
         GameData.disabledHoverCount += 1;
       }
     }, function(target) {

@@ -1,5 +1,8 @@
 package;
 
+import flash.Vector;
+import flash.display.BitmapData;
+import flash.ui.MouseCursorData;
 import flixel.addons.plugin.FlxMouseControl;
 import openfl.Assets;
 import flixel.FlxSprite;
@@ -72,14 +75,24 @@ class PlayState extends FlxState {
     machineSound = FlxG.sound.load("assets/sounds/machine.wav", 0.5, true);
     machineSound.pan = -0.5;
     machineSound.play();
-  }
 
+    #if flash
+    var disabledCursor = new FlxSprite();
+    disabledCursor.loadGraphic("assets/images/cursor_disabled.png");
+    var mouseCursorData:MouseCursorData = new MouseCursorData();
+    var bitmapDatas:Vector<BitmapData> = new Vector<BitmapData>(1, true);
+    bitmapDatas[0] = disabledCursor.framePixels;
+
+    mouseCursorData.data = bitmapDatas;
+    mouseCursorData.frameRate = 1;
+    Mouse.registerCursor("notAllowed", mouseCursorData );
+    #end
+  }
 
   override public function update(elapsed:Float):Void {
     #if flash
-
     if (GameData.disabledHoverCount > 0) {
-//      Mouse.cursor = MouseCursor.IBEAM;
+      Mouse.cursor = "notAllowed";
     } else if (GameData.dragHoverCount > 0) {
       Mouse.cursor = MouseCursor.HAND;
     } else if (GameData.hoverCount > 0) {
@@ -89,6 +102,7 @@ class PlayState extends FlxState {
 
       GameData.dragHoverCount = Std.int(Math.max(0, GameData.dragHoverCount));
       GameData.hoverCount = Std.int(Math.max(0, GameData.hoverCount));
+      GameData.disabledHoverCount = Std.int(Math.max(0, GameData.disabledHoverCount));
     }
     #end
 
