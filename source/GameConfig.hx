@@ -62,14 +62,14 @@ class GameConfig {
 
   public static inline var ROOM_TEMP_LO = 15.6;
   public static inline var ROOM_TEMP_HI = 17.4;
-  public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.15;
+  public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.18;
 
-  public static inline var COOLING_PROC_TEMP_DEC = 1.0;
+  public static inline var COOLING_PROC_TEMP_DEC = 2.0;
   public static inline var COOLING_PROC_LOWER_TEMP = -42 + (GameConfig.DEBUG ? -10 : 0);
-  public static inline var COOLING_PROC_UPPER_TEMP = -38 + (GameConfig.DEBUG ? 40 : 0);
-  public static inline var TEMP_INC_SPEED = 2.6;
+  public static inline var COOLING_PROC_UPPER_TEMP = -36 + (GameConfig.DEBUG ? 40 : 0);
+  public static inline var TEMP_INC_SPEED = 1.8;
 
-  public static inline var DRYING_PROC_TEMP_GAIN = 1.0;
+  public static inline var DRYING_PROC_TEMP_GAIN = 1.6;
   public static inline var DRYING_PROC_LOWER_TEMP = 25 + (GameConfig.DEBUG ? -8 : 0);
   public static inline var DRYING_PROC_UPPER_TEMP = 30 + (GameConfig.DEBUG ? 40 : 0);
 
@@ -117,7 +117,7 @@ class GameConfig {
       y: 21,
 
       procedureTypes: [
-        ProcedureType.Cleaning,
+
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
       ]

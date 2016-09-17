@@ -4,6 +4,7 @@ import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
+import flixel.math.FlxMath;
 
 
 class TemperatureStatus extends FlxSpriteGroup {
@@ -48,12 +49,14 @@ class TemperatureStatus extends FlxSpriteGroup {
   public var currentTemp:Float = GameConfig.ROOM_TEMP_HI - 1;
   var durationAfterLastJitter:Float = 0;
   var tempAlterDice: Float = 0;
+  var tempAlterAmount: Float = 0;
 
   override public function update(elapsed:Float) {
     if (currentTemp < GameConfig.ROOM_TEMP_LO) {
       durationAfterLastJitter += elapsed;
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
-		  setTemperature(currentTemp + 0.65);
+		  tempAlterAmount = FlxMath.remapToRange(currentTemp - GameConfig.ROOM_TEMP_LO, -60, 0, GameConfig.TEMP_INC_SPEED, 0.25);
+		  setTemperature(currentTemp + tempAlterAmount);
 		  durationAfterLastJitter = 0;
       }  
     } else if (currentTemp > GameConfig.ROOM_TEMP_HI) {
