@@ -60,6 +60,9 @@ class GameConfig {
 
   public static inline var ENABLE_CURSOR_OBLIQUE = false;
 
+  public static inline var ROOM_TEMP_LO = 15.6;
+  public static inline var ROOM_TEMP_HI = 17.4;
+  public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.15;
 
   public static inline var COOLING_PROC_TEMP_DEC = 1.0;
   public static inline var COOLING_PROC_LOWER_TEMP = -42 + (GameConfig.DEBUG ? -10 : 0);

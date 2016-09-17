@@ -10,10 +10,10 @@ class TemperatureStatus extends FlxSpriteGroup {
 
   private static inline var TEMP_SIZE = 20;
   private static inline var TEMP_SMALL_SIZE = 16;
-  private static inline var NAME_SIZE = 14;
+  private static inline var NAME_SIZE = 22;
 
-  private static inline var PADDING_TOP = 16;
-  private static inline var LINE_GAP = 8;
+  private static inline var PADDING_TOP = 11;
+  private static inline var LINE_GAP = 5;
   private static inline var WIDTH = 98;
   private static inline var HEIGHT = 75;
 
@@ -47,15 +47,25 @@ class TemperatureStatus extends FlxSpriteGroup {
 
   public var currentTemp:Float = GameConfig.ROOM_TEMP_HI - 1;
   var durationAfterLastJitter:Float = 0;
+  var tempAlterDice: Float = 0;
 
   override public function update(elapsed:Float) {
     if (currentTemp < GameConfig.ROOM_TEMP_LO) {
-      setTemperature(currentTemp + elapsed * GameConfig.TEMP_INC_SPEED);
+      durationAfterLastJitter += elapsed;
+      if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
+		  setTemperature(currentTemp + 0.65);
+		  durationAfterLastJitter = 0;
+      }  
     } else if (currentTemp > GameConfig.ROOM_TEMP_HI) {
-      setTemperature(currentTemp - elapsed * GameConfig.TEMP_INC_SPEED);
+      durationAfterLastJitter += elapsed;
+      if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
+		  setTemperature(currentTemp - 0.65);
+		  durationAfterLastJitter = 0;
+      }
     } else {
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
-        setTemperature(currentTemp + (Math.random() - 0.5) * 1.2);
+        tempAlterDice = Math.random();  
+        if(tempAlterDice > 0.75) setTemperature(currentTemp + (Math.random() - 0.5) * 1.2);
         durationAfterLastJitter = 0;
       } else {
         durationAfterLastJitter += elapsed;
