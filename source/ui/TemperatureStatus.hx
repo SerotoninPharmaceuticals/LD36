@@ -55,15 +55,16 @@ class TemperatureStatus extends FlxSpriteGroup {
     if (currentTemp < GameConfig.ROOM_TEMP_LO) {
       durationAfterLastJitter += elapsed;
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
-		  tempAlterAmount = FlxMath.remapToRange(currentTemp - GameConfig.ROOM_TEMP_LO, -60, 0, GameConfig.TEMP_INC_SPEED, 0.25);
-		  setTemperature(currentTemp + tempAlterAmount);
-		  durationAfterLastJitter = 0;
+		tempAlterAmount = FlxMath.remapToRange(currentTemp - GameConfig.ROOM_TEMP_LO, -60, 0, GameConfig.TEMP_INC_SPEED, 0.25);
+		setTemperature(currentTemp + tempAlterAmount);
+		durationAfterLastJitter = 0;
       }  
     } else if (currentTemp > GameConfig.ROOM_TEMP_HI) {
       durationAfterLastJitter += elapsed;
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {
-		  setTemperature(currentTemp - 0.65);
-		  durationAfterLastJitter = 0;
+		tempAlterAmount = FlxMath.remapToRange(currentTemp - GameConfig.ROOM_TEMP_HI, 15, 0, GameConfig.TEMP_INC_SPEED / 2, 0.2);
+		setTemperature(currentTemp - tempAlterAmount);
+		durationAfterLastJitter = 0;
       }
     } else {
       if (durationAfterLastJitter > GameConfig.ROOM_TEMP_JITTER_INTERVAL) {

@@ -69,7 +69,7 @@ class GameConfig {
   public static inline var COOLING_PROC_UPPER_TEMP = -36 + (GameConfig.DEBUG ? 40 : 0);
   public static inline var TEMP_INC_SPEED = 1.8;
 
-  public static inline var DRYING_PROC_TEMP_GAIN = 1.6;
+  public static inline var DRYING_PROC_TEMP_GAIN = 1.2;
   public static inline var DRYING_PROC_LOWER_TEMP = 25 + (GameConfig.DEBUG ? -8 : 0);
   public static inline var DRYING_PROC_UPPER_TEMP = 30 + (GameConfig.DEBUG ? 40 : 0);
 
@@ -117,7 +117,7 @@ class GameConfig {
       y: 21,
 
       procedureTypes: [
-
+		
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
       ]
