@@ -159,10 +159,13 @@ class MachineState extends FlxSubState {
         screenMenu.activateBar(ScreenMenu.MENU_CLEANING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Cooling:
-//        currentProc = new CoolingProcedure(target, startNextProc);
-        currentProc = new VacuumDryingProcedure(target, startNextProc);
-        screenMenu.activateBar(ScreenMenu.MENU_DEHYDRATION_INDEX);
+        currentProc = new CoolingProcedure(target, function() {
+          screen.remove(currentProc);
+          currentProc = new VacuumDryingProcedure(target, startNextProc);
+          screen.add(currentProc);
+        });
         screen.add(currentProc);
+        screenMenu.activateBar(ScreenMenu.MENU_DEHYDRATION_INDEX);
       case ProcedureType.Electroplating:
         currentProc = new ElectroplatingProcedure(target, startNextProc);
         screenMenu.activateBar(ScreenMenu.MENU_ELECTROPLATING_INDEX);
