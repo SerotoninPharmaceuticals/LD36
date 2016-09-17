@@ -33,8 +33,6 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   private var hatchOpenSound:FlxSound;
   private var hatchCloseSound:FlxSound;
 
-  var hatchinClickable = false;
-
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
     x = _x;
@@ -49,12 +47,11 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchOpenSound.pan = -0.35;
     hatchCloseSound = FlxG.sound.load("assets/sounds/exit_close.wav", 0.5, false);
     hatchCloseSound.pan = -0.35;
+
+    enableHatchinClick();
   }
 
   override public function update(elasped:Float):Void {
-    if (!hatchinClickable && !GameData.hatchinOpened && currentTechThing == null) {
-      enableHatchinClick();
-    }
     super.update(elasped);
   }
 
@@ -77,24 +74,35 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   }
 
   function enableHatchinClick() {
-    hatchinClickable = true;
     FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
-      hatchOpenSound.play();
-      FlxTween.tween(target, { y: 466 }, 0.58, {
-		  type: FlxTween.ONESHOT,
-		  ease: FlxEase.circInOut
-		  });
-      GameData.hatchinOpened = true;
-      GameData.hoverCount -= 1;
-
-      FlxMouseEventManager.remove(hatchin);
-      hatchinClickable = false;
+      if (this.canClick()) {
+        hatchOpenSound.play();
+        FlxTween.tween(target, { y: 466 }, 0.58, {
+          type: FlxTween.ONESHOT,
+          ease: FlxEase.circInOut
+        });
+        GameData.hatchinOpened = true;
+        GameData.hoverCount -= 1;
+      }
+//      FlxMouseEventManager.remove(hatchin);
     }, null, function(target) {
-      GameData.hoverCount += 1;
+      if (this.canClick()) {
+        GameData.hoverCount += 1;
+      } else {
+        GameData.disabledHoverCount += 1;
+      }
     }, function(target) {
-      GameData.hoverCount -= 1;
+      if (this.canClick()) {
+        GameData.hoverCount -= 1;
+      } else {
+        GameData.disabledHoverCount -= 1;
+      }
     });
   }
+  function canClick():Bool {
+    return !GameData.hatchinOpened && currentTechThing == null;
+  }
+
 
   function handleEntranceDrop(techThing:TechThing) {
     currentTechThing = techThing;

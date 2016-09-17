@@ -77,7 +77,10 @@ class PlayState extends FlxState {
 
   override public function update(elapsed:Float):Void {
     #if flash
-    if (GameData.dragHoverCount > 0) {
+
+    if (GameData.disabledHoverCount > 0) {
+//      Mouse.cursor = MouseCursor.IBEAM;
+    } else if (GameData.dragHoverCount > 0) {
       Mouse.cursor = MouseCursor.HAND;
     } else if (GameData.hoverCount > 0) {
       Mouse.cursor = MouseCursor.BUTTON;
