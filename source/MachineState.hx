@@ -59,7 +59,7 @@ class MachineState extends FlxSubState {
   public static var BG_IMAGE = GameConfig.MACHINE_PATH + "bg.png";
   public static var BG_NO_MANUAL_IMAGE = GameConfig.MACHINE_PATH + "bg_no_manual.png";
 
-  public static var PROCEDURE_INIT_TIME:Float = 0.5;
+  public static var PROCEDURE_INIT_TIME:Float = 2;
 
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;

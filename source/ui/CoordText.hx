@@ -24,13 +24,13 @@ class CoordText extends FlxSpriteGroup {
     coordxText.color = coordyText.color = coordxValue.color = coordyValue.color = GameConfig.SCREEN_COLOR_YELLOW;
 	
     add(coordxText);
-	add(coordxValue);
+    add(coordxValue);
     add(coordyText);
-	add(coordyValue);
+    add(coordyValue);
   }
 
   public function setPos(x:Float, y:Float) {
     coordxValue.text = "" + Math.floor(x - MachineState.SCREEN_X);
-	coordyValue.text = "" + Math.floor(y - MachineState.SCREEN_Y);
+    coordyValue.text = "" + Math.floor(y - MachineState.SCREEN_Y);
   }
 }
