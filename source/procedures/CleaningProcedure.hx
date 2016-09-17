@@ -25,7 +25,7 @@ class CleaningProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_RIGHT = 1;
   static inline var CURSOR_MOVE_UP = 2;
   static inline var CURSOR_MOVE_DOWN = 3;
-  static inline var TAEGET_PERCENTAGE = 0.01;
+  static inline var TAEGET_PERCENTAGE = 0.004;
   var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
   var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
