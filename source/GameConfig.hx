@@ -66,7 +66,6 @@ class GameConfig {
   public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.2;
 
   public static inline var COOLING_PROC_TEMP_DEC = 1.0;
-  public static inline var COOLING_PROC_TIMEOUT = 10 + (GameConfig.DEBUG ? 0 : -6);
   public static inline var COOLING_PROC_LOWER_TEMP = -42 + (GameConfig.DEBUG ? -10 : 0);
   public static inline var COOLING_PROC_UPPER_TEMP = -38 + (GameConfig.DEBUG ? 40 : 0);
   public static inline var TEMP_INC_SPEED = 2.6;
