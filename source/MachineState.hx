@@ -60,6 +60,7 @@ class MachineState extends FlxSubState {
   public static var BG_NO_MANUAL_IMAGE = GameConfig.MACHINE_PATH + "bg_no_manual.png";
 
   public static var PROCEDURE_INIT_TIME:Float = 2;
+  public static var PROCEDURE_COMP_TIME:Float = 0.2;
 
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
@@ -153,7 +154,7 @@ class MachineState extends FlxSubState {
       showComplete();
 
       var timer = new FlxTimer();
-      timer.start(0.2, function(t:FlxTimer) {
+      timer.start(PROCEDURE_COMP_TIME, function(t:FlxTimer) {
         screen.remove(currentProc);
         if (currentProcIndex >= 0) {
           turnOffLight(currentProcIndex);
@@ -161,6 +162,7 @@ class MachineState extends FlxSubState {
         currentProcIndex += 1;
 
         if (currentProcIndex >= target.procedures.length) {
+          FlxG.log.notice("close");
           close();
           return;
         }
@@ -172,6 +174,7 @@ class MachineState extends FlxSubState {
   }
 
   function startNewProc() {
+    FlxG.log.notice("start new proc");
     showInit();
     _startNewProc();
 

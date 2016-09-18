@@ -33,6 +33,9 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
   var target:TechThing;
   var onFinished:Void->Void;
 
+  var completed = false;
+  var initialized = true;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
@@ -65,6 +68,8 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
 
 
   override public function update(elapsed:Float):Void {
+    if (!initialized || completed) { return; }
+
     if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.LEFT) {
       pressure += elapsed * moving_speed * (FlxG.keys.pressed.RIGHT ? 1 : -1);
     } else {
@@ -102,6 +107,7 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
     super.update(elapsed);
 
     if (percentage >= 1) {
+      completed = true;
       onFinished();
     }
   }
