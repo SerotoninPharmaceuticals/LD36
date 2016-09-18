@@ -33,6 +33,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   private var hatchOpenSound:FlxSound;
   private var hatchCloseSound:FlxSound;
 
+  var canClickHatchout = false;
+
   public function new(_x:Float = 0.0, _y:Float = 0.0, _onBeginProcedures:TechThing->Void) {
     super();
     x = _x;
@@ -49,6 +51,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     hatchCloseSound.pan = -0.35;
 
     enableHatchinClick();
+    enableHatchoutClick();
   }
 
   override public function update(elasped:Float):Void {
@@ -75,7 +78,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   function enableHatchinClick() {
     FlxMouseEventManager.add(hatchin, function(target:FlxSprite) {
-      if (this.canClick()) {
+      if (this.canClickHatchin()) {
         hatchOpenSound.play();
         FlxTween.tween(target, { y: 466 }, 0.58, {
           type: FlxTween.ONESHOT,
@@ -84,23 +87,45 @@ class Machine extends FlxTypedGroup<FlxSprite> {
         GameData.hatchinOpened = true;
         GameData.hoverCount -= 1;
       }
-//      FlxMouseEventManager.remove(hatchin);
     }, null, function(target) {
-      if (this.canClick()) {
+      if (this.canClickHatchin()) {
         GameData.hoverCount += 1;
       } else {
         FlxG.log.notice("+1");
         GameData.disabledHoverCount += 1;
       }
     }, function(target) {
-      if (this.canClick()) {
+      if (this.canClickHatchin()) {
         GameData.hoverCount -= 1;
       } else {
         GameData.disabledHoverCount -= 1;
       }
     });
   }
-  function canClick():Bool {
+  function enableHatchoutClick() {
+    FlxMouseEventManager.add(exit, function(target:FlxSprite) {
+      if (canClickHatchout) {
+        onFinishedProcess();
+        GameData.hoverCount -= 1;
+        canClickHatchout = false;
+      }
+    }, null, function(target) {
+      if (canClickHatchout) {
+        GameData.hoverCount += 1;
+      } else {
+        GameData.disabledHoverCount += 1;
+      }
+    }, function(target) {
+      if (canClickHatchout) {
+        GameData.hoverCount -= 1;
+      } else {
+        GameData.disabledHoverCount -= 1;
+      }
+    }, false, true, false);
+  }
+
+
+  function canClickHatchin():Bool {
     return !GameData.hatchinOpened && currentTechThing == null;
   }
 
@@ -109,8 +134,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     currentTechThing = techThing;
     entrance.setHover(false, techThing);
     entrance.isItemPlaced = true;
-	
-	hatchCloseSound.play();
+
+    hatchCloseSound.play();
     FlxTween.tween(hatchin, {y: 365}, 0.4, {
       type: FlxTween.ONESHOT,
       ease: FlxEase.circIn,
@@ -164,20 +189,12 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public function startFinishProcess():Void {
     if (currentTechThing == null) { return; }
+    canClickHatchout = true;
     currentTechThing.toAfter();
     currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.alpha = 1;
-
-    FlxMouseEventManager.add(exit, function(target:FlxSprite) {
-      onFinishedProcess();
-      FlxMouseEventManager.remove(target);
-      GameData.hoverCount -= 1;
-    }, null, function(target) {
-      GameData.hoverCount += 1;
-    }, function(target) {
-      GameData.hoverCount -= 1;
-    }, false, true, false);
   }
+
 
   function onFinishedProcess(?tween:FlxTween):Void {
     hatchOpenSound.play();
