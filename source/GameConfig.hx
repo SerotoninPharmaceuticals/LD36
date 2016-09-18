@@ -49,7 +49,7 @@ typedef TechThingConfig = {
 
 class GameConfig {
 
-  public static inline var DEBUG = true;
+  public static inline var DEBUG = false;
   public static inline var GAME_TIME = 73 * 60;
 
   public static var SCREEN_COLOR_YELLOW = FlxColor.fromRGB(216, 197, 65);

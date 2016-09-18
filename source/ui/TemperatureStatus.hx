@@ -10,7 +10,6 @@ import flixel.math.FlxMath;
 class TemperatureStatus extends FlxSpriteGroup {
 
   private static inline var TEMP_SIZE = 20;
-  private static inline var TEMP_SMALL_SIZE = 16;
   private static inline var NAME_SIZE = 22;
 
   private static inline var PADDING_TOP = 11;
@@ -79,15 +78,8 @@ class TemperatureStatus extends FlxSpriteGroup {
   }
 
   public function setTemperature(temp:Float) {
-    currentTemp = temp;
+    currentTemp = Math.max(-60, Math.min(80, temp));
     tempText.text = tempToText(temp);
-    if (temp <= -100 || temp >= 1000) {
-      tempText.size = TEMP_SMALL_SIZE;
-      tempText.y = y + PADDING_TOP + 4;
-    } else if (temp > -96 || temp < 996) {
-      tempText.size = TEMP_SIZE;
-      tempText.y = y + PADDING_TOP;
-    }
   }
 
   public function setValid():Void {
