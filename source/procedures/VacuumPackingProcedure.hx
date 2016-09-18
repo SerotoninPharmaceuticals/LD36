@@ -211,6 +211,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
           anchor.kill();
           remainAnchorCounts -= 1;
           percentageText.setPercentage(1 - remainAnchorCounts/6);
+
+          pressure = Math.random() * (max_pressure - target_pressure) + target_pressure;
         }
       }
     }
