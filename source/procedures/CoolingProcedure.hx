@@ -27,6 +27,7 @@ class CoolingProcedure extends FlxSpriteGroup {
 
   var completed = false;
   var initialized = false;
+  var itemBody:Outline;
 
   public function new(_target:TechThing, _onFinished) {
     super();
@@ -41,7 +42,7 @@ class CoolingProcedure extends FlxSpriteGroup {
     percentageText = new PercentageText();
     add(percentageText);
 
-    var itemBody = new Outline(
+    itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeEImage
@@ -50,6 +51,7 @@ class CoolingProcedure extends FlxSpriteGroup {
     for (i in 0...itemBody.length) {
       add(itemBody.members[i]);
     }
+    itemBody.origin.alpha = 0;
 
 
     add(new TitleText("Mode.B.Step1"));
@@ -83,6 +85,7 @@ class CoolingProcedure extends FlxSpriteGroup {
 
     percentage = Math.min(1, Math.max(0, percentage));
     percentageText.setPercentage(percentage);
+    itemBody.origin.alpha = percentage;
 
     super.update(elapsed);
 

@@ -33,7 +33,7 @@ class Outline extends FlxTypedGroup<FlxSprite> {
     origin.y = y - MachineState.SCREEN_Y;
 
     origin.updateFramePixels(); // required
-    origin.alpha = 0.5;
+    origin.color = GameConfig.SCREEN_COLOR_YELLOW1;
 
     var outlineBitmap:BitmapData = drawOutline(origin.framePixels, border, borderColor);
     var outline:FlxSprite = new FlxSprite(origin.x - border, origin.y - border);

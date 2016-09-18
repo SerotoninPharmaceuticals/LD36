@@ -36,6 +36,8 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
   var completed = false;
   var initialized = true;
 
+  var itemBody:Outline;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
@@ -51,7 +53,7 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
     percentageText = new PercentageText();
     add(percentageText);
 
-    var itemBody = new Outline(
+    itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeEImage
@@ -103,6 +105,7 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
 
     percentage = Math.min(1, Math.max(0, percentage));
     percentageText.setPercentage(percentage);
+    itemBody.origin.alpha = 1 - percentage;
 
     super.update(elapsed);
 
