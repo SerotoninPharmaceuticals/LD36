@@ -1,6 +1,7 @@
 package;
 
 #if flash
+import procedures.GrammaRay;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
@@ -188,7 +189,11 @@ class MachineState extends FlxSubState {
 
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
-        currentProc = new CleaningProcedure(target, startNextProc);
+        currentProc = new CleaningProcedure(target, function() {
+          screen.remove(currentProc);
+          currentProc = new GrammaRay(target, startNextProc);
+          screen.add(currentProc);
+        });
         screenMenu.activateBar(ScreenMenu.MENU_CLEANING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Cooling:

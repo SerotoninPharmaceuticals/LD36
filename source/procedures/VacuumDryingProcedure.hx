@@ -1,5 +1,6 @@
 package procedures;
 
+import flixel.util.FlxTimer;
 import ui.SubTitleText;
 import ui.PercentageText;
 import ui.CoordText;
@@ -34,7 +35,7 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
   var onFinished:Void->Void;
 
   var completed = false;
-  var initialized = true;
+  var initialized = false;
 
   var itemBody:Outline;
 
@@ -66,6 +67,11 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
 
     add(new TitleText("Mode.B.Step2"));
     add(new SubTitleText("Vacuum Drying"));
+
+    var timer = new FlxTimer();
+    timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+      initialized = true;
+    });
   }
 
 

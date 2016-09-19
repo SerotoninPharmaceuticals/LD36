@@ -17,7 +17,7 @@ import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 
-class CleaningProcedure extends FlxSpriteGroup {
+class GrammaRay extends FlxSpriteGroup {
 
   static inline var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 10;
 
@@ -29,7 +29,7 @@ class CleaningProcedure extends FlxSpriteGroup {
   var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
   var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
-  var erasableStep1:Erasable;
+  var erasableStep2:Erasable;
 
   var target:TechThing;
   var onFinsihed:Void->Void;
@@ -67,7 +67,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     coordText = new CoordText();
     add(coordText);
 
-    createStep1();
+    createStep2();
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -80,12 +80,13 @@ class CleaningProcedure extends FlxSpriteGroup {
       return;
     }
 
-    if (erasableStep1 != null && erasableStep1.percentage < TAEGET_PERCENTAGE) {
+    if (erasableStep2 != null && erasableStep2.percentage < TAEGET_PERCENTAGE) {
       completed = true;
       percentage.setPercentage(1);
       onFinsihed();
     }
-    var currentErasable:Erasable = erasableStep1;
+
+    var currentErasable:Erasable = erasableStep2;
 
     percentage.setPercentage(1 - currentErasable.percentage);
 
@@ -153,20 +154,20 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(cursor);
   }
 
-  function createStep1():Void {
-    erasableStep1 = new Erasable(
+  function createStep2():Void {
+    erasableStep2 = new Erasable(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
-      target.config.modeAStep1BackImage,
-      target.config.modeAStep1FrontImage,
-      CURSOR_RADIUS
+      target.config.modeAStep2BackImage,
+      target.config.modeAStep2FrontImage,
+      CURSOR_RADIUS, true
     );
-    for (i in 0...erasableStep1.length) {
-      add(erasableStep1.members[i]);
+    for (i in 0...erasableStep2.length) {
+      add(erasableStep2.members[i]);
     }
 
-    titleText.setText("Mode.A.Step1");
-    subtitleText.setText("Surface Cleaning");
+    titleText.setText("Mode.A.Step2");
+    subtitleText.setText("Gramma-Ray Sterillization");
 
     createCursor();
   }
