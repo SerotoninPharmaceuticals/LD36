@@ -9,7 +9,7 @@ import flixel.text.FlxText;
 
 class DensityBarHoriz extends FlxSpriteGroup {
 
-  private static inline var bar_height = 14;
+  private static inline var bar_height = 13;
   private static inline var bar_width = 204;
 
   private static inline var text_width = bar_width;
@@ -17,7 +17,7 @@ class DensityBarHoriz extends FlxSpriteGroup {
   private static inline var cursor_width = 5;
 
   private static inline var bar_x = 0;
-  private static inline var bar_y = font_size + 6;
+  private static inline var bar_y = font_size + 5;
 
   var total:Int;
   var targetLimit:Int;
@@ -32,12 +32,12 @@ class DensityBarHoriz extends FlxSpriteGroup {
   var originalValue:Int;
 
   public function new(target_start:Int = 0, target_width:Int = 0, _target_limit = 70, _total:Int = 100, _autorun:Bool = true):Void {
-    super(105, 204);
+    super(104, 205);
     total = _total;
     targetLimit = _target_limit;
     autorun = _autorun;
 
-    title = new FlxText(0, 0, text_width, "Current Density");
+    title = new FlxText(-1, 0, text_width, "Current Density");
     title.color = GameConfig.SCREEN_COLOR_YELLOW;
     title.size = font_size;
     add(title);
