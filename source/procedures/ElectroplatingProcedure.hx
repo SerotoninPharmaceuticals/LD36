@@ -96,9 +96,11 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     if (density >= targetValue && density <= targetValue + target_width) {
       targetValue += target_gain_per_sec * elapsed;
       if (targetValue >= target_limit) {
+		densityBar.setValid();  
         percentage += 0.1 * elapsed;
       }
     } else {
+	  densityBar.setInvalid();	
       targetValue -= target_drop_per_sec * elapsed;
     }
     targetValue = Math.min(target_limit, Math.max(target_min, targetValue));

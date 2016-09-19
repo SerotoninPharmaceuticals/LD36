@@ -30,6 +30,7 @@ class DensityBarHoriz extends FlxSpriteGroup {
   var cursor:FlxSprite;
   var border:FlxSprite;
   var target:FlxSprite;
+  var relativeX:Int;
 
   var originalValue:Int;
   var targetValue:Int;
@@ -49,8 +50,9 @@ class DensityBarHoriz extends FlxSpriteGroup {
 
     if (!autorun) {
       target = new FlxSprite(bar_x + (target_start / total) * bar_width + 1, bar_y + 1);
-      target.makeGraphic(Std.int(target_width / total * bar_width) - 2, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);
+	  relativeX = Std.int(target_width / total * bar_width);
       add(target);
+	  setInvalid();
 
       var targetBoundary = new FlxSprite(bar_x + (targetLimit / total) * (bar_width - cursor_width) + target.width, bar_y);
       targetBoundary.loadGraphic('assets/images/procedures/bar_dash.png');
@@ -104,8 +106,17 @@ class DensityBarHoriz extends FlxSpriteGroup {
   public function setValue(value:Float) {
     cursor.setPosition(border.x + (value / total) * (bar_width - cursor.width), cursor.y);
   }
+  
   public function setTargetValue(value:Float) {
     value = Math.min(targetLimit, value);
     target.setPosition(border.x + (value / total) * (bar_width - cursor.width), target.y);
+  }
+  
+  public function setValid(){
+    target.makeGraphic(relativeX, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);	  
+  }
+  
+  public function setInvalid(){
+    target.makeGraphic(relativeX, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW2);	  
   }
 }
