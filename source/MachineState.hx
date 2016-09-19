@@ -304,7 +304,7 @@ class MachineState extends FlxSubState {
     compMsg = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
 
     width = 160;
-    height = 50;
+    height = 60;
     var compRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2 + 8);
     compRect.makeGraphic(width, height);
     FlxSpriteUtil.drawRect(compRect, 1, 1, width - 2, height - 2, GameConfig.SCREEN_COLOR_YELLOW1, {

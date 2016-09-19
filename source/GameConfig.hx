@@ -77,7 +77,7 @@ class GameConfig {
   public static inline var ELECTROP_PROC_CURSOR_DEC_SPEED= 90;
   public static inline var ELECTROP_PROC_VALID_AREA_SPEED= 10;
 
-  public static inline var CURSOR_MOVE_MAX_SPEED = 80;
+  public static inline var CURSOR_MOVE_MAX_SPEED = 65;
   public static inline var CURSOR_DRAG = 1000;
 
 
