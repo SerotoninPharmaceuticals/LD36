@@ -158,6 +158,11 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   function loadExit():Void {
     exit = new FlxSprite(0, 253);
     exit.loadGraphic("assets/images/hatchout.png");
+
+    var exitFront = new FlxSprite(0, 0);
+    exitFront.loadGraphic("assets/images/hatchout_cover.png");
+    frontGroup.add(exitFront);
+
     frontGroup.add(exit);
   }
 
