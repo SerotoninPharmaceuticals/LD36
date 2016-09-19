@@ -6,6 +6,8 @@ import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.tweens.misc.NumTween;
 
 class PressureBarHoriz extends FlxSpriteGroup {
 
@@ -23,11 +25,15 @@ class PressureBarHoriz extends FlxSpriteGroup {
   var autorun:Bool;
 
   private var title:FlxText;
+  private var idleValue:NumTween;
 
   var cursor:FlxSprite;
   var border:FlxSprite;
 
   var originalValue:Int;
+  var targetValue:Int;
+  var tempValue:Int;
+  var tweenDuration:Float;
 
   public function new(target_start:Int = 0, target_width:Int = 1, _total:Int = 100, _autorun:Bool = false):Void {
     super(104, 237);
@@ -61,7 +67,9 @@ class PressureBarHoriz extends FlxSpriteGroup {
 
     if (autorun) {
       originalValue = Std.int(Math.random() * total * 0.8 + total * 0.1);
-      setValue(originalValue);
+      tempValue = originalValue;
+	  setValue(originalValue);
+      idleTween();
     } else {
       originalValue = 0;
       setValue(0);
@@ -70,9 +78,21 @@ class PressureBarHoriz extends FlxSpriteGroup {
 
   override public function update(d:Float):Void {
     if (autorun) {
-      setValue(originalValue + Std.int((Math.random()-0.5) * total * 0.1));
+      setValue(idleValue.value);
     }
     super.update(d);
+  }
+  
+  public function idleTween() {
+	targetValue = originalValue + Std.int((Math.random() - 0.5) * total * 0.08);
+	tweenDuration = 0.25 + Math.random() * 0.15;
+	
+	idleValue = FlxTween.num(tempValue, targetValue, tweenDuration, {	
+	  onComplete: function(tween) {
+		tempValue = targetValue;  
+        idleTween();
+      }
+	});
   }
 
   public function setValue(value:Float) {
