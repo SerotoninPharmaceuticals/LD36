@@ -29,6 +29,8 @@ class PressureBarHoriz extends FlxSpriteGroup {
 
   var cursor:FlxSprite;
   var border:FlxSprite;
+  var target:FlxSprite;
+  var relativeX:Int;
 
   var originalValue:Int;
   var targetValue:Int;
@@ -46,9 +48,10 @@ class PressureBarHoriz extends FlxSpriteGroup {
     add(title);
 
     if (!autorun) {
-      var target = new FlxSprite(bar_x + (target_start / total) * bar_width + 1, bar_y + 1);
-      target.makeGraphic(Std.int(target_width/total * bar_width) - 2, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);
+	  relativeX = Std.int(target_width / total * bar_width) - 2;
+      target = new FlxSprite(bar_x + (target_start / total) * bar_width + 1, bar_y + 1);
       add(target);
+	  setInvalid();
     }
 
     border = new FlxSprite(bar_x, bar_y);
@@ -58,7 +61,7 @@ class PressureBarHoriz extends FlxSpriteGroup {
       thickness: 2,
       pixelHinting: true
     });
-
+	
     add(border);
 
     cursor = new FlxSprite(bar_x, bar_y);
@@ -97,5 +100,13 @@ class PressureBarHoriz extends FlxSpriteGroup {
 
   public function setValue(value:Float) {
     cursor.setPosition(border.x + (value / total) * (bar_width - cursor.width), cursor.y);
+  }
+  
+  public function setValid():Void {
+    target.makeGraphic(relativeX, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW1);
+  }
+  
+  public function setInvalid():Void {
+    target.makeGraphic(relativeX, bar_height - 2, GameConfig.SCREEN_COLOR_YELLOW2);
   }
 }

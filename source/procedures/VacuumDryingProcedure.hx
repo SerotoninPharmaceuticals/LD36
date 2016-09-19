@@ -88,9 +88,10 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
 
     var inTarget = pressure < pressure_target_start + pressure_target_width && pressure > pressure_target_start;
 
-    if (inTarget && FlxG.keys.justPressed.X) {
-      temperatureStatus.setTemperature(temperatureStatus.currentTemp + GameConfig.DRYING_PROC_TEMP_GAIN);
-    }
+    if (inTarget){
+	  pressureBar.setValid();	
+      if(FlxG.keys.justPressed.X) temperatureStatus.setTemperature(temperatureStatus.currentTemp + GameConfig.DRYING_PROC_TEMP_GAIN);
+    }else pressureBar.setInvalid();	
 
     if (
       temperatureStatus.currentTemp < GameConfig.DRYING_PROC_LOWER_TEMP ||

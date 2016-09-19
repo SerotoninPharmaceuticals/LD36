@@ -99,6 +99,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     pressureBar.setValue(pressure);
 
     if (moveEnabled) {
+	  pressureBar.setValid();	
       if (GameConfig.ENABLE_CURSOR_OBLIQUE) {
         var upOrDownPressed:Bool = (FlxG.keys.pressed.UP || FlxG.keys.pressed.DOWN ||
                                     FlxG.keys.pressed.S || FlxG.keys.pressed.W);
@@ -128,7 +129,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
           moveCursor(CURSOR_MOVE_DOWN, elapsed);
         }
       }
-    }
+    }else pressureBar.setInvalid();
 
     if (GameConfig.DEBUG) {
       cursor.x = FlxG.mouse.x;

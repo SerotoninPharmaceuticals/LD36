@@ -54,6 +54,7 @@ class GameConfig {
 
   public static var SCREEN_COLOR_YELLOW = FlxColor.fromRGB(216, 197, 65);
   public static inline var SCREEN_COLOR_YELLOW1 = 0xFF7F7C15;
+  public static inline var SCREEN_COLOR_YELLOW2 = 0xFF5F5D19;
 
   public static inline var SCREEN_COLOR_GREEN = FlxColor.GREEN;
   public static inline var SCREEN_BG_COLOR = 0xFF37363B;
@@ -66,7 +67,7 @@ class GameConfig {
 
   public static inline var COOLING_PROC_TEMP_DEC = 2.0;
   public static inline var COOLING_PROC_LOWER_TEMP = -42 + (GameConfig.DEBUG ? -10 : 0);
-  public static inline var COOLING_PROC_UPPER_TEMP = -36 + (GameConfig.DEBUG ? 40 : 0);
+  public static inline var COOLING_PROC_UPPER_TEMP = -36.5 + (GameConfig.DEBUG ? 40 : 0);
   public static inline var TEMP_INC_SPEED = 1.8;
 
   public static inline var DRYING_PROC_TEMP_GAIN = 1.2;
