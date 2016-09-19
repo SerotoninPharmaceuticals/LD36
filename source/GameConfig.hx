@@ -49,7 +49,7 @@ typedef TechThingConfig = {
 
 class GameConfig {
 
-  public static inline var DEBUG = true;
+  public static inline var DEBUG = false;
   public static inline var GAME_TIME = 73 * 60;
 
   public static var SCREEN_COLOR_YELLOW = FlxColor.fromRGB(216, 197, 65);
@@ -67,11 +67,11 @@ class GameConfig {
 
   public static inline var COOLING_PROC_TEMP_DEC = 2.0;
   public static inline var COOLING_PROC_LOWER_TEMP = -42 + (GameConfig.DEBUG ? -10 : 0);
-  public static inline var COOLING_PROC_UPPER_TEMP = -36.5 + (GameConfig.DEBUG ? 40 : 0);
+  public static inline var COOLING_PROC_UPPER_TEMP = -36 + (GameConfig.DEBUG ? 40 : 0);
   public static inline var TEMP_INC_SPEED = 1.8;
 
   public static inline var DRYING_PROC_TEMP_GAIN = 1.2;
-  public static inline var DRYING_PROC_LOWER_TEMP = 25 + (GameConfig.DEBUG ? -8 : 0);
+  public static inline var DRYING_PROC_LOWER_TEMP = 26 + (GameConfig.DEBUG ? -8 : 0);
   public static inline var DRYING_PROC_UPPER_TEMP = 30 + (GameConfig.DEBUG ? 40 : 0);
 
   public static inline var ELECTROP_PROC_CURSOR_INC_SPEED= 60;
