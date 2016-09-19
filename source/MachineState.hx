@@ -190,17 +190,41 @@ class MachineState extends FlxSubState {
     switch(target.procedures[currentProcIndex]) {
       case ProcedureType.Cleaning:
         currentProc = new CleaningProcedure(target, function() {
-          screen.remove(currentProc);
-          currentProc = new GrammaRay(target, startNextProc);
-          screen.add(currentProc);
+          showComplete();
+          var timer = new FlxTimer();
+          timer.start(PROCEDURE_COMP_TIME, function(t:FlxTimer) {
+            hideComplete();
+
+            screen.remove(currentProc);
+            currentProc = new GrammaRay(target, startNextProc);
+            screen.add(currentProc);
+
+            showInit();
+            var timer = new FlxTimer();
+            timer.start(PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+              hideInit();
+            });
+          });
         });
         screenMenu.activateBar(ScreenMenu.MENU_CLEANING_INDEX);
         screen.add(currentProc);
       case ProcedureType.Cooling:
         currentProc = new CoolingProcedure(target, function() {
-          screen.remove(currentProc);
-          currentProc = new VacuumDryingProcedure(target, startNextProc);
-          screen.add(currentProc);
+          showComplete();
+          var timer = new FlxTimer();
+          timer.start(PROCEDURE_COMP_TIME, function(t:FlxTimer) {
+            hideComplete();
+
+            screen.remove(currentProc);
+            currentProc = new VacuumDryingProcedure(target, startNextProc);
+            screen.add(currentProc);
+
+            showInit();
+            var timer = new FlxTimer();
+            timer.start(PROCEDURE_INIT_TIME, function(t:FlxTimer) {
+              hideInit();
+            });
+          });
         });
         screen.add(currentProc);
         screenMenu.activateBar(ScreenMenu.MENU_DEHYDRATION_INDEX);

@@ -64,7 +64,6 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
       add(itemBody.members[i]);
     }
 
-
     add(new TitleText("Mode.B.Step2"));
     add(new SubTitleText("Vacuum Drying"));
 
