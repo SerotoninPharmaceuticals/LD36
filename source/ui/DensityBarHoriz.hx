@@ -1,11 +1,13 @@
 package ui;
 
-import Std;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.tweens.misc.NumTween;
+import haxe.Log;
 
 class DensityBarHoriz extends FlxSpriteGroup {
 
@@ -24,12 +26,16 @@ class DensityBarHoriz extends FlxSpriteGroup {
   var autorun:Bool;
 
   private var title:FlxText;
+  private var idleValue:NumTween;
 
   var cursor:FlxSprite;
   var border:FlxSprite;
   var target:FlxSprite;
 
   var originalValue:Int;
+  var targetValue:Int;
+  var tempValue:Int;
+  var tweenDuration:Float;
 
   public function new(target_start:Int = 0, target_width:Int = 0, _target_limit = 70, _total:Int = 100, _autorun:Bool = true):Void {
     super(104, 205);
@@ -67,8 +73,10 @@ class DensityBarHoriz extends FlxSpriteGroup {
     add(cursor);
 
     if (autorun) {
-      originalValue = Std.int(Math.random() * total * 0.8 + total * 0.1);
-      setValue(originalValue);
+	  originalValue = Std.int(Math.random() * total * 0.8 + total * 0.1);
+	  tempValue = originalValue;
+	  setValue(originalValue);
+      idleTween();
     } else {
       originalValue = 0;
       setValue(0);
@@ -77,11 +85,23 @@ class DensityBarHoriz extends FlxSpriteGroup {
 
   override public function update(d:Float):Void {
     if (autorun) {
-      setValue(originalValue + Std.int((Math.random()-0.5) * total * 0.1));
+      setValue(idleValue.value);
     }
     super.update(d);
   }
-
+  
+  public function idleTween() {
+	targetValue = originalValue + Std.int((Math.random() - 0.5) * total * 0.04);
+	tweenDuration = 0.1 + Math.random() * 0.1;
+	
+	idleValue = FlxTween.num(tempValue, targetValue, tweenDuration, {
+	  onComplete: function(tween) {
+		tempValue = targetValue;  
+        idleTween();
+      }
+	});
+  }
+  
   public function setValue(value:Float) {
     cursor.setPosition(border.x + (value / total) * (bar_width - cursor.width), cursor.y);
   }
