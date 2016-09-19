@@ -60,7 +60,7 @@ class MachineState extends FlxSubState {
   public static var BG_NO_MANUAL_IMAGE = GameConfig.MACHINE_PATH + "bg_no_manual.png";
 
   public static var PROCEDURE_INIT_TIME:Float = 2;
-  public static var PROCEDURE_COMP_TIME:Float = 0.2;
+  public static var PROCEDURE_COMP_TIME:Float = 3;
 
   public var screen:FlxSpriteGroup;
   public var screenMenu:ScreenMenu;
@@ -283,7 +283,7 @@ class MachineState extends FlxSubState {
 
     var width = 200;
     var height = 40;
-    var initRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2);
+    var initRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2 + 8);
     initRect.makeGraphic(width, height);
     FlxSpriteUtil.drawRect(initRect, 1, 1, width - 2, height - 2, GameConfig.SCREEN_COLOR_YELLOW1, {
       color: GameConfig.SCREEN_COLOR_YELLOW,
@@ -292,9 +292,9 @@ class MachineState extends FlxSubState {
     });
     initMsg.add(initRect);
 
-    var initText = new FlxText(0, SCREEN_MAIN_HEIGHT/2 - 8, SCREEN_MAIN_WIDTH, "INITIALIZING...");
+    var initText = new FlxText(0, SCREEN_MAIN_HEIGHT/2, SCREEN_MAIN_WIDTH, "INITIALIZING...");
     initText.alignment = FlxTextAlign.CENTER;
-    initText.size = 12;
+    initText.size = 13;
     initText.color = GameConfig.SCREEN_COLOR_YELLOW;
     initMsg.add(initText);
 
@@ -303,9 +303,9 @@ class MachineState extends FlxSubState {
 
     compMsg = new FlxSpriteGroup(SCREEN_X, SCREEN_Y);
 
-    width = 200;
-    height = 60;
-    var compRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2);
+    width = 160;
+    height = 50;
+    var compRect = new FlxSprite(SCREEN_MAIN_WIDTH/2 - width/2, SCREEN_MAIN_HEIGHT/2 - height/2 + 8);
     compRect.makeGraphic(width, height);
     FlxSpriteUtil.drawRect(compRect, 1, 1, width - 2, height - 2, GameConfig.SCREEN_COLOR_YELLOW1, {
       color: GameConfig.SCREEN_COLOR_YELLOW,
@@ -314,9 +314,9 @@ class MachineState extends FlxSubState {
     });
     compMsg.add(compRect);
 
-    var compText = new FlxText(0, SCREEN_MAIN_HEIGHT/2 - 16, SCREEN_MAIN_WIDTH, "PROCEDURE\nCOMPELTE");
+    var compText = new FlxText(0, SCREEN_MAIN_HEIGHT/2 - 9, SCREEN_MAIN_WIDTH, "PROCEDURE\nCOMPELTE");
     compText.alignment = FlxTextAlign.CENTER;
-    compText.size = 12;
+    compText.size = 13;
     compText.color = GameConfig.SCREEN_COLOR_YELLOW;
     compMsg.add(compText);
 
