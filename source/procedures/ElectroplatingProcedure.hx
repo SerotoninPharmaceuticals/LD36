@@ -23,14 +23,14 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   var target:TechThing;
   var onFinsihed:Void->Void;
 
-  static inline var density_gain_per_sec = 20;
+  static inline var density_gain_per_sec = 28;
   static inline var density_drop_per_sec = 50;
   static inline var max_density = 100;
 
   static inline var target_gain_per_sec = 10;
-  static inline var target_drop_per_sec = 10;
+  static inline var target_drop_per_sec = 20;
   static inline var target_width = 10;
-  static inline var target_limit = 60;
+  static inline var target_limit = 75;
   static inline var target_min = 10;
 
   var density:Float = 0;

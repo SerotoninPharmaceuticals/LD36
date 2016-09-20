@@ -54,7 +54,7 @@ class DensityBarHoriz extends FlxSpriteGroup {
       add(target);
 	  setInvalid();
 
-      var targetBoundary = new FlxSprite(bar_x + (targetLimit / total) * (bar_width - cursor_width) + target.width, bar_y);
+      var targetBoundary = new FlxSprite(bar_x + (targetLimit / total) * (bar_width - cursor_width) + target.width -22, bar_y);
       targetBoundary.loadGraphic('assets/images/procedures/bar_dash.png');
       add(targetBoundary);
     }
