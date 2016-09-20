@@ -50,7 +50,7 @@ typedef TechThingConfig = {
 class GameConfig {
 
   public static inline var DEBUG = false;
-  public static inline var GAME_TIME = 73 * 60;
+  public static inline var GAME_TIME = 73 * 60; // in minute
 
   public static var SCREEN_COLOR_YELLOW = FlxColor.fromRGB(216, 197, 65);
   public static inline var SCREEN_COLOR_YELLOW1 = 0xFF7F7C15;
@@ -90,7 +90,7 @@ class GameConfig {
   public static inline var TECHTHINGS_PATH = "assets/images/techthings/";
   public static inline var MACHINE_PATH = "assets/images/machine/";
 
-  public static inline var TIME_SCALE = 6 * 60;  // The scale factor of the play time compare to the real time
+  public static inline var TIME_SCALE = 6;  // The scale factor of the play time(in minute) compare to the real time
 
   public static var allProcedures = [
     ProcedureType.Cleaning,

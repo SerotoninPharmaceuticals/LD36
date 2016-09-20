@@ -1,6 +1,7 @@
 package;
 
 #if flash
+import ui.TimerBar;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
@@ -13,10 +14,12 @@ import flixel.FlxSubState;
 class PaperSubstate extends FlxSubState {
   var wheel_speed = 5;
   var paper:FlxSprite;
-  public function new(_paper:FlxSprite):Void {
+
+  var pauseTimer:Bool;
+  public function new(_paper:FlxSprite, _pauseTimer = true):Void {
     super();
     paper = _paper;
-
+    pauseTimer = _pauseTimer;
   }
 
   override public function create():Void {
@@ -30,6 +33,10 @@ class PaperSubstate extends FlxSubState {
     paper.screenCenter(FlxAxes.X);
     paper.y = 40;
     add(paper);
+
+    if (!pauseTimer) {
+      createTimerBar();
+    }
   }
 
   var lastMouseY:Float = -1.0;
@@ -76,5 +83,24 @@ class PaperSubstate extends FlxSubState {
         paper.y = Math.min(Math.max(targetY, FlxG.height - paper.height - 40), 40);
       }
     }
+
+    var countdownSubstate = CountdownSubstate.check(elapsed);
+    if (countdownSubstate != null) {
+      openSubState(countdownSubstate);
+    }
+  }
+
+  private function createTimerBar():Void {
+    var timerBar = new TimerBar(10, 10);
+    add(timerBar);
+    timerBar.start();
+    timerBar.alpha = 0;
+
+    timerBar.completeCallback = handleTimerBarComplete;
+  }
+
+
+  function handleTimerBarComplete() {
+    close();
   }
 }

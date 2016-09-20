@@ -1,11 +1,11 @@
 package;
 
 #if flash
-import procedures.GrammaRay;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
 
+import procedures.GrammaRay;
 import flixel.util.FlxTimer;
 import flixel.util.FlxSpriteUtil;
 import flixel.text.FlxText;
@@ -287,7 +287,7 @@ class MachineState extends FlxSubState {
         var paperLarge = new FlxSprite();
         paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
         paperCover.revive();
-        var paperState = new PaperSubstate(paperLarge);
+        var paperState = new PaperSubstate(paperLarge, false);
         paperState.closeCallback = handlePaperClose;
         openSubState(paperState);
       }
@@ -300,6 +300,11 @@ class MachineState extends FlxSubState {
 	
     maskDice = Math.random();
     screenMask.alpha = (maskDice > 0.99) ? 1 : 0;	
+
+    var countdownSubstate = CountdownSubstate.check(elapsed);
+    if (countdownSubstate != null) {
+      openSubState(countdownSubstate);
+    }
 
     super.update(elapsed);
   }

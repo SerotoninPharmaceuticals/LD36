@@ -129,6 +129,12 @@ class PlayState extends FlxState {
     if (GameConfig.DEBUG && FlxG.keys.justPressed.ENTER) {
       timerBar.onComplete(null);
     }
+
+    var countdownSubstate = CountdownSubstate.check(elapsed);
+    if (countdownSubstate != null) {
+      openSubState(countdownSubstate);
+    }
+
     super.update(elapsed);
   }
 
