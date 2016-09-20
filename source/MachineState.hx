@@ -157,9 +157,9 @@ class MachineState extends FlxSubState {
       var timer = new FlxTimer();
       timer.start(PROCEDURE_COMP_TIME, function(t:FlxTimer) {
         screen.remove(currentProc);
-        if (currentProcIndex >= 0) {
-          turnOffLight(currentProcIndex);
-        }
+
+        turnOffLight(GameConfig.allProcedures.indexOf(target.procedures[currentProcIndex]));
+
         currentProcIndex += 1;
 
         if (currentProcIndex >= target.procedures.length) {
