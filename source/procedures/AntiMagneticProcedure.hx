@@ -61,22 +61,18 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     add(temperatureStatus);
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+	
+    percentage = new PercentageText();
+    add(percentage);
+    coordText = new CoordText();
+    add(coordText);
+    createStep1();
 
-
-    TimerUtil.progressivelyLoad([
-      function() {
-        percentage = new PercentageText();
-        add(percentage);
-      },
-      function() {
-        coordText = new CoordText();
-        add(coordText);
-      },
-      function() {
-        createStep1();
-      }
-    ], MachineState.PROCEDURE_INIT_TIME);
-
+	var progArray = [];
+	for (i in 0...10){
+	  progArray.push(function(){erasableStep1.thingyMask.scale.y -= 0.1;});
+	}	
+    TimerUtil.progressivelyLoad(progArray, MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -161,7 +157,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     cursor.setPosition(MachineState.SCREEN_TECH_THING_CENTER_X_R - CURSOR_RADIUS, MachineState.SCREEN_TECH_THING_CENTER_Y_R - CURSOR_RADIUS);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
 
-    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.TRANSPARENT, {
+    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS - 1, FlxColor.TRANSPARENT, {
       color: GameConfig.SCREEN_COLOR_YELLOW,
       pixelHinting: true,
       thickness: 2
@@ -191,7 +187,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     cursor.x = cursor.x + cursor.width/2 - r;
     cursor.y = cursor.y + cursor.height/2 - r;
     cursor.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(cursor, r, r, r, FlxColor.TRANSPARENT, {
+    FlxSpriteUtil.drawCircle(cursor, r, r, r - 1, FlxColor.TRANSPARENT, {
       color: GameConfig.SCREEN_COLOR_YELLOW,
       pixelHinting: true,
       thickness: 2
@@ -199,7 +195,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
 
     erasableStep1.brush.setPosition(cursor.x, cursor.y);
     erasableStep1.brush.makeGraphic(2 * r, 2 * r, FlxColor.TRANSPARENT, true);
-    FlxSpriteUtil.drawCircle(erasableStep1.brush, r, r, r, FlxColor.WHITE);
+    FlxSpriteUtil.drawCircle(erasableStep1.brush, r, r, r - 1, FlxColor.WHITE);
   }
   private function moveCursor(action:Int, elapsed:Float) {
     switch(action) {

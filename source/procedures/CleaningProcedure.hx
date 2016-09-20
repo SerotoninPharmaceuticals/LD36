@@ -20,7 +20,7 @@ import flixel.util.FlxColor;
 
 class CleaningProcedure extends FlxSpriteGroup {
 
-  static inline var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 10;
+  static inline var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 8;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
@@ -60,21 +60,18 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(new TemperatureStatus());
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+	
+    percentage = new PercentageText();
+    add(percentage);
+    coordText = new CoordText();
+    add(coordText);
+	createStep1();
 
-
-    TimerUtil.progressivelyLoad([
-      function() {
-        percentage = new PercentageText();
-        add(percentage);
-      },
-      function() {
-        coordText = new CoordText();
-        add(coordText);
-      },
-      function() {
-        createStep1();
-      }
-    ], MachineState.PROCEDURE_INIT_TIME);
+    var progArray = [];
+    for (i in 0...10){
+	  progArray.push(function(){erasableStep1.thingyMask.scale.y -= 0.1;});
+	}	
+    TimerUtil.progressivelyLoad(progArray, MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -149,7 +146,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     cursor.setPosition(MachineState.SCREEN_TECH_THING_CENTER_X_R - CURSOR_RADIUS, MachineState.SCREEN_TECH_THING_CENTER_Y_R - CURSOR_RADIUS);
     cursor.makeGraphic(2 * CURSOR_RADIUS, 2 * CURSOR_RADIUS, FlxColor.TRANSPARENT, true);
 
-    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS, FlxColor.TRANSPARENT, {
+    FlxSpriteUtil.drawCircle(cursor, CURSOR_RADIUS, CURSOR_RADIUS, CURSOR_RADIUS - 1, FlxColor.TRANSPARENT, {		
       color: GameConfig.SCREEN_COLOR_YELLOW,
       pixelHinting: true,
       thickness: 2
@@ -160,7 +157,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(cursor);
   }
 
-  function createStep1():Void {
+  function createStep1():Void {	  
     erasableStep1 = new Erasable(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
@@ -171,7 +168,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     for (i in 0...erasableStep1.length) {
       add(erasableStep1.members[i]);
     }
-
+	
     createCursor();
   }
 

@@ -25,9 +25,10 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
 
   var x:Float;
   var y:Float;
-
-  var origin:FlxSprite;
+  var origin:FlxSprite;  
   var dirt:FlxSprite;
+  
+  public var thingyMask:FlxSprite;
 
   var brushRadius = 10;
 
@@ -88,10 +89,15 @@ class Erasable extends FlxTypedGroup<FlxSprite> {
     brush = new FlxSprite();
     brush.makeGraphic(brushRadius*2, brushRadius*2, FlxColor.TRANSPARENT, true);
     FlxSpriteUtil.drawCircle(brush, brushRadius, brushRadius, brushRadius, FlxColor.YELLOW);
-
+			
+    thingyMask = new FlxSprite(origin.x, origin.y);
+    thingyMask.makeGraphic(Std.int(origin.width), Std.int(origin.height), GameConfig.SCREEN_COLOR_MONITOR);
+    thingyMask.origin.x = origin.width/2;
+    thingyMask.origin.y = origin.height;
 //    add(origin);
     add(outline);
     add(dirt);
+    add(thingyMask);
 
     if (GameConfig.DEBUG) {
       add(brush); // for TEST
