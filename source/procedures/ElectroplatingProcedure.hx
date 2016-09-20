@@ -61,19 +61,15 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     createSprites();
 
     add(new TitleText("Mode.C"));
+    percentageText = new PercentageText();
+    add(percentageText);
+    add(new CoordText());
 
-    TimerUtil.progressivelyLoad([
-      function() {
-        percentageText = new PercentageText();
-        add(percentageText);
-      },
-      function() {
-        add(new CoordText());
-      },
-      function() {
-        createSprites();
-      }
-    ], MachineState.PROCEDURE_INIT_TIME);
+    var progArray = [];
+    for (i in 0...10){
+      progArray.push(function(){itemBody.thingyMask.scale.y -= 0.1;});
+    }	
+    TimerUtil.progressivelyLoad(progArray, MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {

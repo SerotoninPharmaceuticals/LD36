@@ -131,8 +131,8 @@ class GameConfig {
       y: 13,
 
       procedureTypes: [
-        //ProcedureType.Cleaning,
-        //ProcedureType.Electroplating,
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
       ]

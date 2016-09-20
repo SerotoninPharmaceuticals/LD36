@@ -47,6 +47,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var percentageText:PercentageText;
   var coordText:CoordText;
 
+  var itemBody:Outline;
+  
   private var cursor:FlxSprite;
 
   var completed = false;
@@ -66,21 +68,30 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.E"));
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
-    createPressureBar();
 
-    TimerUtil.progressivelyLoad([
-      function() {
-        percentageText = new PercentageText();
-        add(percentageText);
-      },
-      function() {
-        coordText = new CoordText();
-        add(coordText);
-      },
-      function() {
-        createStep1();
-      }
-    ], MachineState.PROCEDURE_INIT_TIME);
+    percentageText = new PercentageText();
+    add(percentageText);
+    coordText = new CoordText();
+    add(coordText);
+    createPressureBar();
+	
+    itemBody = new Outline(
+      MachineState.SCREEN_TECH_THING_CENTER_X,
+      MachineState.SCREEN_TECH_THING_CENTER_Y,
+      target.config.modeEImage
+    );
+    for (i in 0...itemBody.length) {
+      add(itemBody.members[i]);
+    }	
+       
+    var progArray = [];
+    for (i in 0...10){
+      progArray.push(function(){itemBody.thingyMask.scale.y -= 0.1;});
+    }
+    progArray[10] = function(){createRect(itemBody.origin);}
+    progArray[11] = function(){createAnchor(itemBody.origin);}
+    progArray[12] = function(){createCursor();}
+    TimerUtil.progressivelyLoad(progArray, MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -201,21 +212,6 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
       }
     );
     add(rect);
-  }
-
-  function createStep1():Void {
-    var itemBody = new Outline(
-      MachineState.SCREEN_TECH_THING_CENTER_X,
-      MachineState.SCREEN_TECH_THING_CENTER_Y,
-      target.config.modeEImage
-    );
-    for (i in 0...itemBody.length) {
-      add(itemBody.members[i]);
-    }
-
-    createRect(itemBody.origin);
-    createAnchor(itemBody.origin);
-    createCursor();
   }
 
   function detectAnchor() {

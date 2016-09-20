@@ -12,6 +12,7 @@ class Outline extends FlxTypedGroup<FlxSprite> {
   public var borderColor:FlxColor = GameConfig.SCREEN_COLOR_YELLOW;
 
   var imageBack:String;
+  public var thingyMask:FlxSprite;
 
   var x:Float;
   var y:Float;
@@ -40,9 +41,15 @@ class Outline extends FlxTypedGroup<FlxSprite> {
     outline.makeGraphic(outlineBitmap.width, outlineBitmap.height, 0, true);
     outline.updateFramePixels(); // required
     outline.framePixels = outlineBitmap;
+	
+    thingyMask = new FlxSprite(origin.x, origin.y);
+    thingyMask.makeGraphic(Std.int(origin.width), Std.int(origin.height), GameConfig.SCREEN_COLOR_MONITOR);
+    thingyMask.origin.x = origin.width/2;
+    thingyMask.origin.y = origin.height;
 
     add(origin);
     add(outline);
+    add(thingyMask);
   }
 
   function drawOutline(b:BitmapData, border:Int, borderColor:FlxColor):BitmapData {
