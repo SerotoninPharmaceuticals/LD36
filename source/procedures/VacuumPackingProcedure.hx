@@ -66,6 +66,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.E"));
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
+    createPressureBar();
 
     TimerUtil.progressivelyLoad([
       function() {
@@ -215,7 +216,6 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     createRect(itemBody.origin);
     createAnchor(itemBody.origin);
     createCursor();
-    createPressureBar();
   }
 
   function detectAnchor() {

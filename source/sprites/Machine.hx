@@ -140,8 +140,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
       type: FlxTween.ONESHOT,
       ease: FlxEase.circIn,
       onComplete: function(tween) {
-		standby.loadGraphic("assets/images/standby.png");
-		FlxMouseEventManager.setObjectMouseEnabled(standby, true);
+        standby.loadGraphic("assets/images/standby.png");
+        FlxMouseEventManager.setObjectMouseEnabled(standby, true);
         turnOnScreen();
       }
     });
@@ -173,12 +173,10 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     screen.loadGraphic("assets/images/screen_small.png");
 
     standby = new FlxSprite(218, 147);
-    standby.loadGraphic("assets/images/standby.png");
     standby.kill();
 
     FlxMouseEventManager.add(standby, function(target:FlxSprite) {
       onBeginProcedures(currentTechThing);
-      standby.kill();
     }, null, function(target) {
       GameData.hoverCount += 1;
     }, function(target) {
@@ -191,7 +189,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public function closeExit():Void {
     hatchCloseSound.play();
-	standby.kill();
+    standby.kill();
     FlxTween.tween(exit, {x: 0}, 0.5, { type: FlxTween.ONESHOT, ease:FlxEase.circOut});
   }
 
@@ -200,7 +198,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     canClickHatchout = true;
 	
     standby.loadGraphic("assets/images/standby_end.png");
-	FlxMouseEventManager.setObjectMouseEnabled(standby, false);
+    FlxMouseEventManager.setObjectMouseEnabled(standby, false);
     turnOnScreen();
 	
     currentTechThing.toAfter();
