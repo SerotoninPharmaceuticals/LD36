@@ -1,5 +1,6 @@
 package sprites;
 
+import flixel.util.FlxTimer;
 import GameData;
 import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
@@ -151,10 +152,21 @@ class Machine extends FlxTypedGroup<FlxSprite> {
   function turnOnScreen() {
     standby.revive();
     standby.alpha = 0;
-    FlxTween.color(standby, 0.4, FlxColor.TRANSPARENT, FlxColor.WHITE, {
-      type: FlxTween.ONESHOT,
-      ease: FlxEase.elasticInOut
+    var timer = new FlxTimer();
+    timer.start(Math.random() * 0.03, function(t) {
+      standby.alpha = 1;
+      timer.start(Math.random() * 0.03, function(t) {
+        standby.alpha = 0;
+        timer.start(Math.random() * 0.03, function(t) {
+          standby.alpha = 1;
+        });
+      });
     });
+
+//    FlxTween.color(standby, 0.4, FlxColor.TRANSPARENT, FlxColor.WHITE, {
+//      type: FlxTween.ONESHOT,
+//      ease: FlxEase.elasticInOut
+//    });
   }
 
   function loadExit():Void {
