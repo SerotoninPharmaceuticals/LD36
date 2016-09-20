@@ -209,8 +209,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
       target.height,
       FlxColor.TRANSPARENT,
       {
-        color: GameConfig.SCREEN_COLOR_YELLOW1,
-        pixelHinting: true
+        color: GameConfig.SCREEN_COLOR_YELLOW2,
+        pixelHinting: true,
+        thickness: 2
       }
     );
     add(rect);

@@ -72,6 +72,9 @@ class MachineState extends FlxSubState {
 
   private var currentProc:FlxSpriteGroup;
   private var currentProcIndex:Int = 0;
+  
+  private var screenMask:FlxSprite;
+  private var maskDice:Float;
 
   private var leftKey:FlxSprite;
   private var rightKey:FlxSprite;
@@ -101,6 +104,10 @@ class MachineState extends FlxSubState {
     var screenBg = new FlxSprite(SCREEN_X, SCREEN_Y);
     screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
     add(screenBg);
+	
+	screenMask = new FlxSprite(SCREEN_X, SCREEN_Y);
+	screenMask.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, GameConfig.SCREEN_COLOR_MONITOR);
+	add(screenMask);
 
     createControlStick();
     createKeys();
@@ -290,6 +297,9 @@ class MachineState extends FlxSubState {
       #end
       paperHover = false;
     }
+	
+    maskDice = Math.random();
+    screenMask.alpha = (maskDice > 0.99) ? 1 : 0;	
 
     super.update(elapsed);
   }
