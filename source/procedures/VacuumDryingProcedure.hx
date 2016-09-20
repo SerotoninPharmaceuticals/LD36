@@ -99,8 +99,8 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
       pressure += elapsed * moving_speed * (FlxG.keys.pressed.RIGHT ? 1 : -1);
     } else {
       if (autorunTimeRemain <= 0) {
-        autorunTimeRemain = Math.random() * 2 + 0.5;
-        autorunSpeed = Math.random() * 30 * (autorunSpeed > 0 ? -1 : 1);
+        autorunTimeRemain = 0.35 + Math.random() * 1.25 ;
+        autorunSpeed = (5 + Math.random() * 25) * (autorunSpeed > 0 ? -1 : 1);
       }
       pressure += autorunSpeed * elapsed;
       autorunTimeRemain -= elapsed;
@@ -121,10 +121,9 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
       temperatureStatus.currentTemp > GameConfig.DRYING_PROC_UPPER_TEMP
     ) {
       temperatureStatus.setInvalid();
-      percentage -= 0.08 * elapsed;
     } else {
       temperatureStatus.setValid();
-      percentage += 0.1 * elapsed;
+      percentage += 1 / 15 * elapsed;
     }
 
     percentage = Math.min(1, Math.max(0, percentage));
