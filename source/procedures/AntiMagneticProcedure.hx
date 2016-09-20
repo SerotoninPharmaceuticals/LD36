@@ -22,7 +22,7 @@ import flixel.util.FlxColor;
 
 class AntiMagneticProcedure extends FlxSpriteGroup {
 
-  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 15;
+  static var CURSOR_RADIUS = GameConfig.DEBUG ? 50 : 10;
 
   static inline var CURSOR_MOVE_LEFT = 0;
   static inline var CURSOR_MOVE_RIGHT = 1;
@@ -32,9 +32,9 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
   var CURSOR_DRAG = GameConfig.CURSOR_DRAG;
 
-  static inline var cursor_drop_per_sec = 20;
-  static inline var cursor_min_r:Int = 4;
-  static inline var cursor_gain_per_press:Int = 2;
+  static inline var cursor_drop_per_sec = 4;
+  static inline var cursor_min_r:Int = 3;
+  static inline var cursor_gain_per_press:Int = 1;
 
   var erasableStep1:Erasable;
 
@@ -147,9 +147,12 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     }
 
     coordText.setPos(cursor.x, cursor.y);
+	
+    if (cursorRadius != cursor_min_r) {
+      currentErasable.brush.setPosition(cursor.x, cursor.y);
+      currentErasable.update(elapsed);
+    }
 
-    currentErasable.brush.setPosition(cursor.x, cursor.y);
-    currentErasable.update(elapsed);
     super.update(elapsed);
   }
 
