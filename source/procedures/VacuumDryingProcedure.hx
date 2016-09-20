@@ -64,26 +64,26 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.B.Step2"));
     add(new SubTitleText("Vacuum Drying"));
 
-    TimerUtil.progressivelyLoad([
-      function() {
-        percentageText = new PercentageText();
-        add(percentageText);
-      },
-      function() {
-        add(new CoordText());
-      },
-      function() {
-        itemBody = new Outline(
-        MachineState.SCREEN_TECH_THING_CENTER_X,
-        MachineState.SCREEN_TECH_THING_CENTER_Y,
-        target.config.modeEImage
-        );
+    percentageText = new PercentageText();
+    add(percentageText);
+    add(new CoordText());
+	
+    itemBody = new Outline(
+    MachineState.SCREEN_TECH_THING_CENTER_X,
+    MachineState.SCREEN_TECH_THING_CENTER_Y,
+    target.config.modeEImage
+    );
 
-        for (i in 0...itemBody.length) {
-          add(itemBody.members[i]);
-        }
-      }
-    ], MachineState.PROCEDURE_INIT_TIME);
+    for (i in 0...itemBody.length) {
+      add(itemBody.members[i]);
+    }
+    itemBody.origin.alpha = 0;
+
+    var progArray = [];
+    for (i in 0...10){
+      progArray.push(function(){itemBody.thingyMask.scale.y -= 0.1;});
+    }	
+    TimerUtil.progressivelyLoad(progArray, MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
