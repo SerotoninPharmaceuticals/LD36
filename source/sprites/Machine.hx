@@ -140,6 +140,8 @@ class Machine extends FlxTypedGroup<FlxSprite> {
       type: FlxTween.ONESHOT,
       ease: FlxEase.circIn,
       onComplete: function(tween) {
+		standby.loadGraphic("assets/images/standby.png");
+		FlxMouseEventManager.setObjectMouseEnabled(standby, true);
         turnOnScreen();
       }
     });
@@ -151,7 +153,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     standby.alpha = 0;
     FlxTween.color(standby, 0.4, FlxColor.TRANSPARENT, FlxColor.WHITE, {
       type: FlxTween.ONESHOT,
-      ease: FlxEase.elasticOut
+      ease: FlxEase.elasticInOut
     });
   }
 
@@ -189,12 +191,18 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
   public function closeExit():Void {
     hatchCloseSound.play();
+	standby.kill();
     FlxTween.tween(exit, {x: 0}, 0.5, { type: FlxTween.ONESHOT, ease:FlxEase.circOut});
   }
 
   public function startFinishProcess():Void {
     if (currentTechThing == null) { return; }
     canClickHatchout = true;
+	
+    standby.loadGraphic("assets/images/standby_end.png");
+	FlxMouseEventManager.setObjectMouseEnabled(standby, false);
+    turnOnScreen();
+	
     currentTechThing.toAfter();
     currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.alpha = 1;
