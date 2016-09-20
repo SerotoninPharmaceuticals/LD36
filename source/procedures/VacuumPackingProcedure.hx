@@ -27,10 +27,10 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   static inline var CURSOR_MOVE_DOWN = 3;
   static inline var CURSOR_MOVE_MAX_SPEED = GameConfig.CURSOR_MOVE_MAX_SPEED;
 
-  static inline var pressure_per_press = 10;
+  static inline var pressure_per_press = 15;
   static inline var target_pressure = 20;
   static inline var max_pressure = 120;
-  static inline var pressure_gain_per_sec = 50;
+  static inline var pressure_gain_per_sec = 65;
 
   var moveEnabled = false;
 
@@ -227,7 +227,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
           remainAnchorCounts -= 1;
           percentageText.setPercentage(1 - remainAnchorCounts/6);
 
-          pressure = Math.random() * (max_pressure - target_pressure) + target_pressure;
+          pressure = 0.6 * Math.random() * (max_pressure - target_pressure) + 0.4 * max_pressure + 0.6 * target_pressure;
         }
       }
     }

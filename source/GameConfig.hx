@@ -107,7 +107,7 @@ class GameConfig {
       y: 0,
 
       procedureTypes: [
-        ProcedureType.Cleaning,
+        //ProcedureType.Cleaning,
         ProcedureType.VacuumPacking
       ]
     },
@@ -118,7 +118,7 @@ class GameConfig {
       y: 21,
 
       procedureTypes: [
-		//ProcedureType.Cleaning,
+		ProcedureType.Cleaning,
         ProcedureType.Cooling,
         ProcedureType.VacuumPacking
       ]
@@ -130,8 +130,8 @@ class GameConfig {
       y: 13,
 
       procedureTypes: [
-        //ProcedureType.Cleaning,
-        //ProcedureType.Electroplating,
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
       ]
