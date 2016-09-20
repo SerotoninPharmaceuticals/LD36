@@ -64,10 +64,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     remainAnchorCounts = anchorPoints.length;
 
     add(new TitleText("Mode.E"));
-
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
-
 
     TimerUtil.progressivelyLoad([
       function() {
@@ -171,8 +169,8 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     for(i in 0...anchorPoints.length) {
       var anchor = new FlxSprite();
       anchor.loadGraphic(GameConfig.IMAGE_PATH + "procedures/anchor.png");
-      anchor.x = Std.int(target.x) + target.width * anchorPoints[i][0] - anchor.width / 2;
-      anchor.y = Std.int(target.y) + target.height * anchorPoints[i][1] - anchor.height / 2;
+      anchor.x = Std.int(target.x - MachineState.SCREEN_X) + target.width * anchorPoints[i][0] - anchor.width / 2;
+      anchor.y = Std.int(target.y - MachineState.SCREEN_Y) + target.height * anchorPoints[i][1] - anchor.height / 2;
       anchors.push(anchor);
       add(anchor);
     }
@@ -189,10 +187,18 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     var rect = new FlxSprite(0, 0);
     rect.makeGraphic(MachineState.SCREEN_MAIN_WIDTH, MachineState.SCREEN_MAIN_HEIGHT, FlxColor.TRANSPARENT);
     FlxSpriteUtil.fill(rect, 0); // WHY???
-    FlxSpriteUtil.drawRect(rect, Std.int(target.x) - 1, Std.int(target.y) - 1, target.width, target.height, FlxColor.TRANSPARENT, {
-      color: GameConfig.SCREEN_COLOR_YELLOW1,
-      pixelHinting: true
-    });
+    FlxSpriteUtil.drawRect(
+      rect,
+      Std.int(target.x - MachineState.SCREEN_X) - 1,
+      Std.int(target.y - MachineState.SCREEN_Y) - 1,
+      target.width,
+      target.height,
+      FlxColor.TRANSPARENT,
+      {
+        color: GameConfig.SCREEN_COLOR_YELLOW1,
+        pixelHinting: true
+      }
+    );
     add(rect);
   }
 
