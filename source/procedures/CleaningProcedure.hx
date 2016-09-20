@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.CoordText;
 import ui.DensityBarHoriz;
@@ -51,23 +52,29 @@ class CleaningProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText();
-    add(percentage);
-
-    titleText = new TitleText();
+    titleText = new TitleText("Mode.A.Step1");
     add(titleText);
-    subtitleText = new SubTitleText();
+    subtitleText = new SubTitleText("Surface Cleaning");
     add(subtitleText);
-
 
     add(new TemperatureStatus());
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
 
-    coordText = new CoordText();
-    add(coordText);
 
-    createStep1();
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentage = new PercentageText();
+        add(percentage);
+      },
+      function() {
+        coordText = new CoordText();
+        add(coordText);
+      },
+      function() {
+        createStep1();
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -76,7 +83,7 @@ class CleaningProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (completed || !initialized) {
+    if (completed || !initialized || erasableStep1 == null) {
       return;
     }
 
@@ -164,9 +171,6 @@ class CleaningProcedure extends FlxSpriteGroup {
     for (i in 0...erasableStep1.length) {
       add(erasableStep1.members[i]);
     }
-
-    titleText.setText("Mode.A.Step1");
-    subtitleText.setText("Surface Cleaning");
 
     createCursor();
   }

@@ -1,5 +1,7 @@
 package procedures;
 
+import libs.TimerUtil;
+import flixel.text.FlxText;
 import sprites.Machine;
 import flixel.util.FlxTimer;
 import ui.CoordText;
@@ -53,9 +55,6 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText();
-    add(percentage);
-
     add(new TitleText("Mode.D"));
 
     var temperatureStatus = new TemperatureStatus();
@@ -63,10 +62,21 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
 
-    coordText = new CoordText();
-    add(coordText);
 
-    createStep1();
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentage = new PercentageText();
+        add(percentage);
+      },
+      function() {
+        coordText = new CoordText();
+        add(coordText);
+      },
+      function() {
+        createStep1();
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
+
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -75,7 +85,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (completed || !initialized) {
+    if (completed || !initialized || erasableStep1 == null) {
       return;
     }
 

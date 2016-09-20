@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.CoordText;
 import ui.PercentageText;
@@ -42,13 +43,12 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   var completed = false;
   var initialized = false;
 
+  var itemBody:Outline;
+
   public function new(_target:TechThing, _onFinished) {
     super();
     target = _target;
     onFinsihed = _onFinished;
-
-    percentageText = new PercentageText();
-    add(percentageText);
 
     var temperatureStatus = new TemperatureStatus();
     add(temperatureStatus);
@@ -57,11 +57,23 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
 
     densityBar = new DensityBarHoriz(target_min, target_width, target_limit, max_density, false);
     add(densityBar);
-    add(new CoordText());
 
     createSprites();
 
     add(new TitleText("Mode.C"));
+
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentageText = new PercentageText();
+        add(percentageText);
+      },
+      function() {
+        add(new CoordText());
+      },
+      function() {
+        createSprites();
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -71,7 +83,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   var text:FlxText;
 
   private function createSprites():Void {
-    var itemBody = new Outline(
+    itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
       MachineState.SCREEN_TECH_THING_CENTER_Y,
       target.config.modeEImage
@@ -82,7 +94,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (completed || !initialized) {
+    if (completed || !initialized || itemBody == null) {
       return;
     }
 

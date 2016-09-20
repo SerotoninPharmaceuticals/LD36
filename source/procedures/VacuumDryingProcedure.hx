@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.SubTitleText;
 import ui.PercentageText;
@@ -46,13 +47,9 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
     setupScreen();
 
     add(new DensityBarHoriz());
-    add(new CoordText());
 
     pressureBar = new PressureBarHoriz(pressure_target_start, pressure_target_width, pressure_total, false);
     add(pressureBar);
-
-    percentageText = new PercentageText();
-    add(percentageText);
 
     itemBody = new Outline(
       MachineState.SCREEN_TECH_THING_CENTER_X,
@@ -67,6 +64,27 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.B.Step2"));
     add(new SubTitleText("Vacuum Drying"));
 
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentageText = new PercentageText();
+        add(percentageText);
+      },
+      function() {
+        add(new CoordText());
+      },
+      function() {
+        itemBody = new Outline(
+        MachineState.SCREEN_TECH_THING_CENTER_X,
+        MachineState.SCREEN_TECH_THING_CENTER_Y,
+        target.config.modeEImage
+        );
+
+        for (i in 0...itemBody.length) {
+          add(itemBody.members[i]);
+        }
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
+
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
       initialized = true;
@@ -75,7 +93,7 @@ class VacuumDryingProcedure extends FlxSpriteGroup {
 
 
   override public function update(elapsed:Float):Void {
-    if (!initialized || completed) { return; }
+    if (!initialized || completed || itemBody == null) { return; }
 
     if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.LEFT) {
       pressure += elapsed * moving_speed * (FlxG.keys.pressed.RIGHT ? 1 : -1);

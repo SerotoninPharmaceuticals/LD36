@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.SubTitleText;
 import ui.PercentageText;
@@ -37,25 +38,31 @@ class CoolingProcedure extends FlxSpriteGroup {
 
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
-    add(new CoordText());
-
-    percentageText = new PercentageText();
-    add(percentageText);
-
-    itemBody = new Outline(
-      MachineState.SCREEN_TECH_THING_CENTER_X,
-      MachineState.SCREEN_TECH_THING_CENTER_Y,
-      target.config.modeEImage
-    );
-
-    for (i in 0...itemBody.length) {
-      add(itemBody.members[i]);
-    }
-    itemBody.origin.alpha = 0;
-
 
     add(new TitleText("Mode.B.Step1"));
     add(new SubTitleText("Flash Freezing"));
+
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentageText = new PercentageText();
+        add(percentageText);
+      },
+      function() {
+        add(new CoordText());
+      },
+      function() {
+        itemBody = new Outline(
+        MachineState.SCREEN_TECH_THING_CENTER_X,
+        MachineState.SCREEN_TECH_THING_CENTER_Y,
+        target.config.modeEImage
+        );
+
+        for (i in 0...itemBody.length) {
+          add(itemBody.members[i]);
+        }
+        itemBody.origin.alpha = 0;
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -64,7 +71,7 @@ class CoolingProcedure extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (completed || !initialized) {
+    if (completed || !initialized || itemBody == null) {
       return;
     }
 

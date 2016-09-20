@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.CoordText;
 import ui.PercentageText;
@@ -67,13 +68,20 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
 
-    percentageText = new PercentageText();
-    add(percentageText);
 
-    coordText = new CoordText();
-    add(coordText);
-
-    createStep1();
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentageText = new PercentageText();
+        add(percentageText);
+      },
+      function() {
+        coordText = new CoordText();
+        add(coordText);
+      },
+      function() {
+        createStep1();
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {

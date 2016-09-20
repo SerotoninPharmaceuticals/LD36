@@ -1,5 +1,6 @@
 package procedures;
 
+import libs.TimerUtil;
 import flixel.util.FlxTimer;
 import ui.CoordText;
 import ui.DensityBarHoriz;
@@ -51,23 +52,28 @@ class GrammaRay extends FlxSpriteGroup {
     target = _target;
     onFinsihed = _onFinished;
 
-    percentage = new PercentageText();
-    add(percentage);
-
-    titleText = new TitleText();
+    titleText = new TitleText("Mode.A.Step2");
     add(titleText);
-    subtitleText = new SubTitleText();
+    subtitleText = new SubTitleText("Gramma-Ray Sterillization");
     add(subtitleText);
-
 
     add(new TemperatureStatus());
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
 
-    coordText = new CoordText();
-    add(coordText);
-
-    createStep2();
+    TimerUtil.progressivelyLoad([
+      function() {
+        percentage = new PercentageText();
+        add(percentage);
+      },
+      function() {
+        coordText = new CoordText();
+        add(coordText);
+      },
+      function() {
+        createStep2();
+      }
+    ], MachineState.PROCEDURE_INIT_TIME);
 
     var timer = new FlxTimer();
     timer.start(MachineState.PROCEDURE_INIT_TIME, function(t:FlxTimer) {
@@ -76,7 +82,7 @@ class GrammaRay extends FlxSpriteGroup {
   }
 
   override public function update(elapsed:Float):Void {
-    if (completed || !initialized) {
+    if (completed || !initialized || erasableStep2 == null) {
       return;
     }
 
@@ -165,9 +171,6 @@ class GrammaRay extends FlxSpriteGroup {
     for (i in 0...erasableStep2.length) {
       add(erasableStep2.members[i]);
     }
-
-    titleText.setText("Mode.A.Step2");
-    subtitleText.setText("Gramma-Ray Sterillization");
 
     createCursor();
   }
