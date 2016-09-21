@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
@@ -74,7 +75,7 @@ class TimerBar extends FlxSpriteGroup {
     }
     isStarted = false;
     FlxG.sound.pause();
-    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false, null, true, onSoundComplete);
+    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false, null, true);
     FlxG.camera.shake(0.5, 1, showEnd);
   }
 
@@ -84,19 +85,55 @@ class TimerBar extends FlxSpriteGroup {
     FlxG.state.closeSubState();
     FlxG.state.clear();
     FlxG.state.add(screenSprite);
-    FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.2,
-                   { type: FlxTween.ONESHOT, onComplete: onCompleteFirstPhase });
+    FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.2, {
+      type: FlxTween.ONESHOT, onComplete: onCompleteFirstPhase
+    });
   }
 
   private function onCompleteFirstPhase(tween:FlxTween) {
-    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.2,
-                   { type: FlxTween.ONESHOT,
-                     onComplete: function (tween:FlxTween) {
-                     }});
+    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.2, {
+      type: FlxTween.ONESHOT,
+      onComplete: function (tween:FlxTween) {
+        var timer = new FlxTimer();
+        timer.start(0.5, function(t) {
+          screenSprite.kill();
+          showEndTitle();
+        });
+      }
+    });
+  }
+
+  function showEndTitle() {
+    var endTitle = new FlxSpriteGroup(0, FlxG.height);
+    var currY:Float = 0;
+    for (i in 0...GameData.finishedTechThings.length) {
+      var img = new FlxSprite();
+      img.loadGraphic(GameData.finishedTechThings[i].imageDraggin);
+      img.x = FlxG.width / 2 - img.width / 2;
+      img.y = currY;
+      currY += img.height + 10;
+      endTitle.add(img);
+    }
+    var credits = new FlxSprite();
+    credits.loadGraphic('assets/images/credits.png');
+    credits.x = FlxG.width / 2 - credits.width / 2;
+    credits.y = currY;
+    currY += credits.height;
+    endTitle.add(credits);
+
+    var gameover = new FlxSprite();
+    gameover.loadGraphic('assets/images/gameover.png');
+    gameover.x = FlxG.width / 2 - gameover.width / 2;
+    gameover.y = currY;
+    currY += gameover.height;
+    endTitle.add(gameover);
+
+    FlxG.state.add(endTitle);
+    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, 5);
   }
 
   private function onSoundComplete():Void {
-    FlxG.switchState(new EndState());
+//    FlxG.switchState(new EndState());
   }
 
   override public function update(elapsed:Float):Void {
