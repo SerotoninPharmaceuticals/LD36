@@ -82,6 +82,7 @@ class MachineState extends FlxSubState {
   private var lights:Array<FlxSprite>;
 
   var paperHover = false;
+  var paperSound:FlxSound;
 
   public function new(_target:TechThing):Void  {
     super();
@@ -94,7 +95,8 @@ class MachineState extends FlxSubState {
     bg.loadGraphic(BG_IMAGE);
     add(bg);
 
-    buttonSound = FlxG.sound.load("assets/sounds/button.wav", 0.5, false);
+    buttonSound = FlxG.sound.load("assets/sounds/button.wav", 0.2, false);
+	paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.75, false);
     createPaper();
     createTimerBar();
 
@@ -287,6 +289,7 @@ class MachineState extends FlxSubState {
         var paperLarge = new FlxSprite();
         paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
         paperCover.revive();
+		paperSound.play();
         var paperState = new PaperSubstate(paperLarge, false);
         paperState.closeCallback = handlePaperClose;
         openSubState(paperState);
