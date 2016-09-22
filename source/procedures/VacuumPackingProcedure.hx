@@ -16,6 +16,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
 
 class VacuumPackingProcedure extends FlxSpriteGroup {
 
@@ -50,6 +51,11 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
   var itemBody:Outline;
   
   private var cursor:FlxSprite;
+  
+  private var airSfx1:FlxSound;
+  private var airSfx2:FlxSound;
+  private var airSfx3:FlxSound;
+  var airSfxArray = [];
 
   var completed = false;
   var initialized = false;
@@ -68,6 +74,12 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TitleText("Mode.E"));
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
+	
+    airSfx1 = FlxG.sound.load("assets/sounds/airSfx1.wav", 0.65, false);
+    airSfx2 = FlxG.sound.load("assets/sounds/airSfx2.wav", 0.75, false);
+    airSfx3 = FlxG.sound.load("assets/sounds/airSfx3.wav", 0.65, false);	
+    airSfx1.pan = airSfx2.pan = airSfx3.pan -0.5;
+    airSfxArray = [airSfx1, airSfx2, airSfx3];
 
     percentageText = new PercentageText();
     add(percentageText);
@@ -224,6 +236,7 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
       if (anchor.alive) {
         if (anchor.overlaps(cursor, true)) {
           anchor.kill();
+          airSfxArray[Math.floor(Math.random() * 3)].play();
           remainAnchorCounts -= 1;
           percentageText.setPercentage(1 - remainAnchorCounts/6);
 
