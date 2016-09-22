@@ -9,4 +9,5 @@ class GameData {
   static public var disabledHoverCount:Int = 0;
   static public var hoverCount:Int = 0;
   static public var hatchinOpened = false;
+  static public var reading = false;
 }

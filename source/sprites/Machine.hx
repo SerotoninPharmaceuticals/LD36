@@ -93,16 +93,17 @@ class Machine extends FlxTypedGroup<FlxSprite> {
         GameData.hoverCount += 1;
       } else {
         FlxG.log.notice("+1");
-        GameData.disabledHoverCount += 1;
+        if(!GameData.reading) GameData.disabledHoverCount += 1;
       }
     }, function(target) {
       if (this.canClickHatchin()) {
         GameData.hoverCount -= 1;
       } else {
-        GameData.disabledHoverCount -= 1;
+        if(!GameData.reading) GameData.disabledHoverCount -= 1;
       }
     });
   }
+  
   function enableHatchoutClick() {
     FlxMouseEventManager.add(exit, function(target:FlxSprite) {
       if (canClickHatchout) {
@@ -127,7 +128,7 @@ class Machine extends FlxTypedGroup<FlxSprite> {
 
 
   function canClickHatchin():Bool {
-    return !GameData.hatchinOpened && currentTechThing == null;
+    return !GameData.hatchinOpened && !GameData.reading && currentTechThing == null;
   }
 
 

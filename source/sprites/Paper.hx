@@ -18,9 +18,13 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   var paperSound:FlxSound;
 
   var hover = false;
+  public var indexName:String;
+  private var iniOn:Bool;
 
-  public function new(X:Float = 0, Y:Float = 0, name:String, _onOpen:FlxSprite->(Void->Void)->Void) {
+  public function new(X:Float = 0, Y:Float = 0, name:String, _onOpen:FlxSprite->(Void->Void)->Void, startOn:Bool = false) {
     super();
+    indexName = name;
+    iniOn = startOn;
     paper = new FlxSprite(X, Y);
     var image:String = GameConfig.IMAGE_PATH + name + '_small.png';
 
@@ -60,6 +64,21 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   }
 
   function handleClick() {
+	if(iniOn) {
+      var largePaper = new FlxSprite(50, 0);
+      paperSound.play();
+      largePaper.loadGraphic(GameConfig.IMAGE_PATH + "phone.png");
+	  
+	  paper.kill();
+	  GameData.reading = true;
+
+	  onOpen(largePaper, function() {
+        GameData.reading = false;
+        paper.revive();
+        iniOn = false;
+      });
+    }
+	  
     if (FlxG.mouse.justPressed && !opened) {
       if (FlxCollision.pixelPerfectPointCheck(Std.int(FlxG.mouse.x), Std.int(FlxG.mouse.y), hitbox)) {
         var largePaper = new FlxSprite(50, 0);
@@ -67,8 +86,10 @@ class Paper extends FlxTypedGroup<FlxSprite> {
         largePaper.loadGraphic(largeImage);
 
         paper.kill();
+        GameData.reading = true;
 
         onOpen(largePaper, function() {
+          GameData.reading = false;
           paper.revive();
         });
       }
