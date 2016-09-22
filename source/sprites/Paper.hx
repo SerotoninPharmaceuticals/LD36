@@ -64,15 +64,15 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   }
 
   function handleClick() {
-	if(iniOn) {
+    if(iniOn) {
       var largePaper = new FlxSprite(50, 0);
       paperSound.play();
       largePaper.loadGraphic(GameConfig.IMAGE_PATH + "phone.png");
 	  
-	  paper.kill();
-	  GameData.reading = true;
+      paper.kill();
+      GameData.reading = true;
 
-	  onOpen(largePaper, function() {
+      onOpen(largePaper, function() {
         GameData.reading = false;
         paper.revive();
         iniOn = false;
