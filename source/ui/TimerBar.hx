@@ -27,6 +27,9 @@ class TimerBar extends FlxSpriteGroup {
   
   private var scrollSpeed:Float = 50;
 
+  private var timer:FlxTimer;
+  private var isStarted:Bool = false;
+
   public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5.2) {
     currentTime = GameData.timerTime;
     digitScale = scale;
@@ -163,6 +166,4 @@ class TimerBar extends FlxSpriteGroup {
     }
   }
 
-  private var timer:FlxTimer;
-  private var isStarted:Bool = false;
 }

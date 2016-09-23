@@ -96,7 +96,7 @@ class MachineState extends FlxSubState {
     add(bg);
 
     buttonSound = FlxG.sound.load("assets/sounds/button.wav", 0.2, false);
-	paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.75, false);
+    paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.75, false);
     createPaper();
     createTimerBar();
 
@@ -106,10 +106,10 @@ class MachineState extends FlxSubState {
     var screenBg = new FlxSprite(SCREEN_X, SCREEN_Y);
     screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
     add(screenBg);
-	
-	screenMask = new FlxSprite(SCREEN_X, SCREEN_Y);
-	screenMask.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, GameConfig.SCREEN_COLOR_MONITOR);
-	add(screenMask);
+
+    screenMask = new FlxSprite(SCREEN_X, SCREEN_Y);
+    screenMask.makeGraphic(SCREEN_WIDTH, SCREEN_HEIGHT, GameConfig.SCREEN_COLOR_MONITOR);
+    add(screenMask);
 
     createControlStick();
     createKeys();
@@ -289,7 +289,7 @@ class MachineState extends FlxSubState {
         var paperLarge = new FlxSprite();
         paperLarge.loadGraphic(GameConfig.IMAGE_PATH + "manual.png");
         paperCover.revive();
-		paperSound.play();
+        paperSound.play();
         var paperState = new PaperSubstate(paperLarge, false);
         paperState.closeCallback = handlePaperClose;
         openSubState(paperState);
