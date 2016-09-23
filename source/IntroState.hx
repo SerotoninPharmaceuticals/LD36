@@ -1,10 +1,8 @@
 package;
 
-import sprites.Erasable;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
 

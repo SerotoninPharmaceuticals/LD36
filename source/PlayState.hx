@@ -1,8 +1,5 @@
 package;
 
-import flash.Vector;
-import flash.display.BitmapData;
-import flash.ui.MouseCursorData;
 import flixel.addons.plugin.FlxMouseControl;
 import openfl.Assets;
 import flixel.FlxSprite;
@@ -19,6 +16,9 @@ import flixel.FlxState;
 import flixel.system.FlxSound;
 
 #if flash
+import flash.Vector;
+import flash.display.BitmapData;
+import flash.ui.MouseCursorData;
 import flash.ui.Mouse;
 import flash.ui.MouseCursor;
 #end

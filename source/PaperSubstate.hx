@@ -1,11 +1,11 @@
 package;
 
 #if flash
-import ui.TimerBar;
 import flash.ui.MouseCursor;
 import flash.ui.Mouse;
 #end
 
+import ui.TimerBar;
 import flixel.util.FlxAxes;
 import flixel.FlxG;
 import flixel.FlxSprite;
