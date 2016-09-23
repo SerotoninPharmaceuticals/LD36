@@ -106,6 +106,10 @@ class MachineState extends FlxSubState {
     createScreen();
     createScreenMessage();
 
+    #if flash
+    Mouse.cursor = MouseCursor.BUTTON;
+    #end
+
     var screenBg = new FlxSprite(SCREEN_X, SCREEN_Y);
     screenBg.loadGraphic(GameConfig.IMAGE_PATH + "frame.png");
     add(screenBg);
