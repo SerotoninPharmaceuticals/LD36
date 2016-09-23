@@ -52,6 +52,7 @@ class PlayState extends FlxState {
     bg.loadGraphic("assets/images/bg.png");
     add(bg);
 
+    createTimerBar();
 
     loadPapers();
     loadMachine();
@@ -69,7 +70,6 @@ class PlayState extends FlxState {
     add(machine.uiGroup);
     add(coffin.body.hintArrow);
 
-    createTimerBar();
 
     FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
     machineSound = FlxG.sound.load("assets/sounds/machine.wav", 0.35, true);
@@ -150,7 +150,7 @@ class PlayState extends FlxState {
 
       config.image = GameConfig.TECHTHINGS_PATH + config.codeName + ".png";
       config.imageAfter = GameConfig.TECHTHINGS_PATH + config.codeName + "_after.png";
-	  config.imageDraggin = GameConfig.TECHTHINGS_PATH + config.codeName + "_draggin.png";
+      config.imageDraggin = GameConfig.TECHTHINGS_PATH + config.codeName + "_draggin.png";
 
       if (Assets.exists(GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png")) {
         config.imageHitbox = GameConfig.TECHTHINGS_PATH + config.codeName + "_hitbox.png";
