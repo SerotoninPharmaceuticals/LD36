@@ -128,7 +128,7 @@ class TimerBar extends FlxSpriteGroup {
     title.loadGraphic('assets/images/end_title.png');
     title.x = FlxG.width / 2 - title.width / 2;
     title.y = currY;
-    currY += title.height + 20;
+    currY += title.height;
     endTitle.add(title);	
 	
     for (i in 0...GameData.finishedTechThings.length) {
