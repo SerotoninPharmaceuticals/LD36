@@ -1,9 +1,13 @@
 package ui;
 
+#if flash
+import flash.ui.MouseCursor;
+import flash.ui.Mouse;
+#end
+
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.FlxSprite;
-import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
@@ -86,7 +90,12 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   private function showEnd():Void {
+
+    #if flash
+    Mouse.cursor = MouseCursor.ARROW;
+    #end
     screenSprite = new FlxSprite(0, 0);
+
     screenSprite.makeGraphic(800, 480, FlxColor.WHITE);
     FlxG.state.closeSubState();
     FlxG.state.clear();
