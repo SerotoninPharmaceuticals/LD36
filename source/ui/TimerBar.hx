@@ -95,6 +95,7 @@ class TimerBar extends FlxSpriteGroup {
       type: FlxTween.ONESHOT,
       onComplete: function (tween:FlxTween) {
         var timer = new FlxTimer();
+        screenSprite.kill();
         timer.start(5, function(t) {
           showEndTitle();
         });
@@ -128,6 +129,7 @@ class TimerBar extends FlxSpriteGroup {
     endTitle.add(gameover);
 
     FlxG.state.add(endTitle);
+    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, 15);
   }
 
   private function onSoundComplete():Void {
