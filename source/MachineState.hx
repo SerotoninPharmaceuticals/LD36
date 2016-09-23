@@ -84,6 +84,9 @@ class MachineState extends FlxSubState {
   var paperHover = false;
   var paperSound:FlxSound;
 
+  var countDownOpening = false;
+  var closeAfterCountdownEnd = false;
+
   public function new(_target:TechThing):Void  {
     super();
     target = _target;
@@ -172,8 +175,11 @@ class MachineState extends FlxSubState {
         currentProcIndex += 1;
 
         if (currentProcIndex >= target.procedures.length) {
-          FlxG.log.notice("close");
-          close();
+          if (countDownOpening) {
+            closeAfterCountdownEnd = true;
+          } else {
+            close();
+          }
           return;
         }
 
@@ -291,7 +297,13 @@ class MachineState extends FlxSubState {
         paperCover.revive();
         paperSound.play();
         var paperState = new PaperSubstate(paperLarge, false);
-        paperState.closeCallback = handlePaperClose;
+
+        timerBar.pause();
+        paperState.closeCallback = function() {
+          timerBar.start();
+          paperCover.kill();
+        };
+
         openSubState(paperState);
       }
     } else if(paperHover) {
@@ -306,14 +318,19 @@ class MachineState extends FlxSubState {
 
     var countdownSubstate = CountdownSubstate.check(elapsed);
     if (countdownSubstate != null) {
+      timerBar.pause();
+      countDownOpening = true;
+      countdownSubstate.closeCallback = function() {
+        countDownOpening = false;
+        if (closeAfterCountdownEnd) {
+          close();
+        }
+        timerBar.start();
+      }
       openSubState(countdownSubstate);
     }
 
     super.update(elapsed);
-  }
-
-  function handlePaperClose() {
-    paperCover.kill();
   }
 
   private function createScreen():Void {

@@ -125,7 +125,6 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     }
 
     pressure = Math.min(max_pressure, Math.max(0, pressure));
-    trace(pressure);
     pressureBar.setValue(pressure);
 
     if (moveEnabled) {

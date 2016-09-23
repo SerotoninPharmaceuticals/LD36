@@ -163,7 +163,14 @@ class TimerBar extends FlxSpriteGroup {
       digits[4].animation.frameIndex = min % 10;
 
       GameData.timerTime = currentTime;
+
+      FlxG.log.notice("timer updated" + elapsed);
     }
+  }
+
+  override public function destroy() {
+    timer.destroy();
+    super.destroy();
   }
 
 }
