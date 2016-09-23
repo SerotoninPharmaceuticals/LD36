@@ -41,7 +41,7 @@ class Paper extends FlxTypedGroup<FlxSprite> {
 
     onOpen = _onOpen;
 
-    paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.6, false);
+    paperSound = FlxG.sound.load("assets/sounds/paper.wav", 0.4, false);
     phoneSound = FlxG.sound.load("assets/sounds/phone.wav", 0.5, false);
 
     add(paper);
@@ -68,7 +68,6 @@ class Paper extends FlxTypedGroup<FlxSprite> {
   function handleClick() {
     if(iniOn) {
       var largePaper = new FlxSprite(50, 0);
-      phoneSound.play();
       largePaper.loadGraphic(GameConfig.IMAGE_PATH + "phone.png");
 	  
       paper.kill();

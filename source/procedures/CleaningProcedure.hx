@@ -17,6 +17,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
+
 
 class CleaningProcedure extends FlxSpriteGroup {
 
@@ -41,8 +43,9 @@ class CleaningProcedure extends FlxSpriteGroup {
 
   var titleText:TitleText;
   var subtitleText:SubTitleText;
-
   var coordText:CoordText;
+  
+  private var cleanSfx:FlxSound;
 
   var completed = false;
   var initialized = false;
@@ -60,6 +63,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(new TemperatureStatus());
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+	
+    cleanSfx = FlxG.sound.load("assets/sounds/modeA1.wav", 0.8, true);
+	cleanSfx.pan = -0.4;
 	
     percentage = new PercentageText();
     add(percentage);
@@ -85,8 +91,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     }
 
     if (erasableStep1 != null && erasableStep1.percentage < TAEGET_PERCENTAGE) {
-      completed = true;
+      cleanSfx.fadeOut(0.5);
       percentage.setPercentage(1);
+	  completed = true;
       onFinsihed();
     }
     var currentErasable:Erasable = erasableStep1;
@@ -126,6 +133,9 @@ class CleaningProcedure extends FlxSpriteGroup {
     limitCursor();
 
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
+	
+	if (FlxG.keys.justPressed.Z && erasableStep1.percentage > TAEGET_PERCENTAGE) cleanSfx.fadeIn(0.3, 0, 0.8);
+	else if (FlxG.keys.justReleased.Z) cleanSfx.fadeOut(0.3);
 
     if (GameConfig.DEBUG) {
       // TEST, remove me!
