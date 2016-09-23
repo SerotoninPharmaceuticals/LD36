@@ -100,7 +100,8 @@ class TimerBar extends FlxSpriteGroup {
     FlxG.state.closeSubState();
     FlxG.state.clear();
     FlxG.state.add(screenSprite);
-    FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.2, {
+    FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.35, {
+      ease: FlxEase.quartIn,
       type: FlxTween.ONESHOT, onComplete: onCompleteFirstPhase
     });
   }
@@ -153,7 +154,7 @@ class TimerBar extends FlxSpriteGroup {
     endTitle.add(gameover);
 
     FlxG.state.add(endTitle);
-    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, currY / scrollSpeed);
+    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, 20);
   }
 
   private function onSoundComplete():Void {
