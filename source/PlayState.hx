@@ -138,6 +138,13 @@ class PlayState extends FlxState {
     super.update(elapsed);
   }
 
+  function resetCursor() {
+    GameData.dragHoverCount = 0;
+    GameData.hoverCount = 0;
+    GameData.disabledHoverCount = 0;
+  }
+
+
   function loadTechObjects():Void {
     var gunSupport = new FlxSprite(deckPoint.x + 286, deckPoint.y + 54);
     gunSupport.loadGraphic(GameConfig.TECHTHINGS_PATH + "gun_support.png");
@@ -198,6 +205,7 @@ class PlayState extends FlxState {
     openSubState(machineState);
   }
   function handleMachineFinish() {
+    resetCursor();
     timerBar.forceUpdateTime();
     timerBar.revive();
     machineSound.pan = -0.5;

@@ -1,5 +1,10 @@
 package;
 
+#if flash
+import flash.ui.Mouse;
+import flash.ui.MouseCursor;
+#end
+
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 import ui.TimerBar;
@@ -43,6 +48,10 @@ class CountdownSubstate extends FlxSubState {
     timer.start(stayTime, function(t) {
       close();
     });
+
+    #if flash
+    Mouse.cursor = MouseCursor.ARROW;
+    #end
 
     createTitleScreen();
     createTimerBar();
