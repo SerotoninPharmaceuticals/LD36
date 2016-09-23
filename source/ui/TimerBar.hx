@@ -76,9 +76,9 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   public function onComplete(timer:FlxTimer):Void {
-    if (completeCallback != null) {
-      completeCallback();
-    }
+//    if (completeCallback != null) {
+//      completeCallback();
+//    }
     isStarted = false;
     FlxG.sound.pause();
     FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);

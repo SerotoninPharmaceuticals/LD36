@@ -14,7 +14,7 @@ class CountdownSubstate extends FlxSubState {
     [60 + 4, 0.06, 0],
     [50, 1.0, 0],
     [33, 0.1, 0],
-    [30, 30 / GameConfig.TIME_SCALE, 0]
+    [30, 100.0, 0] // use 100 to prevent close.
   ];
 
   public static function check(elpased:Float):Null<CountdownSubstate> {
