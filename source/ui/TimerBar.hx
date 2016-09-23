@@ -6,6 +6,7 @@ import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 
@@ -23,6 +24,8 @@ class TimerBar extends FlxSpriteGroup {
   public var state:FlxState;
 
   public var completeCallback:Void->Void;
+  
+  private var scrollSpeed:Float = 50;
 
   public function new(X:Float = 0, Y:Float = 0, MaxSize:Int = 0, scale:Float = 5.2) {
     currentTime = GameData.timerTime;
@@ -75,7 +78,7 @@ class TimerBar extends FlxSpriteGroup {
     }
     isStarted = false;
     FlxG.sound.pause();
-    FlxG.sound.play("assets/sounds/ending.wav", 0.8, false, null, true);
+    FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
     FlxG.camera.shake(0.5, 1, showEnd);
   }
 
@@ -91,7 +94,8 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   private function onCompleteFirstPhase(tween:FlxTween) {
-    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.2, {
+    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.45, {
+      ease: FlxEase.quartInOut,
       type: FlxTween.ONESHOT,
       onComplete: function (tween:FlxTween) {
         var timer = new FlxTimer();
@@ -106,30 +110,38 @@ class TimerBar extends FlxSpriteGroup {
   function showEndTitle() {
     var endTitle = new FlxSpriteGroup(0, FlxG.height);
     var currY:Float = 0;
+	
+    var title = new FlxSprite();
+    title.loadGraphic('assets/images/end_title.png');
+    title.x = FlxG.width / 2 - title.width / 2;
+    title.y = currY;
+    currY += title.height + 20;
+    endTitle.add(title);	
+	
     for (i in 0...GameData.finishedTechThings.length) {
       var img = new FlxSprite();
       img.loadGraphic(GameData.finishedTechThings[i].imageAfter);
       img.x = FlxG.width / 2 - img.width / 2;
       img.y = currY;
-      currY += img.height + 10;
+      currY += img.height + 50;
       endTitle.add(img);
     }
     var credits = new FlxSprite();
-    credits.loadGraphic('assets/images/credits.png');
+    credits.loadGraphic('assets/images/end_credits.png');
     credits.x = FlxG.width / 2 - credits.width / 2;
     credits.y = currY;
     currY += credits.height;
     endTitle.add(credits);
 
     var gameover = new FlxSprite();
-    gameover.loadGraphic('assets/images/gameover.png');
+    gameover.loadGraphic('assets/images/end_gameover.png');
     gameover.x = FlxG.width / 2 - gameover.width / 2;
     gameover.y = currY;
     currY += gameover.height;
     endTitle.add(gameover);
 
     FlxG.state.add(endTitle);
-    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, 15);
+    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, currY / scrollSpeed);
   }
 
   private function onSoundComplete():Void {
