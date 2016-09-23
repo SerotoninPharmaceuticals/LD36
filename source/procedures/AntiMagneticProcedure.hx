@@ -19,6 +19,8 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
+import flixel.system.FlxSound;
+import flixel.math.FlxMath;
 
 class AntiMagneticProcedure extends FlxSpriteGroup {
 
@@ -43,6 +45,8 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
 
   var percentage:PercentageText;
   var coordText:CoordText;
+  
+  private var spraySfx:FlxSound;
 
   private var cursor:FlxSprite;
   private var cursorRadius:Float = CURSOR_RADIUS;
@@ -61,6 +65,9 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     add(temperatureStatus);
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
+	
+    spraySfx = FlxG.sound.load("assets/sounds/modeD.wav", 0.5, true);
+    spraySfx.pan = -0.5;
 	
     percentage = new PercentageText();
     add(percentage);
@@ -86,6 +93,7 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     }
 
     if (erasableStep1 != null && erasableStep1.percentage < TAEGET_PERCENTAGE) {
+      spraySfx.fadeOut(0.5);
       percentage.setPercentage(1);
       completed = true;
       onFinsihed();
@@ -134,7 +142,12 @@ class AntiMagneticProcedure extends FlxSpriteGroup {
     limitCursor();
 
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
-
+	
+    if (FlxG.keys.justPressed.Z && erasableStep1.percentage > TAEGET_PERCENTAGE) spraySfx.play();
+    else if (FlxG.keys.justReleased.Z) spraySfx.stop();
+	
+    spraySfx.volume = FlxMath.remapToRange(cursorRadius, cursor_min_r, CURSOR_RADIUS, 0.05, 0.5);
+	
     if (GameConfig.DEBUG) {
       // TEST, remove me!
       cursor.x = FlxG.mouse.x;
