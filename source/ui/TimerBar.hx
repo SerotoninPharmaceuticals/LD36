@@ -95,8 +95,7 @@ class TimerBar extends FlxSpriteGroup {
       type: FlxTween.ONESHOT,
       onComplete: function (tween:FlxTween) {
         var timer = new FlxTimer();
-        timer.start(0.5, function(t) {
-          screenSprite.kill();
+        timer.start(5, function(t) {
           showEndTitle();
         });
       }
@@ -108,7 +107,7 @@ class TimerBar extends FlxSpriteGroup {
     var currY:Float = 0;
     for (i in 0...GameData.finishedTechThings.length) {
       var img = new FlxSprite();
-      img.loadGraphic(GameData.finishedTechThings[i].imageDraggin);
+      img.loadGraphic(GameData.finishedTechThings[i].imageAfter);
       img.x = FlxG.width / 2 - img.width / 2;
       img.y = currY;
       currY += img.height + 10;
@@ -129,7 +128,6 @@ class TimerBar extends FlxSpriteGroup {
     endTitle.add(gameover);
 
     FlxG.state.add(endTitle);
-    FlxTween.linearMotion(endTitle, endTitle.x, endTitle.y, endTitle.x, endTitle.y - currY, 5);
   }
 
   private function onSoundComplete():Void {
