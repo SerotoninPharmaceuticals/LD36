@@ -248,7 +248,7 @@ class TechThing extends FlxExtendedSprite {
         if (coffinEntrance.relatedItem == this) {
           x = coffinEntrance.body.getMidpoint().x - width/2;
           y = coffinEntrance.y - 25;
-          FlxTween.linearMotion(this, x, y, x, y+150, 0.55, true, {
+          FlxTween.linearMotion(this, x, y, x, y+150, 0.5, true, {
             ease: FlxEase.backIn
           });
 

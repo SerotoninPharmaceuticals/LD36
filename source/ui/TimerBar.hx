@@ -84,13 +84,14 @@ class TimerBar extends FlxSpriteGroup {
 
   public function onComplete(timer:FlxTimer):Void {
     FlxG.log.add(ID + " complete the game");
-//    if (completeCallback != null) {
-//      completeCallback();
-//    }
-    isStarted = false;
-    FlxG.sound.pause();
-    FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
-    FlxG.camera.shake(0.5, 1, showEnd);
+
+    var timer = new FlxTimer();
+    timer.start(2, function(t){
+      isStarted = false;
+      FlxG.sound.pause();
+      FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
+      FlxG.camera.shake(0.5, 1, showEnd);
+	});
   }
 
   private function showEnd():Void {
