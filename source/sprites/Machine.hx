@@ -215,7 +215,9 @@ class Machine extends FlxTypedGroup<FlxSprite> {
     turnOnScreen();
 	
     currentTechThing.toAfter();
-    currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
+    if (currentTechThing.config.codeName == "david") {currentTechThing.angle = 0; currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width / 2 -35, exit.getMidpoint().y - currentTechThing.height / 2);}
+    else if (currentTechThing.config.codeName == "bonsai") currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width / 2 -20, exit.getMidpoint().y - currentTechThing.height / 2 - 15);
+    else currentTechThing.setPosition(exit.getMidpoint().x - currentTechThing.width/2, exit.getMidpoint().y - currentTechThing.height/2);
     currentTechThing.alpha = 1;
   }
 

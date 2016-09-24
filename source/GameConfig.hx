@@ -12,7 +12,7 @@ enum ProcedureType {
 
 
 typedef TechThingConfig = {
-  var codeName:String;
+  public var codeName:String;
   var name:String;
   var x:Int;
   var y:Int;
@@ -108,7 +108,7 @@ class GameConfig {
       y: 0,
 
       procedureTypes: [
-        //ProcedureType.Cleaning,
+        ProcedureType.Cleaning,
         ProcedureType.VacuumPacking
       ]
     },
@@ -131,8 +131,8 @@ class GameConfig {
       y: 13,
 
       procedureTypes: [
-        //ProcedureType.Cleaning,
-        //ProcedureType.Electroplating,
+        ProcedureType.Cleaning,
+        ProcedureType.Electroplating,
         ProcedureType.AntiMagnetic,
         ProcedureType.VacuumPacking
       ]
