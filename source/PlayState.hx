@@ -209,7 +209,6 @@ class PlayState extends FlxState {
 
     timerBar.start();
     resetCursor();
-    timerBar.forceUpdateTime();
     machineSound.pan = -0.5;
     machineSound.volume = 0.35;
     machine.startFinishProcess();

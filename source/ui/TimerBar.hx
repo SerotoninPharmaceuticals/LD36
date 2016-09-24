@@ -69,6 +69,7 @@ class TimerBar extends FlxSpriteGroup {
   public function start():Void {
     FlxG.log.add(this.ID + " started");
     isStarted = true;
+    currentTime = GameData.timerTime;
     timer.start(currentTime / (GameConfig.TIME_SCALE), onComplete);
   }
 
@@ -85,13 +86,13 @@ class TimerBar extends FlxSpriteGroup {
   public function onComplete(timer:FlxTimer):Void {
     FlxG.log.add(ID + " complete the game");
 
+    isStarted = false;
     var timer = new FlxTimer();
     timer.start(2, function(t){
-      isStarted = false;
       FlxG.sound.pause();
       FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
       FlxG.camera.shake(0.5, 1, showEnd);
-	});
+    });
   }
 
   private function showEnd():Void {
@@ -183,7 +184,7 @@ class TimerBar extends FlxSpriteGroup {
 
   override public function destroy() {
     timer.destroy();
-    FlxG.log.add(this.ID + " destroied");
+    FlxG.log.add(this.ID + " destroyied");
     super.destroy();
   }
 
