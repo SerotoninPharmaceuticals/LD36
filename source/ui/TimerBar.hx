@@ -106,13 +106,13 @@ class TimerBar extends FlxSpriteGroup {
     FlxG.state.clear();
     FlxG.state.add(screenSprite);
     FlxTween.tween(screenSprite.scale, { x: 1.2, y: 0.002 }, 0.35, {
-      ease: FlxEase.quartIn,
+      ease: FlxEase.quartInOut,
       type: FlxTween.ONESHOT, onComplete: onCompleteFirstPhase
     });
   }
 
   private function onCompleteFirstPhase(tween:FlxTween) {
-    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.45, {
+    FlxTween.tween(screenSprite.scale, { x: 0.002, y: 0.002}, 0.5, {
       ease: FlxEase.quartInOut,
       type: FlxTween.ONESHOT,
       onComplete: function (tween:FlxTween) {
