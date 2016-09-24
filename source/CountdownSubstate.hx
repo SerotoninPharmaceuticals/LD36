@@ -13,13 +13,13 @@ import flixel.FlxSubState;
 class CountdownSubstate extends FlxSubState {
   static var timePoints = [
     // [time stamp, stay, has opened(0/1)]
-    [60 * 3, 0.5, 0],
-    [60 * 2, 0.3, 0],
-    [60 + 15, 0.1, 0],
-    [60 + 4, 0.06, 0],
-    [50, 1.0, 0],
-    [33, 0.1, 0],
-    [30, 100.0, 0] // use 100 to prevent close.
+    [60 * 3, 1.8, 0],
+    [60 * 2, 1.0, 0],
+    [60 + 15, 0.4, 0],
+    [60 + 4, 0.6, 0],
+    [50, 0.8, 0],
+	[35, 0.4, 0],
+    [25, 100.0, 0] // use 100 to prevent close.
   ];
 
   public static function check(elpased:Float):Null<CountdownSubstate> {
