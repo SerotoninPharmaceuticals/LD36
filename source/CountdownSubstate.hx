@@ -15,11 +15,12 @@ class CountdownSubstate extends FlxSubState {
     // [time stamp, stay, has opened(0/1)]
     [60 * 3, 1.6, 0],
     [60 * 2, 1.0, 0],
-    [60 + 15, 0.4, 0],
+    [60 + 18, 0.4, 0],
     [60 + 4, 0.6, 0],
     [50, 0.8, 0],
-	[38, 0.4, 0],
-    [25, 100.0, 0] // use 100 to prevent close.
+    [38, 0.3, 0],
+    [26, 0.2, 0],
+    [22, 100.0, 0]// use 100 to prevent close.
   ];
 
   public static function check(elpased:Float):Null<CountdownSubstate> {
