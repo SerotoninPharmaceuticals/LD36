@@ -72,7 +72,7 @@ class PlayState extends FlxState {
 
 
     FlxG.camera.fade(FlxColor.BLACK, 0.5, true);
-    machineSound = FlxG.sound.load("assets/sounds/machine.wav", 0.35, true);
+    machineSound = FlxG.sound.load("assets/sounds/machine.wav", 0.2, true);
     machineSound.pan = -0.5;
     machineSound.play();
 
@@ -210,7 +210,7 @@ class PlayState extends FlxState {
     timerBar.start();
     resetCursor();
     machineSound.pan = -0.5;
-    machineSound.volume = 0.35;
+    machineSound.volume = 0.25;
     machine.startFinishProcess();
   }
 

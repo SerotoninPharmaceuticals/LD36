@@ -88,7 +88,7 @@ class TimerBar extends FlxSpriteGroup {
 
     isStarted = false;
     var timer = new FlxTimer();
-    timer.start(2, function(t){
+    timer.start(2.5, function(t){
       FlxG.sound.pause();
       FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
       FlxG.camera.shake(0.5, 1, showEnd);

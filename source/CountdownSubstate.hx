@@ -18,11 +18,7 @@ class CountdownSubstate extends FlxSubState {
     [60 + 15, 0.4, 0],
     [60 + 4, 0.6, 0],
     [50, 0.8, 0],
-<<<<<<< HEAD
 	[38, 0.4, 0],
-=======
-    [35, 0.4, 0],
->>>>>>> 25b8ae9d8f561e035ae1d8f2fe71d4875871d0a6
     [25, 100.0, 0] // use 100 to prevent close.
   ];
 

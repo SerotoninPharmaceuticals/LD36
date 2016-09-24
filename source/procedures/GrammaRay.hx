@@ -64,7 +64,7 @@ class GrammaRay extends FlxSpriteGroup {
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
 	
-    raySfx = FlxG.sound.load("assets/sounds/modeA2.wav", 0.8, true);
+    raySfx = FlxG.sound.load("assets/sounds/modeA2.wav", 0.65, true);
     raySfx.pan = -0.4;
 	
     percentage = new PercentageText();
@@ -135,7 +135,7 @@ class GrammaRay extends FlxSpriteGroup {
 
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
 	
-    if (FlxG.keys.justPressed.Z && erasableStep2.percentage > TAEGET_PERCENTAGE) raySfx.fadeIn(0.3, 0, 0.8);
+    if (FlxG.keys.justPressed.Z && erasableStep2.percentage > TAEGET_PERCENTAGE) raySfx.fadeIn(0.3, 0, 0.65);
     else if (FlxG.keys.justReleased.Z) raySfx.fadeOut(0.3);
 	
     if (GameConfig.DEBUG) {

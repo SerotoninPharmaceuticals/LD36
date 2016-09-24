@@ -64,7 +64,7 @@ class CleaningProcedure extends FlxSpriteGroup {
     add(new PressureBarHoriz(0, 1, 100, true));
     add(new DensityBarHoriz());
 	
-    cleanSfx = FlxG.sound.load("assets/sounds/modeA1.wav", 0.8, true);
+    cleanSfx = FlxG.sound.load("assets/sounds/modeA1.wav", 0.65, true);
 	cleanSfx.pan = -0.4;
 	
     percentage = new PercentageText();
@@ -134,7 +134,7 @@ class CleaningProcedure extends FlxSpriteGroup {
 
     currentErasable.eraseEnabled = FlxG.keys.pressed.Z;
 	
-	if (FlxG.keys.justPressed.Z && erasableStep1.percentage > TAEGET_PERCENTAGE) cleanSfx.fadeIn(0.3, 0, 0.8);
+	if (FlxG.keys.justPressed.Z && erasableStep1.percentage > TAEGET_PERCENTAGE) cleanSfx.fadeIn(0.3, 0, 0.65);
 	else if (FlxG.keys.justReleased.Z) cleanSfx.fadeOut(0.3);
 
     if (GameConfig.DEBUG) {

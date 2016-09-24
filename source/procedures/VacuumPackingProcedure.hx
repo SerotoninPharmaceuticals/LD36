@@ -75,9 +75,9 @@ class VacuumPackingProcedure extends FlxSpriteGroup {
     add(new TemperatureStatus());
     add(new DensityBarHoriz());
 	
-    airSfx1 = FlxG.sound.load("assets/sounds/airSfx1.wav", 0.65, false);
-    airSfx2 = FlxG.sound.load("assets/sounds/airSfx2.wav", 0.75, false);
-    airSfx3 = FlxG.sound.load("assets/sounds/airSfx3.wav", 0.65, false);	
+    airSfx1 = FlxG.sound.load("assets/sounds/airSfx1.wav", 0.5, false);
+    airSfx2 = FlxG.sound.load("assets/sounds/airSfx2.wav", 0.65, false);
+    airSfx3 = FlxG.sound.load("assets/sounds/airSfx3.wav", 0.5, false);	
     airSfx1.pan = airSfx2.pan = airSfx3.pan -0.5;
     airSfxArray = [airSfx1, airSfx2, airSfx3];
 
