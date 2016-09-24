@@ -42,6 +42,7 @@ class TimerBar extends FlxSpriteGroup {
 
     timer = new FlxTimer();
     createDigits();
+    ID = Std.int(Math.random() * 100);
   }
 
   private function createDigits():Void {
@@ -66,11 +67,13 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   public function start():Void {
+    FlxG.log.add(this.ID + " started");
     isStarted = true;
     timer.start(currentTime / (GameConfig.TIME_SCALE), onComplete);
   }
 
   public function pause():Void {
+    FlxG.log.add(this.ID + " paused");
     isStarted = false;
     timer.cancel();
   }
@@ -80,6 +83,7 @@ class TimerBar extends FlxSpriteGroup {
   }
 
   public function onComplete(timer:FlxTimer):Void {
+    FlxG.log.add(ID + " complete the game");
 //    if (completeCallback != null) {
 //      completeCallback();
 //    }
@@ -178,6 +182,7 @@ class TimerBar extends FlxSpriteGroup {
 
   override public function destroy() {
     timer.destroy();
+    FlxG.log.add(this.ID + " destroied");
     super.destroy();
   }
 

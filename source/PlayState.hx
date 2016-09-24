@@ -197,7 +197,7 @@ class PlayState extends FlxState {
     add(machine.backGroup);
   }
   function handleBeginProcedures(techThing:TechThing) {
-    timerBar.kill();
+    timerBar.pause();
     var machineState = new MachineState(techThing);
     machineState.closeCallback = handleMachineFinish;
     machineSound.pan = 0;
@@ -205,9 +205,11 @@ class PlayState extends FlxState {
     openSubState(machineState);
   }
   function handleMachineFinish() {
+    if (GameData.timerTime == 0) { return; }
+
+    timerBar.start();
     resetCursor();
     timerBar.forceUpdateTime();
-    timerBar.revive();
     machineSound.pan = -0.5;
     machineSound.volume = 0.35;
     machine.startFinishProcess();
