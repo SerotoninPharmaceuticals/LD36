@@ -22,6 +22,10 @@ class IntroState extends FlxState {
     createText();
     sound = FlxG.sound.load("assets/sounds/ambient.wav", 0.8, false);
     sound.play();
+    sound.onComplete = function() {
+      pressed = true;
+      fadeOut();
+    }
   }
 
   private function createTitleScreen():Void {
