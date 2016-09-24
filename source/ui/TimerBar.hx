@@ -91,7 +91,7 @@ class TimerBar extends FlxSpriteGroup {
       FlxG.sound.pause();
       FlxG.sound.play("assets/sounds/ending.wav", 0.5, false, null, true);
       FlxG.camera.shake(0.5, 1, showEnd);
-	});
+    });
   }
 
   private function showEnd():Void {
