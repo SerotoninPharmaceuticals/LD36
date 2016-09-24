@@ -69,6 +69,7 @@ class TimerBar extends FlxSpriteGroup {
   public function start():Void {
     FlxG.log.add(this.ID + " started");
     isStarted = true;
+    currentTime = GameData.timerTime;
     timer.start(currentTime / (GameConfig.TIME_SCALE), onComplete);
   }
 
@@ -183,7 +184,7 @@ class TimerBar extends FlxSpriteGroup {
 
   override public function destroy() {
     timer.destroy();
-    FlxG.log.add(this.ID + " destroied");
+    FlxG.log.add(this.ID + " destroyied");
     super.destroy();
   }
 
