@@ -60,8 +60,6 @@ class GameConfig {
   public static inline var SCREEN_COLOR_GREEN = FlxColor.GREEN;
   public static inline var SCREEN_BG_COLOR = 0xFF37363B;
 
-  public static inline var ENABLE_CURSOR_OBLIQUE = false;
-
   public static inline var ROOM_TEMP_LO = 15.6;
   public static inline var ROOM_TEMP_HI = 17.4;
   public static inline var ROOM_TEMP_JITTER_INTERVAL = 0.18;
