@@ -23,6 +23,7 @@ typedef TechThingConfig = {
   @:optional var imageDraggin:String;
   @:optional var imageAfter:String;
   @:optional var imageHitbox: String;
+  @:optional var imageCredits: String;
 
   // Mode A
   @:optional var modeAStep1FrontImage:String;
