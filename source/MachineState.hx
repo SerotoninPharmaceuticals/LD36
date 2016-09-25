@@ -94,6 +94,7 @@ class MachineState extends FlxSubState {
 
   override public function create():Void {
     super.create();
+
     var bg = new FlxSprite();
     bg.loadGraphic(BG_IMAGE);
     add(bg);
@@ -286,6 +287,7 @@ class MachineState extends FlxSubState {
     }
 
     if (
+      subState == null &&
       FlxG.mouse.getPosition().inCoords(p1.x, p1.y, p1.width, p1.height) ||
       FlxG.mouse.getPosition().inCoords(p2.x, p2.y, p2.width, p2.height)
     ) {
@@ -322,10 +324,16 @@ class MachineState extends FlxSubState {
 
     var countdownSubstate = CountdownSubstate.check(elapsed);
     if (countdownSubstate != null) {
-      timerBar.pause();
+
+      persistentUpdate = true; // keep update even sub state opened.
       countDownOpening = true;
+
+      timerBar.pause();
       countdownSubstate.closeCallback = function() {
+
+        persistentUpdate = false;
         countDownOpening = false;
+
         if (closeAfterCountdownEnd) {
           close();
         }
