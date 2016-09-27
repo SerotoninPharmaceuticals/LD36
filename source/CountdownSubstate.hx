@@ -20,7 +20,7 @@ class CountdownSubstate extends FlxSubState {
     [50, 0.8, 0],
     [38, 0.3, 0],
     [26, 0.2, 0],
-    [25, 1000.0, 0] // use 1000 to prevent close.
+    [20, 1000.0, 0] // use 1000 to prevent close.
   ];
 
   public static function check(elpased:Float):Null<CountdownSubstate> {

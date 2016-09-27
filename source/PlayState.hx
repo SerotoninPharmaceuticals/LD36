@@ -202,7 +202,7 @@ class PlayState extends FlxState {
     var machineState = new MachineState(techThing);
     machineState.closeCallback = handleMachineFinish;
     machineSound.pan = 0;
-    machineSound.volume = 0.65;
+    machineSound.volume = 0.52;
     openSubState(machineState);
   }
   function handleMachineFinish() {

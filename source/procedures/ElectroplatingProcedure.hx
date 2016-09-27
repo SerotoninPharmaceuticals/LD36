@@ -14,6 +14,7 @@ import sprites.TechThing;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.system.FlxSound;
 
 
 class ElectroplatingProcedure extends FlxSpriteGroup {
@@ -40,6 +41,8 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
   var densityBar:DensityBarHoriz;
   var percentageText:PercentageText;
 
+  var elecSfx:FlxSound;
+  
   var completed = false;
   var initialized = false;
 
@@ -64,6 +67,11 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     percentageText = new PercentageText();
     add(percentageText);
     add(new CoordText());
+	
+    elecSfx = FlxG.sound.load("assets/sounds/modeC.wav", 0.85, true);
+    elecSfx.pan = -0.35;
+    elecSfx.volume = 0.25;
+    elecSfx.play();
 
     var progArray = [];
     for (i in 0...10){
@@ -104,12 +112,14 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     if (density >= targetValue && density <= targetValue + target_width) {
       targetValue += target_gain_per_sec * elapsed;
       if (targetValue >= target_limit) {
-		densityBar.setValid();  
-        percentage += 0.1 * elapsed;
+        densityBar.setValid();  
+        percentage += 1 / 12 * elapsed;
+        if(elecSfx.volume < 0.85) elecSfx.volume += 1 * elapsed;
       }
     } else {
-	  densityBar.setInvalid();	
+      densityBar.setInvalid();	
       targetValue -= target_drop_per_sec * elapsed;
+      if(elecSfx.volume > 0.25) elecSfx.volume -= 2 * elapsed;
     }
     targetValue = Math.min(target_limit, Math.max(target_min, targetValue));
 
@@ -117,6 +127,7 @@ class ElectroplatingProcedure extends FlxSpriteGroup {
     densityBar.setTargetValue(targetValue);
 
     if (percentage >= 1) {
+      elecSfx.fadeOut(0.5);
       percentageText.setPercentage(1);
       completed = true;
       onFinsihed();
