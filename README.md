@@ -2,4 +2,4 @@
 
 A short game for Ludum Dare 36
 
-> Work in progress
+http://lab.serotoninphobia.info/centrifuge/funeral.html
